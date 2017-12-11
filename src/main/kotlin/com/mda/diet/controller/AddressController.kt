@@ -16,9 +16,9 @@ class AddressController(val repository: AddressRepository) {
             = repository.save(address)
 
     @PutMapping("/{id}")
-    fun updateAddress(@PathVariable id: Long, @RequestBody address: Address) {
+    fun updateAddress(@PathVariable id: Long, @RequestBody address: Address) : Address {
         assert(id == address.id)
-        repository.save(address)
+        return repository.save(address)
     }
 
     @DeleteMapping("/{id}")
