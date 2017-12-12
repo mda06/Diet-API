@@ -35,22 +35,25 @@ class DietetistController(
     fun getById(@PathVariable id: Long)
             = repository.findOne(id)
 
-    @PostMapping("/attach/{id}")
-    fun attachPatient(@PathVariable id: Long, @RequestBody json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(id)
+    @PostMapping("/attach")
+    fun attachPatient(@RequestBody json: ObjectNode) : Dietetist {
+        val pat = patientRepository.findOne(json.get("patient_id").asLong())
         val diet = repository.findOne(json.get("diet_id").asLong())
-        diet.patients.add(pat)
-        repository.save(diet)
-        patientRepository.save(pat)
+        if(pat != null) {
+            pat.dietetist = diet
+            patientRepository.save(pat)
+        }
         return diet
     }
 
-    @PostMapping("/detach/{id}")
-    fun detachPatient(@PathVariable id: Long, @RequestBody json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(id)
+    @PostMapping("/detach")
+    fun detachPatient(@RequestBody json: ObjectNode) : Dietetist {
+        val pat = patientRepository.findOne(json.get("patient_id").asLong())
         val diet = repository.findOne(json.get("diet_id").asLong())
-        diet.patients.remove(pat)
-        repository.save(diet)   //Save doesn't work
+        if(pat != null) {
+            pat.dietetist = null
+            patientRepository.save(pat)
+        }
         return diet
     }
 
