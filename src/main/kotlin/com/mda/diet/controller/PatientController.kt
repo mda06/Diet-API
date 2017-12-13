@@ -29,4 +29,8 @@ class PatientController(val repository: PatientRepository) {
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)
             = repository.findOne(id)
+
+    @GetMapping("/dietetist/{id}")
+    fun getByDiet(@PathVariable id: Long)
+            =  repository.getAllByDietetistId(id)
 }
