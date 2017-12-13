@@ -12,6 +12,14 @@ class PatientController(val repository: PatientRepository) {
    @GetMapping
     fun findAll() = repository.findAll()
 
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: Long)
+            = repository.findOne(id)
+
+    @GetMapping("/dietetist/{id}")
+    fun getByDiet(@PathVariable id: Long)
+            =  repository.getAllByDietetistId(id)
+
     @PostMapping
     fun addPatient(@RequestBody patient: Patient)
             = repository.save(patient)
@@ -23,14 +31,7 @@ class PatientController(val repository: PatientRepository) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteAddress(@PathVariable id: Long)
+    fun deletePatient(@PathVariable id: Long)
             = repository.delete(id)
 
-    @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long)
-            = repository.findOne(id)
-
-    @GetMapping("/dietetist/{id}")
-    fun getByDiet(@PathVariable id: Long)
-            =  repository.getAllByDietetistId(id)
 }

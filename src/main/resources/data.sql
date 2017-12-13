@@ -26,3 +26,14 @@ INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone
                      dietetist_id, created, birthday, gender)
 VALUES('Patient', 3, 'rob@pat.com', 'Roberta', 'Mergues', 'Brez', '0', NULL, '', NULL, 3,
        NULL, '2017-09-10', '2000-11-01', 'O');
+
+INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
+VALUES(1, '13', '2017-12-03', '183', '83', '75.5', '1');
+INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
+VALUES(2, '12', '2017-12-13', '183', '80', '72.2', '1');
+INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
+VALUES(3, '12', '2017-12-23', '183', '78', '71.5', '1');
+INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
+VALUES(4, '20', '2017-11-22', '173', '105', '95.5', '2');
+INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
+VALUES(5, '18', '2017-12-02', '174', '102', '83.2', '2');
