@@ -11,7 +11,7 @@ abstract class Customer (
         var lastName: String = "",
         var email: String = "",
         var phone: String = "",
-        @OneToOne(cascade = arrayOf(CascadeType.ALL))
+        @OneToOne(cascade = [(CascadeType.ALL)])
         @JoinColumn(name = "adr_id")
         var address: Address = Address()
         //TODO create user class to connect

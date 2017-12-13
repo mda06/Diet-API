@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/patient")
 class PatientController(val repository: PatientRepository) {
-
-    @GetMapping
+   @GetMapping
     fun findAll() = repository.findAll()
 
     @PostMapping
