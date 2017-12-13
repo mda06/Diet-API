@@ -8,11 +8,11 @@ INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (5, 'Bxl
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday)
 VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', 'First client', 4,
-       NULL, NULL, NULL);
+       NULL, '2017-10-17', '1990-04-11');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday)
 VALUES('Dietetist', 5, 'mda@diet.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
-       NULL, NULL, NULL);
+       NULL, '2017-04-25', '1991-11-09');
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday)

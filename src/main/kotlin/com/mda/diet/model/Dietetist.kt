@@ -13,7 +13,7 @@ class Dietetist(id: Long = 0,
                 phone: String = "",
                 address: Address = Address(),
                 var vat: String = "",
-                @OneToMany(mappedBy = "dietetist", cascade = arrayOf(CascadeType.ALL))
+                @OneToMany(mappedBy = "dietetist", cascade = [(CascadeType.ALL)])
                 var patients: MutableList<Patient> = arrayListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address) {
 }

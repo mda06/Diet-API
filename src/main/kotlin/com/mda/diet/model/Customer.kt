@@ -1,5 +1,7 @@
 package com.mda.diet.model
 
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -13,6 +15,10 @@ abstract class Customer (
         var phone: String = "",
         @OneToOne(cascade = [(CascadeType.ALL)])
         @JoinColumn(name = "adr_id")
-        var address: Address = Address()
+        var address: Address = Address(),
+        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        var created: LocalDate? = null,
+        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        var birthday: LocalDate? = null
         //TODO create user class to connect
 )
