@@ -1,5 +1,6 @@
 package com.mda.diet.model
 
+import java.time.LocalDate
 import javax.persistence.CascadeType
 import javax.persistence.Entity
 import javax.persistence.OneToMany
@@ -12,8 +13,10 @@ class Dietetist(id: Long = 0,
                 email: String = "",
                 phone: String = "",
                 address: Address = Address(),
+                gender: Gender? = null,
+                created: LocalDate? = null,
+                birthday: LocalDate? = null,
                 var vat: String = "",
                 @OneToMany(mappedBy = "dietetist", cascade = [(CascadeType.ALL)])
                 var patients: MutableList<Patient> = arrayListOf())
-    : Customer(id, firstName, middleName, lastName, email, phone, address) {
-}
+    : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)
