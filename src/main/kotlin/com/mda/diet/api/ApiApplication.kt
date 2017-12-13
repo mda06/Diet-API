@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
-@EntityScan(basePackages=arrayOf("com.mda.diet.model"))
-@EnableJpaRepositories(basePackages=arrayOf("com.mda.diet.repository"))
-@SpringBootApplication(scanBasePackages = arrayOf("com.mda.diet.controller"))
+@EntityScan(basePackages= ["com.mda.diet.model"])
+@EnableJpaRepositories(basePackages= ["com.mda.diet.repository"])
+@SpringBootApplication(scanBasePackages = ["com.mda.diet.controller", "com.mda.diet.security"])
 class ApiApplication
 
 fun main(args: Array<String>) {
