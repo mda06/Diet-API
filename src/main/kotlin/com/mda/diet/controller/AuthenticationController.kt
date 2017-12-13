@@ -3,15 +3,11 @@ package com.mda.diet.controller
 import com.mda.diet.model.Auth0TokenAsk
 import com.mda.diet.model.Auth0TokenReturn
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.core.ParameterizedTypeReference
-import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
-import org.springframework.http.RequestEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
-import java.net.URI
 
 
 @RestController

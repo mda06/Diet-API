@@ -25,8 +25,7 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 .forRS256(audience, issuer!!)
                 .configure(http)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/patient").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated()
     }
 }
