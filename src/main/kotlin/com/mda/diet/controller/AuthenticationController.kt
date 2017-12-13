@@ -23,6 +23,9 @@ class AuthenticationController {
     @Value("\${auth0.audience}")
     private val audience: String? = null
 
+    @Value("\${auth0.issuer}")
+    private val issuer: String? = null
+
     /*
     First create a customer
     Then put the user as post
@@ -43,7 +46,7 @@ class AuthenticationController {
 
         val rest = RestTemplate()
         try {
-            return rest.postForObject("https://mdatest.eu.auth0.com/oauth/token", token, Auth0TokenReturn::class.java)
+            return rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturn::class.java)
         } catch (ex: HttpClientErrorException) {
             throw IllegalArgumentException(ex.message)
         }
