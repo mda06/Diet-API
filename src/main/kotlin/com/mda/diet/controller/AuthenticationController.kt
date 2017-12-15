@@ -1,10 +1,11 @@
 package com.mda.diet.controller
 
+import com.mda.diet.model.Auth0SignupAsk
+import com.mda.diet.model.Auth0SignupReturn
 import com.mda.diet.model.Auth0TokenAsk
 import com.mda.diet.model.Auth0TokenReturn
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
@@ -26,14 +27,23 @@ class AuthenticationController {
     @Value("\${auth0.issuer}")
     private val issuer: String? = null
 
-    /*
-    First create a customer
-    Then put the user as post
-    Add the return id of auth0 to the customer
-    * */
+    //Get the current id that has been authenticated
+    //SecurityContextHolder.getContext().authentication.principal.toString()
+
     @PostMapping("/signup")
-    fun signUp()
-        = SecurityContextHolder.getContext().authentication.principal.toString()
+    fun signUp(@RequestBody signup: Auth0SignupAsk) : Auth0SignupReturn {
+        signup.client_id = clientId
+        signup.connection = "Username-Password-Authentication"
+
+        val rest = RestTemplate()
+        try {
+            val signupReturn = rest.postForObject("${issuer}dbconnections/signup", signup, Auth0SignupReturn::class.java)
+            println(signupReturn)
+            return signupReturn
+        } catch (ex: HttpClientErrorException) {
+            throw IllegalArgumentException(ex.message)
+        }
+    }
 
 
     @PostMapping("/login")
