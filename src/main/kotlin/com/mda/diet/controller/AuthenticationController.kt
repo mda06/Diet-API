@@ -1,9 +1,7 @@
 package com.mda.diet.controller
 
-import com.mda.diet.model.Auth0SignupAsk
-import com.mda.diet.model.Auth0SignupReturn
-import com.mda.diet.model.Auth0TokenAsk
-import com.mda.diet.model.Auth0TokenReturn
+import com.mda.diet.model.*
+import com.mda.diet.repository.CustomerRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -13,7 +11,7 @@ import org.springframework.web.client.RestTemplate
 
 @RestController
 @RequestMapping("/auth")
-class AuthenticationController {
+class AuthenticationController(val repository: CustomerRepository) {
 
     @Value("\${auth0.client.id}")
     private val clientId: String? = null
@@ -34,11 +32,13 @@ class AuthenticationController {
     fun signUp(@RequestBody signup: Auth0SignupAsk) : Auth0SignupReturn {
         signup.client_id = clientId
         signup.connection = "Username-Password-Authentication"
+        val customer = repository.getById(signup.customerId)
 
         val rest = RestTemplate()
         try {
             val signupReturn = rest.postForObject("${issuer}dbconnections/signup", signup, Auth0SignupReturn::class.java)
-            println(signupReturn)
+            customer.authId = signupReturn._id
+            repository.save(customer)
             return signupReturn
         } catch (ex: HttpClientErrorException) {
             throw IllegalArgumentException(ex.message)

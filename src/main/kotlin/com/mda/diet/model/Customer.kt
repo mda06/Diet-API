@@ -22,6 +22,7 @@ abstract class Customer (
         @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
         var created: LocalDate? = null,
         @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
-        var birthday: LocalDate? = null
-        //TODO create user class to connect
+        var birthday: LocalDate? = null,
+        @Column(unique = true)
+        var authId: String? = null
 )
