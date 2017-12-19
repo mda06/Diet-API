@@ -7,21 +7,21 @@ INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (5, 'Bxl
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender)
-VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', 'First client', 4,
+VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', '', 4,
        NULL, '2017-10-17', '1990-04-11', 'F');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender)
-VALUES('Dietetist', 5, 'mda@diet.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
+VALUES('Admin', 5, 'mda@diet.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
        NULL, '2017-04-25', '1991-11-09', 'M');
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
-                     dietetist_id, created, birthday, gender)
+                     dietetist_id, created, birthday, gender, auth_id)
 VALUES('Patient', 1, 'cal@pat.com', 'Caline', 'Coppens', '', '0', NULL, '', NULL, 1,
-       NULL, '2017-12-11', '1993-11-01', 'F');
+       NULL, '2017-12-11', '1993-11-01', 'F', 'auth0|5a33eb80ea8e2063b5c8cf7e');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender)
 VALUES('Patient', 2, 'min@pat.com', 'Mina', 'Coppens', '', '0', NULL, '', NULL, 2,
-       5, '2017-12-13', '1994-08-07', 'F');
+       4, '2017-12-13', '1994-08-07', 'F');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender)
 VALUES('Patient', 3, 'rob@pat.com', 'Roberta', 'Mergues', 'Brez', '0', NULL, '', NULL, 3,

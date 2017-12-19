@@ -1,9 +1,10 @@
 package com.mda.diet.controller
 
-import com.mda.diet.model.*
+import com.mda.diet.dto.*
 import com.mda.diet.repository.CustomerRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
@@ -29,15 +30,15 @@ class AuthenticationController(val repository: CustomerRepository) {
     //SecurityContextHolder.getContext().authentication.principal.toString()
 
     @PostMapping("/signup")
-    fun signUp(@RequestBody signup: Auth0SignupAsk) : Auth0SignupReturn {
+    fun signUp(@RequestBody signup: Auth0SignupAskDto) : Auth0SignupReturnDto {
         signup.client_id = clientId
         signup.connection = "Username-Password-Authentication"
         val customer = repository.getById(signup.customerId)
 
         val rest = RestTemplate()
         try {
-            val signupReturn = rest.postForObject("${issuer}dbconnections/signup", signup, Auth0SignupReturn::class.java)
-            customer.authId = signupReturn._id
+            val signupReturn = rest.postForObject("${issuer}dbconnections/signup", signup, Auth0SignupReturnDto::class.java)
+            customer.authId = "auth|" + signupReturn._id
             repository.save(customer)
             return signupReturn
         } catch (ex: HttpClientErrorException) {
@@ -47,7 +48,7 @@ class AuthenticationController(val repository: CustomerRepository) {
 
 
     @PostMapping("/login")
-    fun getToken(@RequestBody token: Auth0TokenAsk) : Auth0TokenReturn {
+    fun getToken(@RequestBody token: Auth0TokenAskDto) : Auth0TokenReturnDto {
         token.audience = audience
         token.client_id = clientId
         token.client_secret = clientSecret
@@ -56,11 +57,15 @@ class AuthenticationController(val repository: CustomerRepository) {
 
         val rest = RestTemplate()
         try {
-            return rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturn::class.java)
+            return rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturnDto::class.java)
         } catch (ex: HttpClientErrorException) {
             throw IllegalArgumentException(ex.message)
         }
     }
+
+    @GetMapping("/connecteduser")
+    fun getUser()
+        = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
 
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
