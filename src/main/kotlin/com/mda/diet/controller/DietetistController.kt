@@ -5,56 +5,39 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.mda.diet.model.Dietetist
 import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.PatientRepository
+import com.mda.diet.service.DietetistService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/dietetist")
-class DietetistController(
-        val repository: DietetistRepository,
-        val patientRepository: PatientRepository) {
+class DietetistController(val service: DietetistService) {
 
     @GetMapping
-    fun findAll() = repository.findAll()
+    fun findAll() = service.findAll()
 
     @PostMapping
     fun addDietetist(@RequestBody dietetist: Dietetist)
-            = repository.save(dietetist)
+            = service.addDietetist(dietetist)
 
     @PutMapping("/{id}")
-    fun updateDietetist(@PathVariable id: Long, @RequestBody dietetist: Dietetist): Dietetist {
-        assert(id == dietetist.id)
-        return repository.save(dietetist)
-    }
+    fun updateDietetist(@PathVariable id: Long, @RequestBody dietetist: Dietetist)
+            = service.updateDietetist(id, dietetist)
 
     @DeleteMapping("/{id}")
     fun deleteAddress(@PathVariable id: Long)
-            = repository.delete(id)
+            = service.deleteAddress(id)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)
-            = repository.findOne(id)
+            = service.getById(id)
 
     @PostMapping("/attach")
-    fun attachPatient(@RequestBody json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(json.get("patient_id").asLong())
-        val diet = repository.findOne(json.get("diet_id").asLong())
-        if(pat != null) {
-            pat.dietetist = diet
-            patientRepository.save(pat)
-        }
-        return diet
-    }
+    fun attachPatient(@RequestBody json: ObjectNode)
+        = service.attachPatient(json)
 
     @PostMapping("/detach")
-    fun detachPatient(@RequestBody json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(json.get("patient_id").asLong())
-        val diet = repository.findOne(json.get("diet_id").asLong())
-        if(pat != null) {
-            pat.dietetist = null
-            patientRepository.save(pat)
-        }
-        return diet
-    }
+    fun detachPatient(@RequestBody json: ObjectNode)
+        = service.detachPatient(json)
 
 }

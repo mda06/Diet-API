@@ -1,36 +1,35 @@
 package com.mda.diet.controller
 
 import com.mda.diet.model.AnthropometricParameter
-import com.mda.diet.repository.AnthropometricParameterRepository
+import com.mda.diet.service.AnthropometricParameterService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/param")
-class AnthropometricParameterController(val repository: AnthropometricParameterRepository) {
+class AnthropometricParameterController(val service: AnthropometricParameterService) {
     @GetMapping
-    fun findAll() = repository.findAll()
+    fun findAll() = service.findAll()
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)
-            = repository.findOne(id)
+            = service.getById(id)
 
     @GetMapping("/patient/{id}")
     fun getByPatient(@PathVariable id: Long)
-            =  repository.getAllByPatientId(id)
+            =  service.getByPatient(id)
 
     @PostMapping
     fun addAnthropometricParameter(@RequestBody param: AnthropometricParameter)
-            = repository.save(param)
+            = service.addAnthropometricParameter(param)
 
     @PutMapping("/{id}")
-    fun updateAnthropometricParameter(@PathVariable id: Long, @RequestBody param: AnthropometricParameter) : AnthropometricParameter {
-        assert(id == param.id)
-        return repository.save(param)
-    }
+    fun updateAnthropometricParameter(@PathVariable id: Long, @RequestBody param: AnthropometricParameter)
+            = service.updateAnthropometricParameter(id, param)
+
 
     @DeleteMapping("/{id}")
     fun deleteAnthropometricParameter(@PathVariable id: Long)
-            = repository.delete(id)
+            = service.deleteAnthropometricParameter(id)
 
 }

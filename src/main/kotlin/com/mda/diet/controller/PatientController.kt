@@ -2,36 +2,35 @@ package com.mda.diet.controller
 
 
 import com.mda.diet.model.Patient
-import com.mda.diet.repository.PatientRepository
+import com.mda.diet.service.PatientService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/patient")
-class PatientController(val repository: PatientRepository) {
+class PatientController(val service: PatientService) {
    @GetMapping
-    fun findAll() = repository.findAll()
+    fun findAll() = service.findAll()
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)
-            = repository.findOne(id)
+            = service.getById(id)
 
     @GetMapping("/dietetist/{id}")
     fun getByDiet(@PathVariable id: Long)
-            =  repository.getAllByDietetistId(id)
+            =  service.getByDiet(id)
 
     @PostMapping
     fun addPatient(@RequestBody patient: Patient)
-            = repository.save(patient)
+            = service.addPatient(patient)
 
     @PutMapping("/{id}")
-    fun updatePatient(@PathVariable id: Long, @RequestBody patient: Patient) : Patient {
-        assert(id == patient.id)
-        return repository.save(patient)
-    }
+    fun updatePatient(@PathVariable id: Long, @RequestBody patient: Patient)
+            = service.updatePatient(id, patient)
+
 
     @DeleteMapping("/{id}")
     fun deletePatient(@PathVariable id: Long)
-            = repository.delete(id)
+            = service.deletePatient(id)
 
 }
