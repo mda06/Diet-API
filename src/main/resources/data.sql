@@ -6,9 +6,9 @@ INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (5, 'Bxl
 
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
-                     dietetist_id, created, birthday, gender)
+                     dietetist_id, created, birthday, gender, auth_id)
 VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', '', 4,
-       NULL, '2017-10-17', '1990-04-11', 'F');
+       NULL, '2017-10-17', '1990-04-11', 'F', 'auth0|5a38dd838d3cea7aad40e5ad ');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender)
 VALUES('Admin', 5, 'mda@diet.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
