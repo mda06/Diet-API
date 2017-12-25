@@ -3,6 +3,13 @@ INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (2, 'Bxl
 INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (3, 'Bxl', 'Belgium', '45', 1000, 'Blv. Anspach');
 INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (4, 'Bxl', 'Belgium', '37', 1080, 'Rue vandernoot');
 INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (5, 'Bxl', 'Belgium', '37', 1080, 'Rue vandernoot');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (6, 'Bxl', 'Belgium', '43', 1080, 'Rue osseghem');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (7, 'Dibeek', 'Belgium', '1453', 7500, 'Ninoofse steenweg');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (8, 'Berchem', 'Belgium', '56', 1082, 'Ch. de Gand');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (9, 'Antwerpen', 'Belgium', '7', 9980, 'Vlaamse straat');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (10, 'Wemmel', 'Belgium', '81', 4320, 'Rue limbourg');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (11, 'Bxl', 'Belgium', '108', 1080, 'Rue des 4 vents');
+INSERT INTO ADDRESS(id, city, country, number, postcode, street) VALUES (12, 'Anderlecht', 'Belgium', '98', 1070, 'Place Lids');
 
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
@@ -26,6 +33,35 @@ INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone
                      dietetist_id, created, birthday, gender)
 VALUES('Patient', 3, 'rob@pat.com', 'Roberta', 'Mergues', 'Brez', '0', NULL, '', NULL, 3,
        NULL, '2017-09-10', '2000-11-01', 'O');
+
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 6, 'hugo@pat.com', 'Hugo', 'Coppens', '', '0', NULL, '', NULL, 6,
+       4, '2017-12-25', '2010-11-01', 'M');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 7, 'ludo@pat.com', 'Ludo', 'Marchand', '', '0', NULL, '', NULL, 7,
+       4, '2017-09-10', '1992-11-01', 'O');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 8, 'tim@pat.com', 'Timo', 'Peteghem', 'Yannick', '0', NULL, '', NULL, 8,
+       4, '2017-09-10', '2000-11-01', 'O');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 9, 'cyndia@pat.com', 'Cyndia', 'Duquaine', 'Martine', '0', NULL, '', NULL, 9,
+       4, '2017-09-10', '2000-11-01', 'O');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 10, 'eric@pat.com', 'Eric', 'Coppens', '', '0', NULL, '', NULL, 10,
+       4, '2017-09-10', '2000-11-01', 'M');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 11, 'plez@pat.com', 'Pleziria', 'Rachia', 'Boundi', '0', NULL, '', NULL, 11,
+       4, '2017-09-10', '2000-11-01', 'O');
+INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender)
+VALUES('Patient', 12, 'patri@pat.com', 'Particia', 'Boulvi', '', '0', NULL, '', NULL, 12,
+       4, '2017-09-10', '2000-11-01', 'O');
 
 INSERT INTO ANTHROPOMETRIC_PARAMETER(id, body_fat, date, length, waist_circumference, weight, patient_id)
 VALUES(1, '13', '2017-12-03', '183', '83', '75.5', '1');
