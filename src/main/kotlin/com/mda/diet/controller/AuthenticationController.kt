@@ -22,6 +22,11 @@ class AuthenticationController(val service: AuthenticationService) {
     fun getUser()
         = service.getUser()
 
+    @GetMapping("/role")
+    fun getRole()
+        = service.getRole()
+
+
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     fun handleError(e: IllegalArgumentException) = e.message

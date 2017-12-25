@@ -1,9 +1,9 @@
 package com.mda.diet.service
 
-import com.mda.diet.dto.Auth0SignupAskDto
-import com.mda.diet.dto.Auth0SignupReturnDto
-import com.mda.diet.dto.Auth0TokenAskDto
-import com.mda.diet.dto.Auth0TokenReturnDto
+import com.mda.diet.dto.*
+import com.mda.diet.model.Admin
+import com.mda.diet.model.Dietetist
+import com.mda.diet.model.Patient
 import com.mda.diet.repository.CustomerRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.context.SecurityContextHolder
@@ -61,4 +61,12 @@ class AuthenticationService(val repository: CustomerRepository) {
 
     fun getUser()
             = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
+
+    fun getRole() =
+        when(getUser()) {
+            is Dietetist -> RoleDto.DIET
+            is Admin -> RoleDto.ADMIN
+            else -> RoleDto.PATIENT
+        }
+
 }

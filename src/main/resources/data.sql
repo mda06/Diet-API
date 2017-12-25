@@ -10,9 +10,9 @@ INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone
 VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', '', 4,
        NULL, '2017-10-17', '1990-04-11', 'F', 'auth0|5a38dd838d3cea7aad40e5ad ');
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
-                     dietetist_id, created, birthday, gender)
-VALUES('Admin', 5, 'mda@diet.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
-       NULL, '2017-04-25', '1991-11-09', 'M');
+                     dietetist_id, created, birthday, gender, auth_id)
+VALUES('Admin', 5, 'mda@admin.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
+       NULL, '2017-04-25', '1991-11-09', 'M', 'auth0|5a40f484f23f0e11d1592eda ');
 
 INSERT INTO CUSTOMER(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender, auth_id)
