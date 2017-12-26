@@ -1,12 +1,15 @@
 package com.mda.diet.model
 
-import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.*
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 import java.time.LocalDate
 import javax.persistence.*
 
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator::class,
+        property = "id")
 class AnthropometricParameter(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
@@ -16,7 +19,4 @@ class AnthropometricParameter(
         var waistCircumference: Double = 0.0,
         @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
         var date: LocalDate? = null,
-        @ManyToOne
-        @JoinColumn(name = "patient_id")
-        @JsonBackReference
-        var patient: Patient? = null)
+        var patientId: Long? = null)
