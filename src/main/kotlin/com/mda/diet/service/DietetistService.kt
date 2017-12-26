@@ -29,7 +29,7 @@ class DietetistService(val repository: DietetistRepository,
         val pat = patientRepository.findOne(json.get("patient_id").asLong())
         val diet = repository.findOne(json.get("diet_id").asLong())
         if(pat != null) {
-            pat.dietetist = diet
+            pat.dietetistId = diet.id
             patientRepository.save(pat)
         }
         return diet
@@ -39,7 +39,7 @@ class DietetistService(val repository: DietetistRepository,
         val pat = patientRepository.findOne(json.get("patient_id").asLong())
         val diet = repository.findOne(json.get("diet_id").asLong())
         if(pat != null) {
-            pat.dietetist = null
+            pat.dietetistId = null
             patientRepository.save(pat)
         }
         return diet

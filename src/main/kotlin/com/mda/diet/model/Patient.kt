@@ -16,10 +16,7 @@ class Patient(id: Long = 0,
               created: LocalDate? = null,
               birthday: LocalDate? = null,
               var extraInfo: String = "",
-              @ManyToOne
-              @JoinColumn(name = "dietetist_id")
-              @JsonBackReference
-              var dietetist: Dietetist? = null,
+              var dietetistId: Long? = null,
               @OneToMany(mappedBy = "patientId", cascade = [(CascadeType.ALL)])
               var anthropometricParameters: MutableList<AnthropometricParameter> = arrayListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)

@@ -17,6 +17,6 @@ class Dietetist(id: Long = 0,
                 created: LocalDate? = null,
                 birthday: LocalDate? = null,
                 var vat: String = "",
-                @OneToMany(mappedBy = "dietetist", cascade = [(CascadeType.ALL)])
+                @OneToMany(mappedBy = "dietetistId", cascade = [(CascadeType.ALL)])
                 var patients: MutableList<Patient> = arrayListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)
