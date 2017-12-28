@@ -23,6 +23,5 @@ abstract class Customer (
         var created: LocalDate? = null,
         @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
         var birthday: LocalDate? = null,
-        @Column(unique = true)
         var authId: String? = null
 )
