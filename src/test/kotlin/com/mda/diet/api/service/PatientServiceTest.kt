@@ -9,7 +9,6 @@ import com.mda.diet.repository.AnthropometricParameterRepository
 import com.mda.diet.repository.CustomerRepository
 import com.mda.diet.repository.PatientRepository
 import com.mda.diet.service.PatientService
-import org.mockito.AdditionalAnswers
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Matchers.*
