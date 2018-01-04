@@ -13,7 +13,6 @@ class AuthenticationController(val service: AuthenticationService) {
     fun signUp(@RequestBody signup: Auth0SignupAskDto)
         = service.signUp(signup)
 
-
     @PostMapping("/login")
     fun getToken(@RequestBody token: Auth0TokenAskDto)
         = service.getToken(token)
@@ -25,6 +24,10 @@ class AuthenticationController(val service: AuthenticationService) {
     @GetMapping("/role")
     fun getRole()
         = service.getRole()
+
+    @GetMapping("/id")
+    fun getId()
+        = service.getId()
 
 
     @ExceptionHandler(IllegalArgumentException::class)

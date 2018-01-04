@@ -69,4 +69,7 @@ class AuthenticationService(val repository: CustomerRepository) {
             else -> RoleDto.PATIENT
         }
 
+    fun getId() = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString()).id
+
+
 }

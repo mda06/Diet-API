@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @EntityScan(basePackages= ["com.mda.diet.model"])
 @EnableJpaRepositories(basePackages= ["com.mda.diet.repository"])
-@SpringBootApplication(scanBasePackages = ["com.mda.diet.controller", "com.mda.diet.security", "com.mda.diet.service"])
+@SpringBootApplication(scanBasePackages = ["com.mda.diet.controller", "com.mda.diet.security",
+    "com.mda.diet.service", "com.mda.diet.error"])
 class ApiApplication
 
 fun main(args: Array<String>) {
