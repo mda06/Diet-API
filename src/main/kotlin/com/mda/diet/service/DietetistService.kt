@@ -1,6 +1,7 @@
 package com.mda.diet.service
 
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Dietetist
 import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.PatientRepository
@@ -23,7 +24,7 @@ class DietetistService(val repository: DietetistRepository,
             = repository.delete(id)
 
     fun getById(id: Long)
-            = repository.findOne(id)
+            = repository.findOne(id) ?: throw CustomNotFoundException("Not found dietetist with id $id")
 
     fun attachPatient(json: ObjectNode) : Dietetist {
         val pat = patientRepository.findOne(json.get("patient_id").asLong())

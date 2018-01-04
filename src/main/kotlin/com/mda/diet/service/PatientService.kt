@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.AnthropometricParameter
 import com.mda.diet.model.Patient
 import com.mda.diet.repository.AnthropometricParameterRepository
@@ -15,7 +16,7 @@ class PatientService(val repository: PatientRepository,
     fun findAll() = repository.findAll()
 
     fun getById(id: Long)
-            = repository.findOne(id)
+            = repository.findOne(id)// ?: throw CustomNotFoundException("Not found patient with id $id")
 
     fun getByDiet(id: Long)
             =  repository.getAllByDietetistId(id)

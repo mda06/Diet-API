@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Admin
 import com.mda.diet.repository.AdminRepository
 import org.springframework.stereotype.Service
@@ -21,5 +22,5 @@ class AdminService(val repository: AdminRepository) {
             = repository.delete(id)
 
     fun getById(id: Long)
-            = repository.findOne(id)
+            = repository.findOne(id) ?: throw CustomNotFoundException("Not found admin with id $id")
 }

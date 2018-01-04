@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.AnthropometricParameter
 import com.mda.diet.repository.AnthropometricParameterRepository
 import org.springframework.stereotype.Service
@@ -9,10 +10,13 @@ class AnthropometricParameterService(val repository: AnthropometricParameterRepo
     fun findAll() = repository.findAll()
 
     fun getById(id: Long)
-            = repository.findOne(id)
+            = repository.findOne(id) ?: throw CustomNotFoundException("Not found param with id $id")
 
-    fun getByPatient(id: Long)
-            =  repository.getAllByPatientId(id)
+    fun getByPatient(id: Long): List<AnthropometricParameter> {
+        val params = repository.getAllByPatientId(id)
+        if(params.isEmpty())  throw CustomNotFoundException("Not found param with patientid $id")
+        return params
+    }
 
     fun addAnthropometricParameter(param: AnthropometricParameter)
             = repository.save(param)

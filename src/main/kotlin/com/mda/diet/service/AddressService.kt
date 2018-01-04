@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Address
 import com.mda.diet.repository.AddressRepository
 import org.springframework.stereotype.Service
@@ -19,6 +20,7 @@ class AddressService(val repository: AddressRepository) {
     fun deleteAddress(id: Long)
             = repository.delete(id)
 
-    fun getById(id: Long)
-            = repository.findOne(id)
+    fun getById(id: Long) : Address {
+        return repository.findOne(id) ?: throw CustomNotFoundException("Not found address with id $id")
+    }
 }

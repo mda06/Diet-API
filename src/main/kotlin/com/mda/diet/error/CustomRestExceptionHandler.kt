@@ -65,4 +65,10 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         val apiError = ApiError(HttpStatus.NOT_FOUND, ex.localizedMessage, error)
         return ResponseEntity(apiError, HttpHeaders(), apiError.status!!)
     }
+
+    @ExceptionHandler(CustomNotFoundException::class)
+    fun handleNotFoundException(ex: CustomNotFoundException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.NOT_FOUND, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
 }
