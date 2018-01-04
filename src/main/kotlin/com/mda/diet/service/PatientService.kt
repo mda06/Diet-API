@@ -23,7 +23,8 @@ class PatientService(val repository: PatientRepository,
 
     fun addPatient(patient: Patient): Patient {
         if(patient.dietetistId == 0L) {
-            val customer = customerRepository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
+            val auth = SecurityContextHolder.getContext().authentication
+            val customer = customerRepository.getByAuthId(auth?.principal.toString())
             //Test if customer is a dietetist
             patient.dietetistId = customer.id
         }
@@ -42,7 +43,7 @@ class PatientService(val repository: PatientRepository,
             patientReturn.anthropometricParameters = paramsReturn
             return patientReturn
         } else {
-            return repository.save(patient);
+            return repository.save(patient)
         }
     }
 
