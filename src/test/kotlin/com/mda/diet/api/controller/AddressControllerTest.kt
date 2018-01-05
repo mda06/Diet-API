@@ -1,6 +1,7 @@
 package com.mda.diet.api.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mda.diet.error.ApiError
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Address
 import com.mda.diet.service.AddressService
@@ -20,6 +21,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.junit4.SpringRunner
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 
 @RunWith(SpringRunner::class)
@@ -65,6 +67,17 @@ class AddressControllerTest {
         val response = testRestTemplate.exchange("/address/1", HttpMethod.GET, request, Address::class.java)
         assertEquals(HttpStatus.NOT_FOUND, response.statusCode)
     }
+
+    @Test
+    fun whenGetAddressIdIsAStringShouldReturnException() {
+        val request = HttpEntity<Any>(headers)
+        val response = testRestTemplate.exchange("/address/a", HttpMethod.GET, request, ApiError::class.java)
+        println(response)
+        assertEquals(HttpStatus.BAD_REQUEST, response.statusCode)
+        assertTrue(response.body.errors[0].contains("should be of type"))
+    }
+
+
 
     /*@Test
     fun whenPostAddressShouldReturnAddress() {
