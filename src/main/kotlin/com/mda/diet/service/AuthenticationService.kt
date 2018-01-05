@@ -49,7 +49,12 @@ class AuthenticationService(val repository: CustomerRepository) {
         token.client_id = clientId
         token.client_secret = clientSecret
         token.grant_type = "password"
-        token.scope = "openid"
+        token.scope = "openid "
+        when {
+            token.username.endsWith("@admin.com") -> token.scope += "scope:admin"
+            token.username.endsWith("@patient.com") -> token.scope += "scope:patient"
+            token.username.endsWith("@diet.com") -> token.scope += "scope:diet"
+        }
 
         val rest = RestTemplate()
         try {
