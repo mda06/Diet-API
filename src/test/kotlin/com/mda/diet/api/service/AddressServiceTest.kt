@@ -25,7 +25,7 @@ class AddressServiceTest {
 
     @Test
     fun testFindAddressShouldPass() {
-        val adrIn = Address(1, "Belgium", 1080, "Brussels","Vandernoot", "37");
+        val adrIn = Address(1, "Belgium", 1080, "Brussels","Vandernoot", "37")
         Mockito.`when`(repository!!.findOne(1)).thenReturn(adrIn)
         val adr = service!!.getById(1)
         assertEquals(adr.id, 1)

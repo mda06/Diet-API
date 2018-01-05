@@ -21,6 +21,7 @@ class ApiApplicationTests {
 
 	@Test
 	fun contextLoads() {
+
 	}
 	/*@Autowired
 	lateinit var testRestTemplate: TestRestTemplate

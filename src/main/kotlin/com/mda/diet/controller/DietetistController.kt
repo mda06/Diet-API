@@ -1,10 +1,8 @@
 package com.mda.diet.controller
 
 
-import com.fasterxml.jackson.databind.node.ObjectNode
+import com.mda.diet.dto.DietetistAttachPatientDto
 import com.mda.diet.model.Dietetist
-import com.mda.diet.repository.DietetistRepository
-import com.mda.diet.repository.PatientRepository
 import com.mda.diet.service.DietetistService
 import org.springframework.web.bind.annotation.*
 
@@ -33,11 +31,11 @@ class DietetistController(val service: DietetistService) {
             = service.getById(id)
 
     @PostMapping("/attach")
-    fun attachPatient(@RequestBody json: ObjectNode)
-        = service.attachPatient(json)
+    fun attachPatient(@RequestBody dto: DietetistAttachPatientDto)
+        = service.attachPatient(dto)
 
     @PostMapping("/detach")
-    fun detachPatient(@RequestBody json: ObjectNode)
-        = service.detachPatient(json)
+    fun detachPatient(@RequestBody dto: DietetistAttachPatientDto)
+        = service.detachPatient(dto)
 
 }

@@ -1,6 +1,6 @@
 package com.mda.diet.service
 
-import com.fasterxml.jackson.databind.node.ObjectNode
+import com.mda.diet.dto.DietetistAttachPatientDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Dietetist
 import com.mda.diet.repository.DietetistRepository
@@ -26,22 +26,26 @@ class DietetistService(val repository: DietetistRepository,
     fun getById(id: Long)
             = repository.findOne(id) ?: throw CustomNotFoundException("Not found dietetist with id $id")
 
-    fun attachPatient(json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(json.get("patient_id").asLong())
-        val diet = repository.findOne(json.get("diet_id").asLong())
-        if(pat != null) {
+    fun attachPatient(dto: DietetistAttachPatientDto) : Dietetist {
+        val pat = patientRepository.findOne(dto.patient_id)
+        val diet = repository.findOne(dto.diet_id)
+        if(pat != null && diet != null) {
             pat.dietetistId = diet.id
             patientRepository.save(pat)
+        } else {
+            throw CustomNotFoundException("Not found patient or dietetist with id ${dto.patient_id}")
         }
         return diet
     }
 
-    fun detachPatient(json: ObjectNode) : Dietetist {
-        val pat = patientRepository.findOne(json.get("patient_id").asLong())
-        val diet = repository.findOne(json.get("diet_id").asLong())
+    fun detachPatient(dto: DietetistAttachPatientDto) : Dietetist {
+        val pat = patientRepository.findOne(dto.patient_id)
+        val diet = repository.findOne(dto.diet_id)
         if(pat != null) {
             pat.dietetistId = null
             patientRepository.save(pat)
+        } else {
+            throw CustomNotFoundException("Not found patient with id ${dto.patient_id}")
         }
         return diet
     }
