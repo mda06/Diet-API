@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("$prefix/admin")
 class AdminController(val service: AdminService) {
 
     @GetMapping

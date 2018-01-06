@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("$prefix/auth")
 class AuthenticationController(val service: AuthenticationService) {
 
     @PostMapping("/signup")

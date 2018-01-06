@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/dietetist")
+@RequestMapping("$prefix/dietetist")
 class DietetistController(val service: DietetistService) {
 
     @GetMapping

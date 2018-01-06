@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/param")
+@RequestMapping("$prefix/param")
 class AnthropometricParameterController(val service: AnthropometricParameterService) {
     @GetMapping
     fun findAll() = service.findAll()

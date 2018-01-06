@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("$prefix/patient")
 class PatientController(val service: PatientService) {
    @GetMapping
     fun findAll() = service.findAll()

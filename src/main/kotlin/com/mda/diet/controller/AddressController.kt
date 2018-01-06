@@ -5,7 +5,7 @@ import com.mda.diet.service.AddressService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("$prefix/address")
 class AddressController(val service: AddressService) {
 
     @GetMapping
