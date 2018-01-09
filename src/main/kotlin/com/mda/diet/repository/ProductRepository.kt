@@ -1,6 +1,9 @@
 package com.mda.diet.repository
 
 import com.mda.diet.model.Product
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
+import javax.transaction.Transactional
 
-interface ProductRepository: CrudRepository<Product, Long>
+@Transactional
+interface ProductRepository: PagingAndSortingRepository<Product, Long> {
+}

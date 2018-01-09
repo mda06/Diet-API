@@ -27,6 +27,8 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 .authorizeRequests()
                 .antMatchers( "/*").permitAll()
                 .antMatchers( "/assets/**").permitAll()
+                .antMatchers("/api/product").permitAll()
+                .antMatchers("/api/product/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 .anyRequest().authenticated()
                 //.antMatchers(HttpMethod.GET, "/admin").hasAuthority("scope:admin")

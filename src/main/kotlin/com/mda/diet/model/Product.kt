@@ -8,9 +8,9 @@ class Product(
         val id: Long = 0,
         val name: String = "",
         val imgUrl: String = "",
-        @OneToMany(mappedBy = "productId", cascade = [(CascadeType.ALL)])
-        val units: List<Nutriment>,
-        @OneToMany(mappedBy = "productId", cascade = [(CascadeType.ALL)])
-        val macros: List<Nutriment>,
-        @OneToMany(mappedBy = "productId", cascade = [(CascadeType.ALL)])
-        val micros: List<Nutriment>)
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        val units: MutableList<Nutriment> = arrayListOf(),
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        val macros: MutableList<Nutriment> = arrayListOf(),
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        val micros: MutableList<Nutriment> = arrayListOf())
