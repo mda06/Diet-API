@@ -36,7 +36,7 @@ class ProductService(val repository: ProductRepository) {
 
     fun getProducts(pageable: Pageable, name:String?)
             = repository.findByNameLike(if(name != null) "%$name%" else "%lait e%", pageable)
-            .map { ProductDto(it.id, it.name) }
+            .map { ProductDto(it) }
 
     fun deleteProducts() {
         repository.deleteAll()

@@ -20,6 +20,6 @@ class ProductController(val service: ProductService) {
     @PostMapping("/batch")
     fun addBatchProducts() = service.addBatchProducts()
 
-    @DeleteMapping
+    @DeleteMapping("/purge")
     fun deleteProducts() = service.deleteProducts()
 }
