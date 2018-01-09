@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 class Product(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long = 0,
+        var id: Long = 0,
         val name: String = "",
         val imgUrl: String = "",
         @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)

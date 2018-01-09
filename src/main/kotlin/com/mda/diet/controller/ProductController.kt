@@ -12,13 +12,10 @@ class ProductController(val service: ProductService) {
     fun getSizeOfProducts() = service.getSize()
 
     @GetMapping()
-    fun getProducts(pageable: Pageable) = service.getProducts(pageable)
+    fun getProducts(pageable: Pageable, name: String?) = service.getProducts(pageable, name)
 
     @PostMapping("/batch")
     fun addBatchProducts() = service.addBatchProducts()
-
-    @PostMapping("/test")
-    fun addTestProduct() = service.addTestProduct()
 
     @DeleteMapping
     fun deleteProducts() = service.deleteProducts()
