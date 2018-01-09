@@ -2,6 +2,7 @@ package com.mda.diet.service
 
 import com.mda.diet.dto.*
 import com.mda.diet.model.Admin
+import com.mda.diet.model.Customer
 import com.mda.diet.model.Dietetist
 import com.mda.diet.model.Patient
 import com.mda.diet.repository.CustomerRepository
@@ -64,8 +65,10 @@ class AuthenticationService(val repository: CustomerRepository) {
         }
     }
 
-    fun getUser()
-            = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
+    fun getUser() : Customer {
+        val cust = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
+        return cust
+    }
 
     fun getRole() =
         when(getUser()) {
