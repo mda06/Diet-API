@@ -9,9 +9,10 @@ import javax.transaction.Transactional
 
 @Transactional
 interface ProductRepository: PagingAndSortingRepository<Product, Long> {
-    //"SELECT DISTINCT p FROM Product p JOIN FETCH p.translations as pt WHERE pt.language = ?1"
-    @Query(value = "SELECT DISTINCT p FROM Product p JOIN FETCH p.translations as pt WHERE pt.language = ?1",
-            countQuery = "SELECT count(DISTINCT p) FROM Product p JOIN p.translations as pt WHERE pt.language = ?1")
-    fun findByTranslationsLanguageEquals(language: String, pageable: Pageable): Page<Product>
+    @Query(value = "SELECT DISTINCT p FROM Product p JOIN FETCH p.translations as pt " +
+                    "WHERE pt.language = ?1 AND pt.name like ?2",
+            countQuery = "SELECT count(DISTINCT p) FROM Product p JOIN p.translations as pt " +
+                    "WHERE pt.language = ?1 AND pt.name like ?2")
+    fun findByTranslationsLanguageEqualsAndTranslationsNameLike(language: String, name: String, pageable: Pageable): Page<Product>
 
 }
