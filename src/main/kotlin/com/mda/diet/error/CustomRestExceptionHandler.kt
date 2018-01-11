@@ -71,4 +71,10 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         val error = ApiError(HttpStatus.NOT_FOUND, ex.localizedMessage)
         return ResponseEntity(error, error.status)
     }
+
+    @ExceptionHandler(ProductSortException::class)
+    fun handleProductSortException(ex: ProductSortException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.BAD_REQUEST, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
 }

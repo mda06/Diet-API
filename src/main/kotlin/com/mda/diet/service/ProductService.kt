@@ -5,8 +5,10 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.mda.diet.dto.ProductDto
 import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
+import com.mda.diet.error.ProductSortException
 import com.mda.diet.repository.ProductRepository
 import org.springframework.core.io.ClassPathResource
+import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.io.FileNotFoundException
@@ -47,12 +49,16 @@ class ProductService(val repository: ProductRepository) {
         return ProductDto(prod)
     }
 
-    fun getProducts(pageable: Pageable?, name: String?, language: String?)
-            = repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
-                    if(name != null) "%$name%" else "%",
-                    pageable)
-            .map {
-                ProductNameDto(it)
+    fun getProducts(pageable: Pageable?, name: String?, language: String?) =
+            try {
+                repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
+                        if(name != null) "%$name%" else "%",
+                        pageable)
+                        .map {
+                            ProductNameDto(it)
+                        }
+            } catch (ex: InvalidDataAccessApiUsageException) {
+                throw ProductSortException("Cannot sort product")
             }
 
     fun deleteProducts() {
