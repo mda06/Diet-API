@@ -44,7 +44,7 @@ class ProductService(val repository: ProductRepository) {
 
     fun getProducts(pageable: Pageable, name: String?, language: String?)
             = repository//.findByTranslationsNameLikeAndTranslationsLanguageIs(if(name != null) "%$name%" else "%"
-            .findByTranslationsLanguageEquals("fr")
+            .findByTranslationsLanguageEquals(language?: "en", pageable)
             .map {
                 println(it.translations.map { "${it.id}) ${it.language} - ${it.name}" })
                 ProductNameDto(it)
