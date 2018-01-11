@@ -12,7 +12,7 @@ class ProductController(val service: ProductService) {
     fun getSizeOfProducts() = service.getSize()
 
     @GetMapping("/{id}")
-    fun getProductById(@PathVariable id: Long) = service.getProductById(id)
+    fun getProductById(@PathVariable id: Long, lang: String?) = service.getProductById(id, lang)
 
     @GetMapping()
     fun getProducts(pageable: Pageable, name: String?, lang: String?) = service.getProducts(pageable, name, lang)

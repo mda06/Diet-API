@@ -1,5 +1,6 @@
 package com.mda.diet.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import javax.persistence.*
 
 @Entity
@@ -10,4 +11,5 @@ class Nutriment(
         val value: Double = 0.0,
         val unit: String = "",
         @ManyToOne(cascade = [CascadeType.ALL])
+        @JsonBackReference
         var productTranslation: ProductTranslation = ProductTranslation())

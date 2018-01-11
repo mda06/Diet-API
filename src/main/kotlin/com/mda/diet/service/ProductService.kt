@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.mda.diet.dto.ProductDto
 import com.mda.diet.dto.ProductNameDto
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.repository.ProductRepository
 import org.springframework.core.io.ClassPathResource
 import org.springframework.data.domain.Pageable
@@ -40,15 +41,17 @@ class ProductService(val repository: ProductRepository) {
 
     fun getSize() = repository.count()
 
-    fun getProductById(id: Long) = repository.findOne(id)
+    fun getProductById(id: Long, language: String?) : ProductDto {
+        val prod = repository.findByIdAndTranslationsLanguageEquals(id, language ?: "en")
+                ?: throw CustomNotFoundException("Not found product with id $id")
+        return ProductDto(prod)
+    }
 
     fun getProducts(pageable: Pageable, name: String?, language: String?)
-            = repository//.findByTranslationsNameLikeAndTranslationsLanguageIs(if(name != null) "%$name%" else "%"
-            .findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
+            = repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
                     if(name != null) "%$name%" else "%",
                     pageable)
             .map {
-                println(it.translations.map { "${it.id}) ${it.language} - ${it.name}" })
                 ProductNameDto(it)
             }
 
