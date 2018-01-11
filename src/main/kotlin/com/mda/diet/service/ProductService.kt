@@ -47,7 +47,7 @@ class ProductService(val repository: ProductRepository) {
         return ProductDto(prod)
     }
 
-    fun getProducts(pageable: Pageable, name: String?, language: String?)
+    fun getProducts(pageable: Pageable?, name: String?, language: String?)
             = repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
                     if(name != null) "%$name%" else "%",
                     pageable)

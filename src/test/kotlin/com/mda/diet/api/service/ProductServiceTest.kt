@@ -53,4 +53,42 @@ class ProductServiceTest {
             assertEquals("Not found product with id 5632", ex.message)
         }
     }
+
+    @Test
+    fun testGetProductsSuccessWithoutName() {
+        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("fr", "%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf(
+                        Product(1).also { it.translations.add(ProductTranslation(1, "fr", "Lait")) },
+                        Product(2).also { it.translations.add(ProductTranslation(2, "fr", "Fraise")) }
+                )))
+        val prods = service!!.getProducts(null, null, "fr")
+        assertEquals(2, prods.numberOfElements)
+        assertEquals(1, prods.content[0].id)
+        assertEquals("Lait", prods.content[0].name)
+        assertEquals(2, prods.content[1].id)
+        assertEquals("Fraise", prods.content[1].name)
+    }
+
+    @Test
+    fun testGetProductsSuccessWithName() {
+        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("fr", "%La%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf(
+                        Product(1).also { it.translations.add(ProductTranslation(1, "fr", "Lait")) }
+                )))
+        val prods = service!!.getProducts(null, "La", "fr")
+        assertEquals(1, prods.numberOfElements)
+        assertEquals(1, prods.content[0].id)
+        assertEquals("Lait", prods.content[0].name)
+    }
+
+
+    @Test
+    fun testGetProductsUndefinedLanguage() {
+        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("nl", "%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf()))
+        val prods = service!!.getProducts(null, null, "nl")
+        assertEquals(0, prods.numberOfElements)
+    }
+
+
 }

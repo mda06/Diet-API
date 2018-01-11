@@ -15,7 +15,7 @@ class ProductController(val service: ProductService) {
     fun getProductById(@PathVariable id: Long, lang: String?) = service.getProductById(id, lang)
 
     @GetMapping()
-    fun getProducts(pageable: Pageable, name: String?, lang: String?) = service.getProducts(pageable, name, lang)
+    fun getProducts(pageable: Pageable?, name: String?, lang: String?) = service.getProducts(pageable, name, lang)
 
     @PostMapping("/batch")
     fun addBatchProducts() = service.addBatchProducts()
