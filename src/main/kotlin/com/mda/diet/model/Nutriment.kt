@@ -8,4 +8,6 @@ class Nutriment(
         val id: Long = 0,
         val name: String = "",
         val value: Double = 0.0,
-        val unit: String = "")
+        val unit: String = "",
+        @ManyToOne(cascade = [CascadeType.ALL])
+        var productTranslation: ProductTranslation = ProductTranslation())

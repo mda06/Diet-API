@@ -3,25 +3,33 @@ package com.mda.diet.service
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.mda.diet.dto.ProductDto
-import com.mda.diet.model.Product
+import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.repository.ProductRepository
 import org.springframework.core.io.ClassPathResource
 import org.springframework.data.domain.Pageable
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.io.FileNotFoundException
+import javax.transaction.Transactional
 
 @Service
 class ProductService(val repository: ProductRepository) {
 
-    @Async
+    @Transactional
     fun addBatchProducts(): Boolean {
         val mapper = jacksonObjectMapper()
         return try {
-            val products = mapper.readValue<Array<Product>>(ClassPathResource("/products/products_fr.json").file)
-            products.forEach {
-                repository.save(it)
+            val products = mapper.readValue<Array<ProductDto>>(ClassPathResource("/products/products_fr.json").file)
+            products.take(25).forEach {
+                val prod = it.toProduct("fr")
+                repository.save(prod)
             }
+
+            val productsEn = mapper.readValue<Array<ProductDto>>(ClassPathResource("/products/products_en.json").file)
+            productsEn.take(25).forEach {
+                val prod = it.toProduct("en")
+                repository.save(prod)
+            }
+
             true
         } catch(ex: FileNotFoundException) {
             println("Cannot find the products")
@@ -34,9 +42,13 @@ class ProductService(val repository: ProductRepository) {
 
     fun getProductById(id: Long) = repository.findOne(id)
 
-    fun getProducts(pageable: Pageable, name:String?)
-            = repository.findByNameLike(if(name != null) "%$name%" else "%", pageable)
-            .map { ProductDto(it) }
+    fun getProducts(pageable: Pageable, name: String?, language: String?)
+            = repository//.findByTranslationsNameLikeAndTranslationsLanguageIs(if(name != null) "%$name%" else "%"
+            .findByTranslationsLanguageEquals("fr")
+            .map {
+                println(it.translations.map { "${it.id}) ${it.language} - ${it.name}" })
+                ProductNameDto(it)
+            }
 
     fun deleteProducts() {
         repository.deleteAll()
