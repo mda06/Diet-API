@@ -9,9 +9,9 @@ class ProductTranslation(
         val language: String = "",
         val name: String = "",
         val productId: Long = 0,
-        @OneToMany(mappedBy = "productTranslation", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
         val units: MutableList<Nutriment> = arrayListOf(),
-        @OneToMany(mappedBy = "productTranslation", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
         val macros: MutableList<Nutriment> = arrayListOf(),
-        @OneToMany(mappedBy = "productTranslation", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        @OneToMany(cascade = [(CascadeType.ALL)], orphanRemoval = true)
         val micros: MutableList<Nutriment> = arrayListOf())
