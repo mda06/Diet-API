@@ -7,6 +7,7 @@ import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.ProductSortException
 import com.mda.diet.repository.ProductRepository
+import com.mda.diet.repository.ProductTranslationRepository
 import org.springframework.core.io.ClassPathResource
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.data.domain.Pageable
@@ -15,20 +16,20 @@ import java.io.FileNotFoundException
 import javax.transaction.Transactional
 
 @Service
-class ProductService(val repository: ProductRepository) {
+class ProductService(val repository: ProductRepository, val translationRepository: ProductTranslationRepository) {
 
     @Transactional
     fun addBatchProducts(): Boolean {
         val mapper = jacksonObjectMapper()
         return try {
             val products = mapper.readValue<Array<ProductDto>>(ClassPathResource("/products/products_fr.json").file)
-            products.take(25).forEach {
+            products.forEach {
                 val prod = it.toProduct("fr")
                 repository.save(prod)
             }
 
             val productsEn = mapper.readValue<Array<ProductDto>>(ClassPathResource("/products/products_en.json").file)
-            productsEn.take(25).forEach {
+            productsEn.forEach {
                 val prod = it.toProduct("en")
                 repository.save(prod)
             }
@@ -50,16 +51,17 @@ class ProductService(val repository: ProductRepository) {
     }
 
     fun getProducts(pageable: Pageable?, name: String?, language: String?) =
-            try {
-                repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
-                        if(name != null) "%$name%" else "%",
-                        pageable)
-                        .map {
-                            ProductNameDto(it)
-                        }
-            } catch (ex: InvalidDataAccessApiUsageException) {
-                throw ProductSortException("Cannot sort product")
-            }
+        try {
+            translationRepository.findByLanguageAndNameLike(language?: "en",
+                    if(name != null) "%$name%" else "%", pageable)
+            /*repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
+                    if(name != null) "%$name%" else "%", pageable)
+                    .map {
+                        ProductNameDto(it)
+                    }*/
+        } catch (ex: InvalidDataAccessApiUsageException) {
+            throw ProductSortException("Cannot sort product")
+        }
 
     fun deleteProducts() {
         repository.deleteAll()
