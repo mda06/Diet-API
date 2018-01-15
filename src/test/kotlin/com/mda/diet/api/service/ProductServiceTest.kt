@@ -1,9 +1,11 @@
 package com.mda.diet.api.service
 
+import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Product
 import com.mda.diet.model.ProductTranslation
 import com.mda.diet.repository.ProductRepository
+import com.mda.diet.repository.ProductTranslationRepository
 import com.mda.diet.service.ProductService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +21,9 @@ class ProductServiceTest {
 
     @Mock
     var repository: ProductRepository? = null
+
+    @Mock
+    var repositoryTranslate: ProductTranslationRepository? = null
 
     @InjectMocks
     var service: ProductService? = null
@@ -56,10 +61,10 @@ class ProductServiceTest {
 
     @Test
     fun testGetProductsSuccessWithoutName() {
-        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("fr", "%", null))
-                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf(
-                        Product(1).also { it.translations.add(ProductTranslation(1, "fr", "Lait")) },
-                        Product(2).also { it.translations.add(ProductTranslation(2, "fr", "Fraise")) }
+        Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("fr", "%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<ProductNameDto>(arrayListOf(
+                        ProductNameDto(1, "Lait"),
+                        ProductNameDto(2, "Fraise")
                 )))
         val prods = service!!.getProducts(null, null, "fr")
         assertEquals(2, prods.numberOfElements)
@@ -71,9 +76,9 @@ class ProductServiceTest {
 
     @Test
     fun testGetProductsSuccessWithName() {
-        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("fr", "%La%", null))
-                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf(
-                        Product(1).also { it.translations.add(ProductTranslation(1, "fr", "Lait")) }
+        Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("fr", "%La%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<ProductNameDto>(arrayListOf(
+                        ProductNameDto(1, "Lait")
                 )))
         val prods = service!!.getProducts(null, "La", "fr")
         assertEquals(1, prods.numberOfElements)
@@ -84,8 +89,8 @@ class ProductServiceTest {
 
     @Test
     fun testGetProductsUndefinedLanguage() {
-        Mockito.`when`(repository!!.findByTranslationsLanguageEqualsAndTranslationsNameLike("nl", "%", null))
-                .thenReturn(org.springframework.data.domain.PageImpl<Product>(arrayListOf()))
+        Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("nl", "%", null))
+                .thenReturn(org.springframework.data.domain.PageImpl<ProductNameDto>(arrayListOf()))
         val prods = service!!.getProducts(null, null, "nl")
         assertEquals(0, prods.numberOfElements)
     }
