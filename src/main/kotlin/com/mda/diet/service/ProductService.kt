@@ -6,12 +6,16 @@ import com.mda.diet.dto.ProductDto
 import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.ProductSortException
+import com.mda.diet.error.UploadFileException
 import com.mda.diet.repository.ProductRepository
 import com.mda.diet.repository.ProductTranslationRepository
 import org.springframework.core.io.ClassPathResource
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.data.domain.Pageable
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 import java.io.FileNotFoundException
 import javax.transaction.Transactional
 
@@ -65,5 +69,26 @@ class ProductService(val repository: ProductRepository, val translationRepositor
 
     fun deleteProducts() {
         repository.deleteAll()
+    }
+
+    fun deleteProduct(id: Long) {
+        repository.delete(id)
+    }
+
+    fun uploadBatch(uploadFile: MultipartFile): ResponseEntity<Any> {
+        if(uploadFile.isEmpty) throw UploadFileException("File is empty")
+        val lang = uploadFile.originalFilename.removeSuffix(".json")
+                .substring(uploadFile.originalFilename.length - 2)
+        println(lang)
+        if(lang != "fr" || lang != "en")
+            throw UploadFileException("Please submit products with 'fr' or 'en'")
+
+        val mapper = jacksonObjectMapper()
+        val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
+        products.map { it.toProduct(lang) }
+
+
+        return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}" +
+                " with ${products.size} products", HttpStatus.OK)
     }
 }

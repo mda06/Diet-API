@@ -77,4 +77,10 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         val error = ApiError(HttpStatus.BAD_REQUEST, ex.localizedMessage)
         return ResponseEntity(error, error.status)
     }
+
+    @ExceptionHandler(UploadFileException::class)
+    fun handleUploadFileException(ex: UploadFileException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.OK, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
 }
