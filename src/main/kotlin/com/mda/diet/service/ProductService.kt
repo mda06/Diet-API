@@ -113,9 +113,7 @@ class ProductService(val repository: ProductRepository,
         try {
             val basePath = System.getProperty("user.dir") + "/products"
             if(!File(basePath).exists()) File(basePath).mkdir()
-            File("$basePath/${uploadFile.originalFilename}")
-                    .writeText(uploadFile.bytes.toString())
-            //File(System.getProperty("user.dir") + "/products/${uploadFile.originalFilename}").writeBytes(uploadFile.bytes)
+            File("$basePath/${uploadFile.originalFilename}").writeBytes(uploadFile.bytes)
         } catch (e: Exception) {
             e.printStackTrace()
             logger.error(e.message)
