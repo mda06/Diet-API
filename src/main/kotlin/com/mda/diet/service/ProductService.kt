@@ -77,16 +77,20 @@ class ProductService(val repository: ProductRepository, val translationRepositor
 
     fun uploadBatch(uploadFile: MultipartFile): ResponseEntity<Any> {
         if(uploadFile.isEmpty) throw UploadFileException("File is empty")
-        val lang = uploadFile.originalFilename.removeSuffix(".json")
-                .substring(uploadFile.originalFilename.length - 2)
-        println(lang)
-        if(lang != "fr" || lang != "en")
+        val lang: String
+        try {
+            val name = uploadFile.originalFilename.replace(".json", "")
+            lang = name.substring(name.length - 2)
+        } catch(e: Exception) {
+            throw UploadFileException("Please submit file with name xxxxen|fr.json")
+        }
+
+        if(lang != "fr" && lang != "en")
             throw UploadFileException("Please submit products with 'fr' or 'en'")
 
         val mapper = jacksonObjectMapper()
         val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
         products.map { it.toProduct(lang) }
-
 
         return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}" +
                 " with ${products.size} products", HttpStatus.OK)
