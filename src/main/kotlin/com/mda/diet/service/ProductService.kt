@@ -59,8 +59,8 @@ class ProductService(val repository: ProductRepository,
         return try {
             logger.info("Starting job")
             val jobParameters = JobParametersBuilder().addLong("time", System.currentTimeMillis())
+                    .addString("file", "/products/products_fr.json")
                     .toJobParameters()
-            logger.info("Running job")
             jobLauncher.run(job, jobParameters)
             logger.warn("Job done")
             true
