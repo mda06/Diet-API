@@ -9,6 +9,9 @@ import com.mda.diet.error.ProductSortException
 import com.mda.diet.error.UploadFileException
 import com.mda.diet.repository.ProductRepository
 import com.mda.diet.repository.ProductTranslationRepository
+import org.slf4j.LoggerFactory
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.core.io.ClassPathResource
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.data.domain.Pageable
@@ -18,13 +21,21 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.FileNotFoundException
 import javax.transaction.Transactional
+import org.springframework.batch.core.JobParametersBuilder
+import org.springframework.batch.core.JobParameters
+
+
 
 @Service
-class ProductService(val repository: ProductRepository, val translationRepository: ProductTranslationRepository) {
+class ProductService(val repository: ProductRepository,
+                     val translationRepository: ProductTranslationRepository,
+                     val job: Job,
+                     val jobLauncher: JobLauncher) {
 
-    @Transactional
+    val logger = LoggerFactory.getLogger(this.javaClass)!!
+
     fun addBatchProducts(): Boolean {
-        val mapper = jacksonObjectMapper()
+        /*val mapper = jacksonObjectMapper()
         return try {
             val products = mapper.readValue<Array<ProductDto>>(ClassPathResource("/products/products_fr.json").file)
             products.forEach {
@@ -42,6 +53,19 @@ class ProductService(val repository: ProductRepository, val translationRepositor
         } catch(ex: FileNotFoundException) {
             println("Cannot find the products")
             println(ex.message)
+            false
+        }*/
+
+        return try {
+            logger.info("Starting job")
+            val jobParameters = JobParametersBuilder().addLong("time", System.currentTimeMillis())
+                    .toJobParameters()
+            logger.info("Running job")
+            jobLauncher.run(job, jobParameters)
+            logger.warn("Job done")
+            true
+        } catch (e: Exception) {
+            logger.info(e.message)
             false
         }
     }
@@ -75,6 +99,7 @@ class ProductService(val repository: ProductRepository, val translationRepositor
         repository.delete(id)
     }
 
+    @Transactional
     fun uploadBatch(uploadFile: MultipartFile): ResponseEntity<Any> {
         if(uploadFile.isEmpty) throw UploadFileException("File is empty")
         val lang: String
@@ -90,7 +115,7 @@ class ProductService(val repository: ProductRepository, val translationRepositor
 
         val mapper = jacksonObjectMapper()
         val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
-        products.map { it.toProduct(lang) }
+        products.forEach { val prod = it.toProduct(lang); repository.save(prod); }
 
         return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}" +
                 " with ${products.size} products", HttpStatus.OK)
