@@ -7,7 +7,6 @@ import com.mda.diet.error.UploadFileException
 import com.mda.diet.model.Product
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemReader
-import org.springframework.core.io.ClassPathResource
 import java.io.File
 import java.io.FileNotFoundException
 

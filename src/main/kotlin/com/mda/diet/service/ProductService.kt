@@ -15,13 +15,8 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import javax.transaction.Transactional
 import org.springframework.batch.core.JobParametersBuilder
-import org.springframework.core.io.ClassPathResource
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
-
 
 @Service
 class ProductService(val repository: ProductRepository,
@@ -31,6 +26,7 @@ class ProductService(val repository: ProductRepository,
 
     val logger = LoggerFactory.getLogger(this.javaClass)!!
 
+    @Deprecated("Not longer used", ReplaceWith("uploadBatch"))
     fun addBatchProducts(): Boolean {
         /*val mapper = jacksonObjectMapper()
         return try {
@@ -52,19 +48,7 @@ class ProductService(val repository: ProductRepository,
             println(ex.message)
             false
         }*/
-
-        return try {
-            logger.info("Starting job")
-            val jobParameters = JobParametersBuilder().addLong("time", System.currentTimeMillis())
-                    .addString("file", "/products/products_fr.json")
-                    .toJobParameters()
-            jobLauncher.run(job, jobParameters)
-            logger.warn("Job done")
-            true
-        } catch (e: Exception) {
-            logger.info(e.message)
-            false
-        }
+        return false
     }
 
     fun getSize() = repository.count()
@@ -79,11 +63,6 @@ class ProductService(val repository: ProductRepository,
         try {
             translationRepository.findByLanguageAndNameLike(language?: "en",
                     if(name != null) "%$name%" else "%", pageable)
-            /*repository.findByTranslationsLanguageEqualsAndTranslationsNameLike(language?: "en",
-                    if(name != null) "%$name%" else "%", pageable)
-                    .map {
-                        ProductNameDto(it)
-                    }*/
         } catch (ex: InvalidDataAccessApiUsageException) {
             throw ProductSortException("Cannot sort product")
         }
@@ -113,19 +92,19 @@ class ProductService(val repository: ProductRepository,
         try {
             val basePath = System.getProperty("user.dir") + "/products"
             if(!File(basePath).exists()) File(basePath).mkdir()
-            File("$basePath/${uploadFile.originalFilename}").writeBytes(uploadFile.bytes)
+            val fullPath = "$basePath/${uploadFile.originalFilename}"
+            File(fullPath).writeBytes(uploadFile.bytes)
+
+            logger.info("Starting job")
+            val jobParameters = JobParametersBuilder().addLong("time", System.currentTimeMillis())
+                    .addString("file", fullPath)
+                    .toJobParameters()
+            jobLauncher.run(job, jobParameters)
+            return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}", HttpStatus.OK)
         } catch (e: Exception) {
             e.printStackTrace()
             logger.error(e.message)
-            throw UploadFileException("Cannot save the file!")
+            throw UploadFileException("Error while saving the products")
         }
-
-        //Start job
-
-        /*val mapper = jacksonObjectMapper()
-        val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
-        products.forEach { val prod = it.toProduct(lang); repository.save(prod); }*/
-
-        return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}", HttpStatus.OK)
     }
 }
