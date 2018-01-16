@@ -1,9 +1,6 @@
 package com.mda.diet.service
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.mda.diet.dto.ProductDto
-import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.ProductSortException
 import com.mda.diet.error.UploadFileException
@@ -12,18 +9,18 @@ import com.mda.diet.repository.ProductTranslationRepository
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.launch.JobLauncher
-import org.springframework.core.io.ClassPathResource
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import java.io.FileNotFoundException
 import javax.transaction.Transactional
 import org.springframework.batch.core.JobParametersBuilder
-import org.springframework.batch.core.JobParameters
-
+import org.springframework.core.io.ClassPathResource
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 
 @Service
@@ -99,7 +96,6 @@ class ProductService(val repository: ProductRepository,
         repository.delete(id)
     }
 
-    @Transactional
     fun uploadBatch(uploadFile: MultipartFile): ResponseEntity<Any> {
         if(uploadFile.isEmpty) throw UploadFileException("File is empty")
         val lang: String
@@ -113,11 +109,25 @@ class ProductService(val repository: ProductRepository,
         if(lang != "fr" && lang != "en")
             throw UploadFileException("Please submit products with 'fr' or 'en'")
 
-        val mapper = jacksonObjectMapper()
-        val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
-        products.forEach { val prod = it.toProduct(lang); repository.save(prod); }
+        //Save file
+        try {
+            val basePath = System.getProperty("user.dir") + "/products"
+            if(!File(basePath).exists()) File(basePath).mkdir()
+            File("$basePath/${uploadFile.originalFilename}")
+                    .writeText(uploadFile.bytes.toString())
+            //File(System.getProperty("user.dir") + "/products/${uploadFile.originalFilename}").writeBytes(uploadFile.bytes)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            logger.error(e.message)
+            throw UploadFileException("Cannot save the file!")
+        }
 
-        return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}" +
-                " with ${products.size} products", HttpStatus.OK)
+        //Start job
+
+        /*val mapper = jacksonObjectMapper()
+        val products = mapper.readValue<Array<ProductDto>>(uploadFile.inputStream)
+        products.forEach { val prod = it.toProduct(lang); repository.save(prod); }*/
+
+        return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}", HttpStatus.OK)
     }
 }
