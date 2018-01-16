@@ -1,6 +1,7 @@
 package com.mda.diet.batch
 
 import com.mda.diet.model.Product
+import com.mda.diet.repository.ProductRepository
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
@@ -11,7 +12,8 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class ProductBatchConfig(val jobBuilderFactory: JobBuilderFactory,
-                         val stepBuilderFactory: StepBuilderFactory) {
+                         val stepBuilderFactory: StepBuilderFactory,
+                         val repository: ProductRepository) {
     @Bean
     fun job(): Job {
         return jobBuilderFactory.get("job")
@@ -27,7 +29,7 @@ class ProductBatchConfig(val jobBuilderFactory: JobBuilderFactory,
                 .chunk<Product, Product>(100)
                 .reader(ProductReader())
                 //.processor(Processor())
-                .writer(ProductWriter())
+                .writer(ProductWriter(repository))
                 .build()
     }
 }
