@@ -1,6 +1,7 @@
 package com.mda.diet.service
 
 import com.mda.diet.dto.*
+import com.mda.diet.error.CustomerNotFoundException
 import com.mda.diet.model.Admin
 import com.mda.diet.model.Customer
 import com.mda.diet.model.Dietetist
@@ -74,7 +75,8 @@ class AuthenticationService(val repository: CustomerRepository) {
         when(getUser()) {
             is Dietetist -> RoleDto.DIET
             is Admin -> RoleDto.ADMIN
-            else -> RoleDto.PATIENT
+            is Patient -> RoleDto.PATIENT
+            else -> throw CustomerNotFoundException("No customer found with this token")
         }
 
     fun getId() = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString()).id

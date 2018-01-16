@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.batch.core.JobParametersBuilder
+import org.springframework.scheduling.annotation.Async
 import java.io.File
+import java.util.concurrent.CompletableFuture
 
 @Service
 class ProductService(val repository: ProductRepository,
@@ -75,7 +77,8 @@ class ProductService(val repository: ProductRepository,
         repository.delete(id)
     }
 
-    fun uploadBatch(uploadFile: MultipartFile): ResponseEntity<Any> {
+    @Async
+    fun uploadBatch(uploadFile: MultipartFile): CompletableFuture<ResponseEntity<String>> {
         if(uploadFile.isEmpty) throw UploadFileException("File is empty")
         val lang: String
         try {
@@ -100,7 +103,8 @@ class ProductService(val repository: ProductRepository,
                     .addString("file", fullPath)
                     .toJobParameters()
             jobLauncher.run(job, jobParameters)
-            return ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}", HttpStatus.OK)
+            return CompletableFuture.completedFuture(
+                    ResponseEntity("Successfully uploaded ${uploadFile.originalFilename}", HttpStatus.OK))
         } catch (e: Exception) {
             e.printStackTrace()
             logger.error(e.message)
