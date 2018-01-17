@@ -31,5 +31,9 @@ class ApiApplication {
 }
 
 fun main(args: Array<String>) {
+    val environment = "development"
+    System.setProperty("spring.config.name", environment)
+    System.setProperty("spring.profiles.active", environment)
+    println("Started API in $environment")
     SpringApplication.run(ApiApplication::class.java, *args)
 }

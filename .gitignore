@@ -1,6 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 src/main/resources/application.properties
+src/main/resources/prod.properties
 
 ### STS ###
 .apt_generated
@@ -23,3 +24,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/src/main/resources/prod.properties
