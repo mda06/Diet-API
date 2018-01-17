@@ -2,6 +2,7 @@ package com.mda.diet.service
 
 import com.mda.diet.dto.*
 import com.mda.diet.error.CustomerNotFoundException
+import com.mda.diet.error.LoginException
 import com.mda.diet.model.Admin
 import com.mda.diet.model.Customer
 import com.mda.diet.model.Dietetist
@@ -62,7 +63,7 @@ class AuthenticationService(val repository: CustomerRepository) {
         try {
             return rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturnDto::class.java)
         } catch (ex: Throwable) {
-            throw IllegalArgumentException(ex.message)
+            throw LoginException("Cannot connect")
         }
     }
 

@@ -89,4 +89,10 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         val error = ApiError(HttpStatus.NOT_FOUND, ex.localizedMessage)
         return ResponseEntity(error, error.status)
     }
+
+    @ExceptionHandler(LoginException::class)
+    fun handleLoginException(ex: LoginException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.FORBIDDEN, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
 }
