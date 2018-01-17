@@ -19,6 +19,7 @@ import org.springframework.batch.core.JobParametersBuilder
 import org.springframework.scheduling.annotation.Async
 import java.io.File
 import java.util.concurrent.CompletableFuture
+import javax.transaction.Transactional
 
 @Service
 class ProductService(val repository: ProductRepository,
@@ -70,7 +71,9 @@ class ProductService(val repository: ProductRepository,
         }
 
     fun deleteProducts() {
+        logger.info("Deleting products")
         repository.deleteAll()
+        logger.info("All products are deleted")
     }
 
     fun deleteProduct(id: Long) {
