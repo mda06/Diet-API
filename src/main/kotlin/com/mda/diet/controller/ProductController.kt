@@ -1,5 +1,6 @@
 package com.mda.diet.controller
 
+import com.mda.diet.dto.DietFavProduct
 import com.mda.diet.service.ProductService
 import org.springframework.web.bind.annotation.*
 import org.springframework.data.domain.Pageable
@@ -17,6 +18,12 @@ class ProductController(val service: ProductService) {
 
     @GetMapping()
     fun getProducts(pageable: Pageable?, name: String?, lang: String?, diet: Long?) = service.getProducts(pageable, name, lang, diet)
+
+    @PostMapping("/fav/add")
+    fun addProdToFav(@RequestBody fav: DietFavProduct) = service.addProdToFav(fav)
+
+    @PostMapping("/fav/remove")
+    fun removeProdFromFav(@RequestBody fav: DietFavProduct) = service.removeProdFromFav(fav)
 
     @PostMapping("/batch")
     fun addBatchProducts() = service.addBatchProducts()

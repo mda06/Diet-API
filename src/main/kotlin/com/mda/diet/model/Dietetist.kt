@@ -22,5 +22,5 @@ class Dietetist(id: Long = 0,
                         name="diet_fav_products",
                         joinColumns = [(JoinColumn(name = "diet_id"))],
                         inverseJoinColumns = [(JoinColumn(name = "product_id"))])
-                val favoriteProducts: List<Product> = listOf())
+                val favoriteProducts: MutableList<Product> = arrayListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)

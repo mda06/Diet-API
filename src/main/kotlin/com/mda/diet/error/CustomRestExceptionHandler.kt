@@ -95,4 +95,10 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         val error = ApiError(HttpStatus.FORBIDDEN, ex.localizedMessage)
         return ResponseEntity(error, error.status)
     }
+
+    @ExceptionHandler(FavException::class)
+    fun handleFavException(ex: FavException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.FORBIDDEN, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
 }

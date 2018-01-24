@@ -1,9 +1,12 @@
 package com.mda.diet.service
 
+import com.mda.diet.dto.DietFavProduct
 import com.mda.diet.dto.ProductDto
 import com.mda.diet.error.CustomNotFoundException
+import com.mda.diet.error.FavException
 import com.mda.diet.error.ProductSortException
 import com.mda.diet.error.UploadFileException
+import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.ProductRepository
 import com.mda.diet.repository.ProductTranslationRepository
 import org.slf4j.LoggerFactory
@@ -19,11 +22,11 @@ import org.springframework.batch.core.JobParametersBuilder
 import org.springframework.scheduling.annotation.Async
 import java.io.File
 import java.util.concurrent.CompletableFuture
-import javax.transaction.Transactional
 
 @Service
 class ProductService(val repository: ProductRepository,
                      val translationRepository: ProductTranslationRepository,
+                     val dietRepo: DietetistRepository,
                      val job: Job,
                      val jobLauncher: JobLauncher) {
 
@@ -114,4 +117,23 @@ class ProductService(val repository: ProductRepository,
             throw UploadFileException("Error while saving the products")
         }
     }
+
+    fun addProdToFav(fav: DietFavProduct): Any {
+        val diet = dietRepo.findOne(fav.diet_id) ?: throw FavException("No diet exist with id: ${fav.diet_id}")
+        val prod = repository.findOne(fav.prod_id) ?: throw FavException("No product exist with id: ${fav.prod_id}")
+        diet.favoriteProducts.add(prod)
+        prod.dietetists.add(diet)
+        dietRepo.save(diet)
+        return true
+    }
+
+    fun removeProdFromFav(fav: DietFavProduct): Any {
+        val diet = dietRepo.findOne(fav.diet_id) ?: throw FavException("No diet exist with id: ${fav.diet_id}")
+        val prod = repository.findOne(fav.prod_id) ?: throw FavException("No product exist with id: ${fav.prod_id}")
+        diet.favoriteProducts.remove(prod)
+        prod.dietetists.remove(diet)
+        dietRepo.save(diet)
+        return true
+    }
+
 }

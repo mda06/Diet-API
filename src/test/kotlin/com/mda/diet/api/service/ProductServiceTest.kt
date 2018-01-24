@@ -4,6 +4,7 @@ import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Product
 import com.mda.diet.model.ProductTranslation
+import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.ProductRepository
 import com.mda.diet.repository.ProductTranslationRepository
 import com.mda.diet.service.ProductService
@@ -32,6 +33,9 @@ class ProductServiceTest {
 
     @Mock
     var jobLauncher: JobLauncher? = null
+
+    @Mock
+    var dietRepo: DietetistRepository? = null
 
     @InjectMocks
     var service: ProductService? = null
