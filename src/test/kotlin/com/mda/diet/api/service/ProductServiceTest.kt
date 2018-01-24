@@ -12,6 +12,8 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.test.context.junit4.SpringRunner
 import kotlin.test.*
 
@@ -24,6 +26,12 @@ class ProductServiceTest {
 
     @Mock
     var repositoryTranslate: ProductTranslationRepository? = null
+
+    @Mock
+    var job: Job? = null
+
+    @Mock
+    var jobLauncher: JobLauncher? = null
 
     @InjectMocks
     var service: ProductService? = null
