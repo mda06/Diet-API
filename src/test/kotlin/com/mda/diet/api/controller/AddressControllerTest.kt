@@ -24,6 +24,12 @@ import kotlin.test.assertTrue
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AddressControllerTest {
+    init {
+        val environment = "test"
+        System.setProperty("spring.config.name", environment)
+        System.setProperty("spring.profiles.active", environment)
+    }
+
     companion object {
         val headers = HttpHeaders()
         @JvmStatic

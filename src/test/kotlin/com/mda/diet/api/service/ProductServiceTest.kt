@@ -12,6 +12,8 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.test.context.junit4.SpringRunner
 import kotlin.test.*
 
@@ -24,6 +26,12 @@ class ProductServiceTest {
 
     @Mock
     var repositoryTranslate: ProductTranslationRepository? = null
+
+    @Mock
+    var job: Job? = null
+
+    @Mock
+    var jobLauncher: JobLauncher? = null
 
     @InjectMocks
     var service: ProductService? = null
@@ -38,30 +46,30 @@ class ProductServiceTest {
 
     @Test
     fun testGetProductByIdSuccessLanguage() {
-        /*Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(5633, "en"))
+        Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(5633, "en"))
                 .thenReturn(Product(5633)
                         .also { it.translations.add(ProductTranslation(1, "en", "Apricot"))
                             it.translations.add(ProductTranslation(2, "fr", "Abricot"))}
                 )
         val prod = service!!.getProductById(5633, "en")
-        assertEquals("Apricot", prod.name)*/
+        assertEquals("Apricot", prod.name)
     }
 
     @Test
     fun testGetProductByIdFailId() {
-        /*Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(5632, "en"))
+        Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(5632, "en"))
                 .thenReturn(null)
         try {
             service!!.getProductById(5632, "en")
             fail("Whould throw a exception")
         } catch(ex: CustomNotFoundException) {
             assertEquals("Not found product with id 5632", ex.message)
-        }*/
+        }
     }
 
     @Test
     fun testGetProductsSuccessWithoutName() {
-        /*Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("fr", "%", null))
+        Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("fr", "%", null))
                 .thenReturn(org.springframework.data.domain.PageImpl<ProductNameDto>(arrayListOf(
                         ProductNameDto(1, "Lait"),
                         ProductNameDto(2, "Fraise")
@@ -92,7 +100,7 @@ class ProductServiceTest {
         Mockito.`when`(repositoryTranslate!!.findByLanguageAndNameLike("nl", "%", null))
                 .thenReturn(org.springframework.data.domain.PageImpl<ProductNameDto>(arrayListOf()))
         val prods = service!!.getProducts(null, null, "nl")
-        assertEquals(0, prods.numberOfElements)*/
+        assertEquals(0, prods.numberOfElements)
     }
 
 
