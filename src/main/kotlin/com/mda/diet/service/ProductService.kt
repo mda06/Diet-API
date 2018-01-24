@@ -56,13 +56,13 @@ class ProductService(val repository: ProductRepository,
 
     fun getSize() = repository.count()
 
-    fun getProductById(id: Long, language: String?) : ProductDto {
+    fun getProductById(id: Long, language: String?, diet: Long?) : ProductDto {
         val prod = repository.findByIdAndTranslationsLanguageEquals(id, language ?: "en")
                 ?: throw CustomNotFoundException("Not found product with id $id")
-        return ProductDto(prod)
+        return ProductDto(prod, prod.dietetists.stream().anyMatch { it.id == diet })
     }
 
-    fun getProducts(pageable: Pageable?, name: String?, language: String?) =
+    fun getProducts(pageable: Pageable?, name: String?, language: String?, diet: Long?) =
         try {
             translationRepository.findByLanguageAndNameLike(language?: "en",
                     if(name != null) "%$name%" else "%", pageable)

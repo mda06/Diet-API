@@ -13,10 +13,10 @@ class ProductController(val service: ProductService) {
     fun getSizeOfProducts() = service.getSize()
 
     @GetMapping("/{id}")
-    fun getProductById(@PathVariable id: Long, lang: String?) = service.getProductById(id, lang)
+    fun getProductById(@PathVariable id: Long, lang: String?, diet: Long?) = service.getProductById(id, lang, diet)
 
     @GetMapping()
-    fun getProducts(pageable: Pageable?, name: String?, lang: String?) = service.getProducts(pageable, name, lang)
+    fun getProducts(pageable: Pageable?, name: String?, lang: String?, diet: Long?) = service.getProducts(pageable, name, lang, diet)
 
     @PostMapping("/batch")
     fun addBatchProducts() = service.addBatchProducts()
