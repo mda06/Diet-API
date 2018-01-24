@@ -2,6 +2,7 @@ package com.mda.diet.api.service
 
 import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
+import com.mda.diet.model.Dietetist
 import com.mda.diet.model.Product
 import com.mda.diet.model.ProductTranslation
 import com.mda.diet.repository.DietetistRepository
@@ -69,6 +70,30 @@ class ProductServiceTest {
         } catch(ex: CustomNotFoundException) {
             assertEquals("Not found product with id 5632", ex.message)
         }
+    }
+
+    @Test
+    fun testGetProductByIdIsFav() {
+        Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(33, "en"))
+                .thenReturn(Product(33)
+                        .also { it.translations.add(ProductTranslation(1, "en", "Apricot"))
+                            it.dietetists.add(Dietetist(20))
+                            it.dietetists.add(Dietetist(22))}
+                )
+        val prod = service!!.getProductById(33, "en", 20)
+        assertEquals(true, prod.favorite)
+    }
+
+    @Test
+    fun testGetProductByIdIsNotFav() {
+        Mockito.`when`(repository!!.findByIdAndTranslationsLanguageEquals(33, "en"))
+                .thenReturn(Product(33)
+                        .also { it.translations.add(ProductTranslation(1, "en", "Apricot"))
+                            it.dietetists.add(Dietetist(20))
+                            it.dietetists.add(Dietetist(22))}
+                )
+        val prod = service!!.getProductById(33, "en", 21)
+        assertEquals(false, prod.favorite)
     }
 
     @Test
