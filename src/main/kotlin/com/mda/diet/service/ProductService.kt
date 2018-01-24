@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.batch.core.JobParametersBuilder
+import org.springframework.data.domain.Page
 import org.springframework.scheduling.annotation.Async
 import java.io.File
 import java.util.concurrent.CompletableFuture
@@ -65,13 +66,18 @@ class ProductService(val repository: ProductRepository,
         return ProductDto(prod, prod.dietetists.stream().anyMatch { it.id == diet })
     }
 
-    fun getProducts(pageable: Pageable?, name: String?, language: String?, diet: Long? = null) =
+    fun getProducts(pageable: Pageable?, name: String?, language: String?) =
         try {
             translationRepository.findByLanguageAndNameLike(language?: "en",
                     if(name != null) "%$name%" else "%", pageable)
         } catch (ex: InvalidDataAccessApiUsageException) {
             throw ProductSortException("Cannot sort product")
         }
+
+    fun getProductsFromFav(language: String?, diet: Long?, pageable: Pageable?): Page<ProductDto> {
+        val prods = repository.findByDietetistsIdIs(diet ?: 0, pageable)
+        return prods.map { ProductDto(it, true) }
+    }
 
     fun deleteProducts() {
         logger.info("Deleting products")

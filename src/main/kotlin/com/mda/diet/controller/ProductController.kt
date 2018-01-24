@@ -17,7 +17,11 @@ class ProductController(val service: ProductService) {
     fun getProductById(@PathVariable id: Long, lang: String?, diet: Long?) = service.getProductById(id, lang, diet)
 
     @GetMapping()
-    fun getProducts(pageable: Pageable?, name: String?, lang: String?, diet: Long?) = service.getProducts(pageable, name, lang, diet)
+    fun getProducts(pageable: Pageable?, name: String?, lang: String?) = service.getProducts(pageable, name, lang)
+
+    @GetMapping("/fav")
+    fun getProductsFromFav(pageable: Pageable?, lang: String?, dietId: Long?)
+            = service.getProductsFromFav(lang, dietId, pageable)
 
     @PostMapping("/fav/add")
     fun addProdToFav(@RequestBody fav: DietFavProduct) = service.addProdToFav(fav)
