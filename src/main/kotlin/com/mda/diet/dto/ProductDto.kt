@@ -13,11 +13,11 @@ data class ProductDto ( var id: Long = 0,
                         val micros: List<Nutriment> = arrayListOf()) {
 
     constructor(prod: Product, favorite: Boolean) : this(prod.id, prod.imgUrl,
-            prod.translations[0].name,
+            if(prod.translations.size > 0) prod.translations[0].name else "",
             favorite,
-            prod.translations[0].units,
-            prod.translations[0].macros,
-            prod.translations[0].micros)
+            if(prod.translations.size > 0) prod.translations[0].units else arrayListOf(),
+            if(prod.translations.size > 0) prod.translations[0].macros else arrayListOf(),
+            if(prod.translations.size > 0) prod.translations[0].micros else arrayListOf())
 
     fun toProduct(language: String): Product {
         val prod = Product(id, imgUrl, arrayListOf(ProductTranslation(0, language, name, id,
