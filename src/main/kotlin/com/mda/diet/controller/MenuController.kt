@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("$prefix/menu")
 class MenuController(val service: MenuService) {
 
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: Long)
+            = service.getById(id)
+
+    @GetMapping("/patient/{id}")
+    fun getByPatientId(@PathVariable id: Long)
+            = service.getByPatientId(id)
+
     @PostMapping
     fun addMenu(@RequestBody menu: MenuDto)
             = service.addMenu(menu)
