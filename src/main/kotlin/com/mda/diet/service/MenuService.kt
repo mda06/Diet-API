@@ -16,7 +16,7 @@ class MenuService(val repository: MenuRepository,
                   private val patientRepository: PatientRepository,
                   private val productRepository: ProductRepository) {
 
-    fun addMenu(menuDto: MenuDto): Any {
+    fun addMenu(menuDto: MenuDto): MenuDto {
         val patient = patientRepository.findOne(menuDto.patientId)?:
                 throw CustomNotFoundException("No patient exists with id ${menuDto.patientId}")
         val meals = menuDto.meals.map { Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
