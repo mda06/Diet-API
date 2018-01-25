@@ -67,9 +67,9 @@ class AuthenticationService(val repository: CustomerRepository) {
         }
     }
 
-    fun getUser() : Customer {
+    fun getUser() : Any {
         val cust = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
-        return cust
+        return if(cust is Dietetist) DietetistDto(cust) else cust
     }
 
     fun getRole() =
