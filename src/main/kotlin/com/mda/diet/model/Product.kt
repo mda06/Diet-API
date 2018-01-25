@@ -10,4 +10,6 @@ class Product(
         @OneToMany(mappedBy = "productId", cascade = [CascadeType.MERGE], orphanRemoval = true)
         val translations: MutableList<ProductTranslation> = arrayListOf(),
         @ManyToMany(mappedBy = "favoriteProducts")
-        val dietetists: MutableList<Dietetist> = arrayListOf())
+        val dietetists: MutableList<Dietetist> = arrayListOf(),
+        @ManyToMany(mappedBy = "products")
+        val meals: MutableList<Meal> = arrayListOf())

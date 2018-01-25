@@ -2,6 +2,7 @@ package com.mda.diet.service
 
 import com.mda.diet.dto.DietFavProduct
 import com.mda.diet.dto.ProductDto
+import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.FavException
 import com.mda.diet.error.ProductSortException
@@ -74,10 +75,10 @@ class ProductService(val repository: ProductRepository,
             throw ProductSortException("Cannot sort product")
         }
 
-    fun getProductsFromFav(language: String?, diet: Long?, pageable: Pageable?): Page<ProductDto> {
+    fun getProductsFromFav(language: String?, diet: Long?, pageable: Pageable?): Page<ProductNameDto> {
         val prods = repository.findByDietetistsIdIs(diet ?: 0, pageable)
         prods.map { it.translations.removeIf { it.language != language?: "en" } }
-        return prods.map { ProductDto(it, true) }
+        return prods.map { ProductNameDto(it) }
     }
 
     fun deleteProducts() {
