@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.dto.MealDto
 import com.mda.diet.dto.MenuDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Meal
@@ -21,8 +22,12 @@ class MenuService(val repository: MenuRepository,
         val meals = menuDto.meals.map { Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
                 productRepository.findAll(it.productIds) as MutableList<Product>) }
         val menu = Menu(menuDto.id, menuDto.date, meals as MutableList<Meal>, patient)
-
+        meals.forEach { it.menu = menu }
         //Return the dto instead of this menu
-        return repository.save(menu)
+        val saved = repository.save(menu)
+        return MenuDto(saved.id, saved.patient!!.id, saved.date, saved.meals.map {
+            MealDto(it.id, it.name, it.extraInfo, it.score, it.comment,
+                    it.products.map { it.id })
+        })
     }
 }
