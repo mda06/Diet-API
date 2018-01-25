@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.test.context.junit4.SpringRunner
 import java.time.LocalDate
 import kotlin.test.assertEquals
@@ -79,6 +80,19 @@ class MenuServiceTest {
             assertEquals(dto.meals[i].productIds[i], menu.meals[i].productIds[i])
             assertEquals(dto.meals[i].productIds[1], menu.meals[i].productIds[1])
         }
+    }
 
+    @Test
+    fun testDeleteWhenNotExsist() {
+        Mockito.`when`(repository!!.delete(1)).thenThrow(EmptyResultDataAccessException::class.java)
+        try {
+            service!!.deleteMenu(1)
+            fail("Must throw EmptyResultDataAccessException when the menu not exist")
+        } catch(ex: EmptyResultDataAccessException) {}
+    }
+
+    @Test
+    fun testDeleteSuccess() {
+        service!!.deleteMenu(2)
     }
 }
