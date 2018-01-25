@@ -30,4 +30,7 @@ class MenuService(val repository: MenuRepository,
                     it.products.map { it.id })
         })
     }
+
+    fun deleteMenu(id: Long)
+        = repository.delete(id)
 }
