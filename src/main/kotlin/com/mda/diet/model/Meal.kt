@@ -12,7 +12,7 @@ class Meal (
         val comment: String = "",
         @ManyToOne
         @JoinColumn(name = "menu_id")
-        val menu: Menu = Menu(),
+        val menu: Menu? = null,
         @ManyToMany(cascade = [CascadeType.MERGE])
         @JoinTable(
                 name="meal_products",

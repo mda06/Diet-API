@@ -1,5 +1,6 @@
 package com.mda.diet.model
 
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 import java.time.LocalDate
 import javax.persistence.*
 
@@ -7,7 +8,7 @@ import javax.persistence.*
 class Menu (
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long = 0,
-        val name: String = "",
+        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
         val date: LocalDate? = null,
         @OneToMany(mappedBy = "menu", cascade = [(CascadeType.ALL)])
         var meals: MutableList<Meal> = arrayListOf(),
