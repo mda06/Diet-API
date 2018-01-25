@@ -74,7 +74,7 @@ class AuthenticationService(val repository: CustomerRepository) {
 
     fun getRole() =
         when(getUser()) {
-            is Dietetist -> RoleDto.DIET
+            is DietetistDto -> RoleDto.DIET
             is Admin -> RoleDto.ADMIN
             is Patient -> RoleDto.PATIENT
             else -> throw CustomerNotFoundException("No customer found with this token")
