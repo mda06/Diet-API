@@ -24,11 +24,9 @@ class MenuService(val repository: MenuRepository,
     fun addMenu(menuDto: MenuDto): MenuDto {
         val patient = patientRepository.findOne(menuDto.patientId)?:
                 throw CustomNotFoundException("No patient exists with id ${menuDto.patientId}")
-        println(menuDto)
         val meals = menuDto.meals.map {
             Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
                 it.mealProducts.map {
-                    println("-${it.productId}")
                     try {
                         MealProduct(null, productRepository.findOne(it.productId), it.quantity)
                     } catch(ex: IllegalStateException) {
@@ -44,7 +42,7 @@ class MenuService(val repository: MenuRepository,
 
         val menu = Menu(menuDto.id, menuDto.date, meals.toMutableList(), patient)
         meals.forEach { it.menu = menu }
-        return MenuDto(repository.save(menu))
+        return  MenuDto(repository.save(menu))
     }
 
     fun deleteMenu(id: Long)

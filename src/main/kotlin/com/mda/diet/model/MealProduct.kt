@@ -11,9 +11,9 @@ class MealProduct(
         @Id
         @ManyToOne
         @JoinColumn(name = "meal_id")
-        var meal: Meal?,
+        var meal: Meal? = null,
         @Id
         @ManyToOne
         @JoinColumn(name = "product_id")
-        val product: Product,
-        val quantity: Int): Serializable
+        val product: Product = Product(),
+        val quantity: Int = 0): Serializable

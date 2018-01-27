@@ -1,6 +1,7 @@
 package com.mda.diet.error
 
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.http.HttpHeaders
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import org.springframework.http.HttpStatus
@@ -106,6 +107,12 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler(EmptyResultDataAccessException::class)
     fun handleEmptyResultDataAccessException(ex: EmptyResultDataAccessException): ResponseEntity<Any> {
         val error = ApiError(HttpStatus.FORBIDDEN, ex.localizedMessage)
+        return ResponseEntity(error, error.status)
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException::class)
+    fun handleInvalidDataAccessApiUsageException(ex: InvalidDataAccessApiUsageException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.BAD_REQUEST, ex.localizedMessage, ex.message?: "")
         return ResponseEntity(error, error.status)
     }
 }

@@ -11,5 +11,5 @@ class Product(
         val translations: MutableList<ProductTranslation> = arrayListOf(),
         @ManyToMany(mappedBy = "favoriteProducts")
         val dietetists: MutableList<Dietetist> = arrayListOf(),
-        @OneToMany(mappedBy = "product")
+        @OneToMany(mappedBy = "product", cascade = [(CascadeType.ALL)], orphanRemoval = true)
         val mealProducts: MutableList<MealProduct> = arrayListOf())
