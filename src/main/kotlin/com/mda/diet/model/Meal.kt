@@ -13,9 +13,5 @@ class Meal (
         @ManyToOne
         @JoinColumn(name = "menu_id")
         var menu: Menu? = null,
-        @ManyToMany(cascade = [CascadeType.MERGE])
-        @JoinTable(
-                name="meal_products",
-                joinColumns = [(JoinColumn(name = "meal_id"))],
-                inverseJoinColumns = [(JoinColumn(name = "product_id"))])
-        val products:  MutableList<Product> = arrayListOf())
+        @OneToMany(mappedBy = "meal", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+        val mealProducts: MutableList<MealProduct> = arrayListOf())

@@ -3,8 +3,8 @@ package com.mda.diet.service
 import com.mda.diet.dto.MenuDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Meal
+import com.mda.diet.model.MealProduct
 import com.mda.diet.model.Menu
-import com.mda.diet.model.Product
 import com.mda.diet.repository.MenuRepository
 import com.mda.diet.repository.PatientRepository
 import com.mda.diet.repository.ProductRepository
@@ -24,9 +24,25 @@ class MenuService(val repository: MenuRepository,
     fun addMenu(menuDto: MenuDto): MenuDto {
         val patient = patientRepository.findOne(menuDto.patientId)?:
                 throw CustomNotFoundException("No patient exists with id ${menuDto.patientId}")
-        val meals = menuDto.meals.map { Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
-                productRepository.findAll(it.productIds) as MutableList<Product>) }
-        val menu = Menu(menuDto.id, menuDto.date, meals as MutableList<Meal>, patient)
+        println(menuDto)
+        val meals = menuDto.meals.map {
+            Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
+                it.mealProducts.map {
+                    println("-${it.productId}")
+                    try {
+                        MealProduct(null, productRepository.findOne(it.productId), it.quantity)
+                    } catch(ex: IllegalStateException) {
+                        throw CustomNotFoundException("No product exists with id ${it.productId}")
+                    }
+                }.toMutableList())
+        }
+
+        meals.forEach {
+            val meal = it
+            it.mealProducts.forEach { it.meal = meal }
+        }
+
+        val menu = Menu(menuDto.id, menuDto.date, meals.toMutableList(), patient)
         meals.forEach { it.menu = menu }
         return MenuDto(repository.save(menu))
     }
