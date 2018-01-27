@@ -10,5 +10,5 @@ data class MealDto(val id: Long = 0,
                    val comment: String = "",
                    val mealProducts:  List<MealProductDto> = listOf()) {
     constructor(meal: Meal, menuId: Long): this(meal.id, menuId, meal.name, meal.extraInfo, meal.score, meal.comment,
-            meal.mealProducts.map { MealProductDto(it.quantity, it.product!!.id) })
+            meal.mealProducts.map { MealProductDto(it.id, it.quantity, it.product!!.id) })
 }

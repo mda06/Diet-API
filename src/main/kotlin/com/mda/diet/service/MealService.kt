@@ -24,7 +24,7 @@ class MealService(val repository: MealRepository,
             meal.mealProducts = dto.mealProducts.map {
                 val prod = productRepository.findOne(it.productId)
                         ?: throw CustomNotFoundException("No product exists with id ${it.productId}")
-                MealProduct(0, null, prod, it.quantity)
+                MealProduct(it.id, null, prod, it.quantity)
             }.toMutableList()
         /*} else {
             //Take the ohters meal products if it's an update
