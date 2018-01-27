@@ -68,11 +68,11 @@ class MenuServiceTest {
         Mockito.`when`(repository!!.save(Mockito.any<Menu>()))
                 .thenReturn(Menu(1, dto.date, arrayListOf(
                         Meal(1, "Breakfast", "Don't use to much oil", 0, "",null,
-                                arrayListOf(MealProduct(null, Product(1), 150),
-                                        MealProduct(null, Product(2), 200))),
+                                arrayListOf(MealProduct(0, null, Product(1), 150),
+                                        MealProduct(0, null, Product(2), 200))),
                         Meal(2, "Diner", "Chicken not burned", 0, "",null,
-                                arrayListOf(MealProduct(null, Product(3), 50),
-                                        MealProduct(null, Product(4), 300)))
+                                arrayListOf(MealProduct(0, null, Product(3), 50),
+                                        MealProduct(0, null, Product(4), 300)))
                 ), Patient(dto.patientId)))
         val menu = service!!.addMenu(dto)
         assertEquals(1, menu.id)

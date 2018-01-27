@@ -28,7 +28,7 @@ class MenuService(val repository: MenuRepository,
             Meal(it.id, it.name, it.extraInfo, it.score, it.comment, null,
                 it.mealProducts.map {
                     try {
-                        MealProduct(null, productRepository.findOne(it.productId), it.quantity)
+                        MealProduct(0, null, productRepository.findOne(it.productId), it.quantity)
                     } catch(ex: IllegalStateException) {
                         throw CustomNotFoundException("No product exists with id ${it.productId}")
                     }
