@@ -16,6 +16,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.test.context.junit4.SpringRunner
 import java.time.LocalDate
 import kotlin.test.assertEquals
@@ -90,6 +91,25 @@ class MenuServiceTest {
             }
 
         }
+    }
+
+    @Test
+    fun testAddMenuProductDontExist() {
+        val dto = MenuDto(0, 1, LocalDate.of(2018, 1, 25), listOf(
+                MealDto(0, "Breakfast", "Don't use to much oil", 0, "",
+                        listOf(MealProductDto(150, 1), MealProductDto(200, 2))),
+                MealDto(0, "Diner", "Chicken not burned", 0, "",
+                        listOf(MealProductDto(50, 3), MealProductDto(300, 4)))
+        ))
+        Mockito.`when`(patientRepo!!.findOne(Mockito.any())).thenAnswer {
+            Patient(it.getArgumentAt(0, Long::class.java))
+        }
+
+        Mockito.`when`(productRepo!!.findOne(1)).thenThrow(InvalidDataAccessApiUsageException::class.java)
+        try {
+            service!!.addMenu(dto)
+            fail("Must throw InvalidDataAccessApiUsageException when the patient not exist")
+        } catch(ex: InvalidDataAccessApiUsageException) {}
     }
 
     @Test
