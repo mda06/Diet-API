@@ -13,5 +13,5 @@ class Meal (
         @ManyToOne
         @JoinColumn(name = "menu_id")
         var menu: Menu? = null,
-        @OneToMany(mappedBy = "meal", cascade = [(CascadeType.ALL)], orphanRemoval = true)
-        val mealProducts: MutableList<MealProduct> = arrayListOf())
+        @OneToMany(mappedBy = "meal", cascade = [CascadeType.ALL], orphanRemoval = true)
+        var mealProducts: MutableList<MealProduct> = arrayListOf())

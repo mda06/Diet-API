@@ -53,9 +53,9 @@ class MenuServiceTest {
     @Test
     fun testAddMenuSuccess() {
         val dto = MenuDto(0, 1, LocalDate.of(2018, 1, 25), listOf(
-                MealDto(0, "Breakfast", "Don't use to much oil", 0, "",
+                MealDto(0, 0, "Breakfast", "Don't use to much oil", 0, "",
                         listOf(MealProductDto(150, 1), MealProductDto(200, 2))),
-                MealDto(0, "Diner", "Chicken not burned", 0, "",
+                MealDto(0, 0, "Diner", "Chicken not burned", 0, "",
                         listOf(MealProductDto(50, 3), MealProductDto(300, 4)))
         ))
         Mockito.`when`(patientRepo!!.findOne(Mockito.any())).thenAnswer {
@@ -96,9 +96,9 @@ class MenuServiceTest {
     @Test
     fun testAddMenuProductDontExist() {
         val dto = MenuDto(0, 1, LocalDate.of(2018, 1, 25), listOf(
-                MealDto(0, "Breakfast", "Don't use to much oil", 0, "",
+                MealDto(0, 0, "Breakfast", "Don't use to much oil", 0, "",
                         listOf(MealProductDto(150, 1), MealProductDto(200, 2))),
-                MealDto(0, "Diner", "Chicken not burned", 0, "",
+                MealDto(0, 0, "Diner", "Chicken not burned", 0, "",
                         listOf(MealProductDto(50, 3), MealProductDto(300, 4)))
         ))
         Mockito.`when`(patientRepo!!.findOne(Mockito.any())).thenAnswer {
