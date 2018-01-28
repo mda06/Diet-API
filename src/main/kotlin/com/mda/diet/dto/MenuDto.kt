@@ -12,5 +12,5 @@ data class MenuDto(val id: Long = 0,
                    val meals: List<MealDto> = listOf()) {
 
     constructor(menu: Menu): this(menu.id, menu.patient!!.id, menu.date,
-            menu.meals.map { MealDto(it, menu.id) })
+            menu.meals.map { MealDto(it) })
 }
