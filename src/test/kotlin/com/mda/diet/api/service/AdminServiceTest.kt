@@ -17,6 +17,11 @@ import kotlin.test.*
 @RunWith(SpringRunner::class)
 class AdminServiceTest {
 
+    init {
+        System.setProperty("spring.config.name", "test")
+        System.setProperty("spring.profiles.active", "test")
+    }
+
     @Mock
     var repository: AdminRepository? = null
 

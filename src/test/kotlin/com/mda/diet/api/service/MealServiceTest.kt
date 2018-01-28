@@ -28,6 +28,11 @@ import kotlin.test.fail
 @RunWith(SpringRunner::class)
 class MealServiceTest {
 
+    init {
+        System.setProperty("spring.config.name", "test")
+        System.setProperty("spring.profiles.active", "test")
+    }
+
     @Mock
     var repository: MealRepository? = null
 

@@ -21,6 +21,11 @@ import kotlin.test.*
 @RunWith(SpringRunner::class)
 class PatientServiceTest {
 
+    init {
+        System.setProperty("spring.config.name", "test")
+        System.setProperty("spring.profiles.active", "test")
+    }
+
     @Mock
     var repository: PatientRepository? = null
 

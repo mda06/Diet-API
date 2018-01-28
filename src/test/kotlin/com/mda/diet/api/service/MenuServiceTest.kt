@@ -26,6 +26,11 @@ import kotlin.test.fail
 @RunWith(SpringRunner::class)
 class MenuServiceTest {
 
+    init {
+        System.setProperty("spring.config.name", "test")
+        System.setProperty("spring.profiles.active", "test")
+    }
+
     @Mock
     var repository: MenuRepository? = null
 

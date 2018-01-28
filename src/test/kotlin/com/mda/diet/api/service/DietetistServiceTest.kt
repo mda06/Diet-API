@@ -20,6 +20,11 @@ import kotlin.test.*
 @RunWith(SpringRunner::class)
 class DietetistServiceTest {
 
+    init {
+        System.setProperty("spring.config.name", "test")
+        System.setProperty("spring.profiles.active", "test")
+    }
+
     @Mock
     var repository: DietetistRepository? = null
 
