@@ -1,5 +1,6 @@
 package com.mda.diet.service
 
+import com.mda.diet.dto.MenuDateDto
 import com.mda.diet.dto.MenuDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Meal
@@ -47,4 +48,7 @@ class MenuService(val repository: MenuRepository,
 
     fun deleteMenu(id: Long)
         = repository.delete(id)
+
+    fun getByDate(month: Int, year: Int, patientId: Long)
+        = repository.findByDate(month, year, patientId).map { MenuDateDto(it) }
 }
