@@ -130,4 +130,39 @@ class MenuServiceTest {
     fun testDeleteSuccess() {
         service!!.deleteMenu(2)
     }
+
+    @Test
+    fun testGetByDateWhenPatientNotExist() {
+        Mockito.`when`(repository!!.findByDateAndPatientIdIs(LocalDate.of(2018, 2, 4), 5))
+                .thenReturn(null)
+        try {
+            service!!.getByDate(LocalDate.of(2018, 2, 4), 5)
+            fail("Must throw CustomNotFoundException when the patient not exist")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("Not found menu with date 2018-02-04 for patient 5", ex.message)
+        }
+    }
+
+    @Test
+    fun testGetByDateWhenDateNotExist() {
+        Mockito.`when`(repository!!.findByDateAndPatientIdIs(LocalDate.of(2018, 2, 4), 10))
+                .thenReturn(null)
+        try {
+            service!!.getByDate(LocalDate.of(2018, 2, 4), 10)
+            fail("Must throw CustomNotFoundException when the patient not exist")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("Not found menu with date 2018-02-04 for patient 10", ex.message)
+        }
+    }
+
+    @Test
+    fun testGetByDateSuccess() {
+        Mockito.`when`(repository!!.findByDateAndPatientIdIs(LocalDate.of(2018, 2, 22), 8))
+                .thenReturn(Menu(0, LocalDate.of(2018, 2, 22), mutableListOf(), Patient(8)))
+        val menu = service!!.getByDate(LocalDate.of(2018, 2, 22), 8)
+        assertEquals(8, menu.patientId)
+        assertEquals(2018, menu.date!!.year)
+        assertEquals(2, menu.date!!.monthValue)
+        assertEquals(22, menu.date!!.dayOfMonth)
+    }
 }

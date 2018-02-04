@@ -10,6 +10,7 @@ import com.mda.diet.repository.MenuRepository
 import com.mda.diet.repository.PatientRepository
 import com.mda.diet.repository.ProductRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class MenuService(val repository: MenuRepository,
@@ -51,4 +52,8 @@ class MenuService(val repository: MenuRepository,
 
     fun getByDate(month: Int, year: Int, patientId: Long)
         = repository.findByDate(month, year, patientId).map { MenuDateDto(it) }
+
+    fun getByDate(date: LocalDate, id: Long)
+        = MenuDto(repository.findByDateAndPatientIdIs(date, id) ?:
+                throw CustomNotFoundException("Not found menu with date $date for patient $id"))
 }
