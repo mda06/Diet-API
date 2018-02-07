@@ -1,9 +1,13 @@
 package com.mda.diet.service
 
+import com.mda.diet.dto.DietFavProduct
 import com.mda.diet.dto.ProductDto
+import com.mda.diet.dto.ProductNameDto
 import com.mda.diet.error.CustomNotFoundException
+import com.mda.diet.error.FavException
 import com.mda.diet.error.ProductSortException
 import com.mda.diet.error.UploadFileException
+import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.ProductRepository
 import com.mda.diet.repository.ProductTranslationRepository
 import org.slf4j.LoggerFactory
@@ -16,14 +20,15 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.batch.core.JobParametersBuilder
+import org.springframework.data.domain.Page
 import org.springframework.scheduling.annotation.Async
 import java.io.File
 import java.util.concurrent.CompletableFuture
-import javax.transaction.Transactional
 
 @Service
 class ProductService(val repository: ProductRepository,
                      val translationRepository: ProductTranslationRepository,
+                     val dietRepo: DietetistRepository,
                      val job: Job,
                      val jobLauncher: JobLauncher) {
 
@@ -56,10 +61,10 @@ class ProductService(val repository: ProductRepository,
 
     fun getSize() = repository.count()
 
-    fun getProductById(id: Long, language: String?) : ProductDto {
+    fun getProductById(id: Long, language: String?, diet: Long? = null) : ProductDto {
         val prod = repository.findByIdAndTranslationsLanguageEquals(id, language ?: "en")
                 ?: throw CustomNotFoundException("Not found product with id $id")
-        return ProductDto(prod)
+        return ProductDto(prod, prod.dietetists.stream().anyMatch { it.id == diet })
     }
 
     fun getProducts(pageable: Pageable?, name: String?, language: String?) =
@@ -69,6 +74,12 @@ class ProductService(val repository: ProductRepository,
         } catch (ex: InvalidDataAccessApiUsageException) {
             throw ProductSortException("Cannot sort product")
         }
+
+    fun getProductsFromFav(language: String?, diet: Long?, pageable: Pageable?): Page<ProductNameDto> {
+        val prods = repository.findByDietetistsIdIs(diet ?: 0, pageable)
+        prods.map { it.translations.removeIf { it.language != language?: "en" } }
+        return prods.map { ProductNameDto(it) }
+    }
 
     fun deleteProducts() {
         logger.info("Deleting products")
@@ -114,4 +125,23 @@ class ProductService(val repository: ProductRepository,
             throw UploadFileException("Error while saving the products")
         }
     }
+
+    fun addProdToFav(fav: DietFavProduct): Any {
+        val diet = dietRepo.findOne(fav.diet_id) ?: throw FavException("No diet exist with id: ${fav.diet_id}")
+        val prod = repository.findOne(fav.prod_id) ?: throw FavException("No product exist with id: ${fav.prod_id}")
+        diet.favoriteProducts.add(prod)
+        prod.dietetists.add(diet)
+        dietRepo.save(diet)
+        return true
+    }
+
+    fun removeProdFromFav(fav: DietFavProduct): Any {
+        val diet = dietRepo.findOne(fav.diet_id) ?: throw FavException("No diet exist with id: ${fav.diet_id}")
+        val prod = repository.findOne(fav.prod_id) ?: throw FavException("No product exist with id: ${fav.prod_id}")
+        diet.favoriteProducts.remove(prod)
+        prod.dietetists.remove(diet)
+        dietRepo.save(diet)
+        return true
+    }
+
 }

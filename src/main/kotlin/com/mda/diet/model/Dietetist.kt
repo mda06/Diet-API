@@ -1,9 +1,7 @@
 package com.mda.diet.model
 
 import java.time.LocalDate
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity
 class Dietetist(id: Long = 0,
@@ -18,5 +16,11 @@ class Dietetist(id: Long = 0,
                 birthday: LocalDate? = null,
                 var vat: String = "",
                 @OneToMany(mappedBy = "dietetistId", cascade = [(CascadeType.ALL)])
-                var patients: MutableList<Patient> = arrayListOf())
+                var patients: MutableList<Patient> = arrayListOf(),
+                @ManyToMany(cascade = [CascadeType.MERGE])
+                @JoinTable(
+                        name="diet_fav_products",
+                        joinColumns = [(JoinColumn(name = "diet_id"))],
+                        inverseJoinColumns = [(JoinColumn(name = "product_id"))])
+                val favoriteProducts: MutableList<Product> = arrayListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)

@@ -10,16 +10,21 @@ INSERT INTO address(id, city, country, number, postcode, street) VALUES (9, 'Ant
 INSERT INTO address(id, city, country, number, postcode, street) VALUES (10, 'Wemmel', 'Belgium', '81', 4320, 'Rue limbourg');
 INSERT INTO address(id, city, country, number, postcode, street) VALUES (11, 'Bxl', 'Belgium', '108', 1080, 'Rue des 4 vents');
 INSERT INTO address(id, city, country, number, postcode, street) VALUES (12, 'Anderlecht', 'Belgium', '98', 1070, 'Place Lids');
+INSERT INTO address(id, city, country, number, postcode, street) VALUES (13, 'Antwerpen', 'Belgium', '7', 9980, 'Vlaamse straat');
 
 
 INSERT INTO customer(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender, auth_id)
 VALUES('Dietetist', 4, 'momo@diet.com', 'Momo', 'Cop', '', '0', '1234 567 890', '', '', 4,
-       NULL, '2017-10-17', '1990-04-11', 'F', 'auth0|5a38dd838d3cea7aad40e5ad ');
+       NULL, '2017-10-17', '1990-04-11', 'F', 'auth0|5a38dd838d3cea7aad40e5ad');
 INSERT INTO customer(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender, auth_id)
 VALUES('Admin', 5, 'mda@admin.com', 'MDA', 'VM', 'Boss', '0', '0987 654 321', '', 'YOLO', 5,
-       NULL, '2017-04-25', '1991-11-09', 'M', 'auth0|5a40f484f23f0e11d1592eda ');
+       NULL, '2017-04-25', '1991-11-09', 'M', 'auth0|5a40f484f23f0e11d1592eda');
+INSERT INTO customer(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
+                     dietetist_id, created, birthday, gender, auth_id)
+VALUES('Dietetist', 13, 'mika@diet.com', 'Mika', 'VM', '', '0', '3563 532 533', '', '', 13,
+       NULL, '2018-1-25', '1992-04-11', 'M', 'auth0|5a69cd002411cb26982e6989');
 
 INSERT INTO customer(dtype, id, email, first_name, last_name, middle_name, phone, vat, extra_info, nickname, adr_id,
                      dietetist_id, created, birthday, gender, auth_id)

@@ -7,9 +7,9 @@ import javax.persistence.*
 
 
 @Entity
-@JsonIdentityInfo(
+/*@JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator::class,
-        property = "id")
+        property = "id")*/
 class AnthropometricParameter(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Long = 0,
