@@ -1,0 +1,143 @@
+{
+  "LOGIN": {
+    "USERNAME": "Nom de compte",
+    "USERNAME_PLACEHOLDER": "Entrer nom de compte",
+    "PASSWORD": "Mot de passe",
+    "USERNAME_PASSWORD": "Entrer le mot de passe",
+    "REMEMBER": "Se souvenir de moi",
+    "LOGIN": "Connecter",
+    "CANCEL": "Annuler",
+    "FORGET_PASSWORD": "Mot de passe oublié ?",
+    "CANNOT_CONNECT": "Imposible de se connecter !"
+  },
+  "NAV": {
+    "ADMIN": {
+      "DASHBOARD": "Tableau de bord",
+      "FOOD": "Produits"
+    },
+    "MENU": {
+      "TITLE": "Menu",
+      "ADD": "Ajouter",
+      "LIST": "List"
+    },
+    "FOOD_SEARCH": "Chercher des produits",
+    "ABOUT_PATIENT": "À propos du patient",
+    "SELECT_PATIENT": "Selectionner patient",
+    "DASHBOARD": "Tableau de bord",
+    "LOG_OUT": "Déconnection"
+  },
+  "DIET": {
+    "SELECT": {
+      "TITLE": "Selectionner un patient",
+      "SEARCH": "Chercher un patient",
+      "SEARCH_PLACEHOLDER": "nom",
+      "PAGES": "Pages",
+      "ADD": "Ajouter un patient",
+      "SELECT": "Selectionner"
+    },
+    "DASHBOARD": {
+      "TITLE": "Tableau de bord de ",
+      "SELECTED": "Patient selectionner: ",
+      "CREATED": "Crée le ",
+      "YEARS_OLD": " ans"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Selectionner un patient avant",
+      "META_DATA": "Meta data",
+      "FIRST_NAME": "Prénom",
+      "MIDDLE_NAME": "2ème nom",
+      "LAST_NAME": "Nom de famille",
+      "EMAIL": "Email",
+      "PHONE": "Téléphone",
+      "BIRTHDAY": "Naissance",
+      "GENDER": {
+        "TITLE": "Sexe",
+        "OTHER": "Autre",
+        "MALE": "Homme",
+        "FEMALE": "Femme"
+      },
+      "EXTRA_INFO": "Info extra",
+      "SAVE": "Sauvegarder",
+      "RETURN": "Retour",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Le patient a été modifié sans être sauvegardé",
+      "CANCEL": "Annuler",
+      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
+      "ADDRESS": {
+        "STREET": "Rue",
+        "NUMBER": "Numéro",
+        "POSTCODE": "Code postale",
+        "CITY": "Ville",
+        "COUNTRY": "Pays",
+        "TOGGLE": "Ouvrire/Fermer addresse"
+      },
+      "PARAMS": {
+        "TITLE": "Paramètres anthropometriques",
+        "LENGTH": "Taille (cm)",
+        "WEIGHT": "Poids (kg)",
+        "BODY_FAT": "Graisse",
+        "WAIST": "Taille aux hanches (cm)",
+        "ADD": "Ajouter"
+      },
+      "ALERT": {
+        "SAVING": "En train de sauvergarder ",
+        "SAVED": "Sauvegarder ",
+        "ERROR": "Erreur pas possible de sauvegarder "
+      }
+    }
+  },
+  "FOOD": {
+    "SEARCH": {
+      "NOT_SELECTED": "Selectionner un produit",
+      "TITLE": "Chercher un produit",
+      "NAME": "Nom: ",
+      "NAME_PLACEHOLDER": "nom",
+      "SIZE": "Nombre de produits par page: ",
+      "PRODUCTS": "Produits",
+      "SEARCHING": "Chercher...",
+      "ERROR_SEARCHING": "Erreur pendant la recherche !",
+      "EMPTY": "Pas de produits trouvé",
+      "UNITS": "Unités",
+      "MACROS": "Macros",
+      "MICROS": "Micros",
+      "NO_IMG": "Pas d'image"
+    },
+    "FAV": {
+      "ONLY": "Seulement les favoris"
+    }
+  },
+  "ADMIN": {
+    "UPLOAD": {
+      "DONE": "Enregistrement fait",
+      "ERROR": "Erreur pendant l'enregistrement"
+    },
+    "DELETE" : {
+      "WARNING": "Vous êtes sur le point de supprimer un produit définitivement",
+      "ATTENTION": "Attention !",
+      "CANCEL": "Annuler",
+      "CONFIRM": "Supprimer quand même"
+    },
+    "PURGE" : {
+      "CHECK": "Je veux purger la base de données des produits",
+      "TITLE": "Danger !",
+      "BODY": "Vous êtes sur le point de supprimer toute la base de données des produits !",
+      "CANCEL": "Annuler",
+      "CONFIRM": "Je suis sûr",
+      "DELELTE": "En train de purger la base de données des produits",
+      "DELETED": "La base de données des produits a éte supprimé",
+      "ERROR_DELETE": "Erreur pendant la purge des produits"
+    },
+    "PRODUCT": {
+      "SEARCHING": "En train de chercher le produit...",
+      "NOT_FOUND": "Produit non trouvé !",
+      "DEL_ID": "ID du produit à supprimer: ",
+      "ERROR_DELETE": "Erreur pendant la suppression du produit",
+      "DELETE": "Supprimer",
+      "DELETED": "Produit a éte supprimé",
+      "PURGE": "Purger la base de données des produits",
+      "SIZE": "Il y a {{size}} produits dans la base de données actuellement",
+      "UPLOAD": "Enregistrer d'autres produits",
+      "SAVE": "Sauvegarder"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "LOGIN": {
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Enter username",
+    "PASSWORD": "Password",
+    "USERNAME_PASSWORD": "Enter password",
+    "REMEMBER": "Remember me",
+    "LOGIN": "Login",
+    "CANCEL": "Cancel",
+    "FORGET_PASSWORD": "Forgot password?",
+    "CANNOT_CONNECT": "Cannot connect !"
+  },
+  "NAV": {
+    "ADMIN": {
+      "DASHBOARD": "Dashboard",
+      "FOOD": "Products"
+    },
+    "MENU": {
+      "TITLE": "Menu",
+      "ADD": "Add",
+      "LIST": "List"
+    },
+    "FOOD_SEARCH": "Search food",
+    "ABOUT_PATIENT": "About patient",
+    "SELECT_PATIENT": "Select patient",
+    "DASHBOARD": "Dashboard",
+    "LOG_OUT": "Log out"
+  },
+  "DIET": {
+    "SELECT": {
+      "TITLE": "Select a patient",
+      "SEARCH": "Search for a patient",
+      "SEARCH_PLACEHOLDER": "name",
+      "PAGES": "Pages",
+      "ADD": "Add new patient",
+      "SELECT": "Select"
+    },
+    "DASHBOARD": {
+      "TITLE": "Dashboard of ",
+      "SELECTED": "Patient selected: ",
+      "CREATED": "Created at ",
+      "YEARS_OLD": " years old"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Please select first a patient",
+      "META_DATA": "Meta data",
+      "FIRST_NAME": "First name",
+      "MIDDLE_NAME": "Middle name",
+      "LAST_NAME": "Last name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "BIRTHDAY": "Birthday",
+      "GENDER": {
+        "TITLE": "Gender",
+        "OTHER": "Other",
+        "MALE": "Man",
+        "FEMALE": "Woman"
+      },
+      "EXTRA_INFO": "Extra info",
+      "SAVE": "Save",
+      "RETURN": "Return",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Patient data has been modified without saving it",
+      "CANCEL": "Cancel",
+      "RETURN_WITHOUT_SAVING": "Return without saving",
+      "ADDRESS": {
+        "STREET": "Street",
+        "NUMBER": "Number",
+        "POSTCODE": "Postcode",
+        "CITY": "City",
+        "COUNTRY": "Country",
+        "TOGGLE": "Toggle address"
+      },
+      "PARAMS": {
+        "TITLE": "Anthropometric parameters",
+        "LENGTH": "Length (cm)",
+        "WEIGHT": "Weight (kg)",
+        "BODY_FAT": "Body fat",
+        "WAIST": "Waist circumference (cm)",
+        "ADD": "Add"
+      },
+      "ALERT": {
+        "SAVING": "Saving ",
+        "SAVED": "Saved ",
+        "ERROR": "Error cannot save "
+      }
+    }
+  },
+  "FOOD": {
+    "SEARCH": {
+      "NOT_SELECTED": "Select a product",
+      "TITLE": "Search products",
+      "NAME": "Name: ",
+      "NAME_PLACEHOLDER": "name",
+      "SIZE": "Size per page: ",
+      "PRODUCTS": "Products",
+      "SEARCHING": "Searching...",
+      "ERROR_SEARCHING": "Error while searching !",
+      "EMPTY": "No products found",
+      "UNITS": "Units",
+      "MACROS": "Macros",
+      "MICROS": "Micros",
+      "NO_IMG": "No image"
+    },
+    "FAV": {
+      "ONLY": "Only favourites"
+    }
+  },
+  "ADMIN": {
+    "UPLOAD": {
+      "DONE": "Uploaded done",
+      "ERROR": "Error while uploading"
+    },
+    "DELETE" : {
+      "WARNING": "Your deleting definitely a product",
+      "ATTENTION": "Attention !",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Delete anyway"
+    },
+    "PURGE" : {
+      "CHECK": "I want to purge the products database",
+      "TITLE": "Danger !",
+      "BODY": "You're purging the hole product database !",
+      "CANCEL": "Cancel",
+      "CONFIRM": "I'm sure that i want to delete it !",
+      "DELETE": "Purging the products database",
+      "DELETED": "Products database has been deleted",
+      "ERROR_DELETE": "Error while purging product"
+    },
+    "PRODUCT": {
+      "SEARCHING": "Searching product...",
+      "NOT_FOUND": "Product not found !",
+      "DEL_ID": "ID of product to remove: ",
+      "ERROR_DELETE": "Error while deleting product",
+      "DELETE": "Delete",
+      "DELETED": "Product has been deleted",
+      "PURGE": "Purge the database of products",
+      "SIZE": "Actually number of product in the database: {{size}}",
+      "UPLOAD": "Upload new products to the database",
+      "SAVE": "Save"
+    }
+  }
+}
