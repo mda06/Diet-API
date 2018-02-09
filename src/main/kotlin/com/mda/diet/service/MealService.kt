@@ -4,6 +4,7 @@ import com.mda.diet.dto.MealDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Meal
 import com.mda.diet.model.MealProduct
+import com.mda.diet.repository.DietetistRepository
 import com.mda.diet.repository.MealRepository
 import com.mda.diet.repository.MenuRepository
 import com.mda.diet.repository.ProductRepository
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service
 @Service
 class MealService(val repository: MealRepository,
                   val menuRepository: MenuRepository,
+                  val dietRepository: DietetistRepository,
                   val productRepository: ProductRepository) {
 
     fun addMeal(dto: MealDto): MealDto {
@@ -23,8 +25,13 @@ class MealService(val repository: MealRepository,
                 MealProduct(it.id, null, prod, it.quantity)
             }.toMutableList())
 
-        val menu = menuRepository.findOne(dto.menuId)?: throw CustomNotFoundException("No menu exist with id ${dto.menuId}")
+        //Check for menu or diet
+        val menu = menuRepository.findOne(dto.menuId)
+        val diet = dietRepository.findOne(dto.dietId)
+        if(menu == null && diet == null)
+            throw CustomNotFoundException("No menu exist with id ${dto.menuId} and no diet exist with id ${dto.dietId}")
         meal.menu = menu
+        meal.diet = diet
         meal.mealProducts.forEach { it.meal = meal }
         return MealDto(repository.save(meal))
     }
@@ -37,4 +44,6 @@ class MealService(val repository: MealRepository,
         val meal = repository.findOne(id)?: throw CustomNotFoundException("No meal exist with id $id")
         return MealDto(meal)
     }
+
+    fun getByDietId(id: Long) = repository.findByDietId(id).map { MealDto(it)}
 }

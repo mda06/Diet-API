@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface MealRepository: CrudRepository<Meal, Long> {
     fun findByMenuId(id: Long): List<Meal>
+    fun findByDietId(id: Long): List<Meal>
 }
