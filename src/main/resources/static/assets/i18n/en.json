@@ -17,32 +17,27 @@
     },
     "MENU": {
       "TITLE": "Menu",
-      "ADD": "Add",
-      "LIST": "List"
+      "TEMPLATE": "Template"
+    },
+    "PATIENT": {
+      "TITLE": "Patients",
+      "ABOUT": "About",
+      "SELECT": "Select patient"
+    },
+    "DIET": {
+      "SELECT": "Select diet"
     },
     "FOOD_SEARCH": "Search food",
-    "ABOUT_PATIENT": "About patient",
-    "SELECT_PATIENT": "Select patient",
     "DASHBOARD": "Dashboard",
-    "LOG_OUT": "Log out"
+    "LOG_OUT": "Log out",
+    "BACK": "Back",
+    "SETTINGS": {
+      "TITLE": "Settings",
+      "LANG": "Language: "
+    }
   },
-  "DIET": {
-    "SELECT": {
-      "TITLE": "Select a patient",
-      "SEARCH": "Search for a patient",
-      "SEARCH_PLACEHOLDER": "name",
-      "PAGES": "Pages",
-      "ADD": "Add new patient",
-      "SELECT": "Select"
-    },
-    "DASHBOARD": {
-      "TITLE": "Dashboard of ",
-      "SELECTED": "Patient selected: ",
-      "CREATED": "Created at ",
-      "YEARS_OLD": " years old"
-    },
+  "CUSTOMER": {
     "DETAIL": {
-      "SELECT_FIRST": "Please select first a patient",
       "META_DATA": "Meta data",
       "FIRST_NAME": "First name",
       "MIDDLE_NAME": "Middle name",
@@ -56,13 +51,6 @@
         "MALE": "Man",
         "FEMALE": "Woman"
       },
-      "EXTRA_INFO": "Extra info",
-      "SAVE": "Save",
-      "RETURN": "Return",
-      "ATTENTION": "Attention",
-      "PATIENT_MODIFIED": "Patient data has been modified without saving it",
-      "CANCEL": "Cancel",
-      "RETURN_WITHOUT_SAVING": "Return without saving",
       "ADDRESS": {
         "STREET": "Street",
         "NUMBER": "Number",
@@ -70,7 +58,41 @@
         "CITY": "City",
         "COUNTRY": "Country",
         "TOGGLE": "Toggle address"
-      },
+      }
+    },
+    "ACCOUNT": {
+      "TITLE": "Account",
+      "USERNAME": "Username",
+      "USERNAME_TAKEN": "Username already taken",
+      "PASSWORD": "Password",
+      "PASSWORD_CHECK": "Repeat password",
+      "CREATE": "Create account",
+      "UPDATE": "Update account"
+    }
+  },
+  "DIET": {
+    "SELECT": {
+      "TITLE": "Select a patient",
+      "SEARCH": "Search for a patient",
+      "SEARCH_PLACEHOLDER": "name",
+      "ADD": "Add new patient",
+      "SELECT": "Select"
+    },
+    "DASHBOARD": {
+      "TITLE": "Dashboard of ",
+      "SELECTED": "Patient selected: ",
+      "CREATED": "Created at ",
+      "YEARS_OLD": " years old"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Please select first a patient",
+      "EXTRA_INFO": "Extra info",
+      "SAVE": "Save",
+      "RETURN": "Return",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Patient data has been modified without saving it",
+      "CANCEL": "Cancel",
+      "RETURN_WITHOUT_SAVING": "Return without saving",
       "PARAMS": {
         "TITLE": "Anthropometric parameters",
         "LENGTH": "Length (cm)",
@@ -107,9 +129,32 @@
     }
   },
   "ADMIN": {
+    "SELECT": {
+      "TITLE": "Select a diet",
+      "SEARCH": "Search for a diet",
+      "SEARCH_PLACEHOLDER": "name",
+      "ADD": "Add new diet",
+      "SELECT": "Select"
+    },
     "UPLOAD": {
       "DONE": "Uploaded done",
       "ERROR": "Error while uploading"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Please select first a diet",
+      "SAVE": "Save",
+      "RETURN": "Return",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Diet data has been modified without saving it",
+      "CANCEL": "Cancel",
+      "RETURN_WITHOUT_SAVING": "Return without saving",
+      "TITLE": "Diet specific information",
+      "VAT": "VAT",
+      "ALERT": {
+        "SAVING": "Saving ",
+        "SAVED": "Saved ",
+        "ERROR": "Error cannot save "
+      }
     },
     "DELETE" : {
       "WARNING": "Your deleting definitely a product",
@@ -138,6 +183,54 @@
       "SIZE": "Actually number of product in the database: {{size}}",
       "UPLOAD": "Upload new products to the database",
       "SAVE": "Save"
+    }
+  },
+  "MENU": {
+    "PATIENT_BEFORE": "Please select a patient...",
+    "LOADING": "Loading...",
+    "OF": "Menu of ",
+    "NEW": "New",
+    "NEW_DATE": "Set a new date",
+    "DELETE": "Delete menu",
+    "DELETE_POPUP": {
+      "TITLE": "Deleting",
+      "BODY": "Deleting the menu",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete"
+    }
+  },
+  "MEALS": {
+    "TITLE": "Meals",
+    "NEW": "New",
+    "NEW_TITLE": "New Meal",
+    "ADD_TEMPLATE": "Template",
+    "NAME": "Name: ",
+    "DESC": "Description",
+    "EMPTY": "There are no meals",
+    "DELETE_POPUP": {
+      "TITLE": "Deleting",
+      "BODY": "Deleting the meal",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete"
+    },
+    "PRODUCTS": {
+      "TITLE": "Products",
+      "EMPTY": "You don't have any products in this meal",
+      "LOADING": "Loading products...",
+      "SELECT_MEAL_BEFORE": "Please select a meal"
+    },
+    "PATIENT": {
+      "TITLE": "Feedback of the patient",
+      "COMMENT_OF": "Comment of"
+    },
+    "TEMPLATE": {
+      "TITLE": "Templates",
+      "LOADING_MEALS": "Loading meals...",
+      "MODAL": {
+        "TITLE": "Select a meal from your templates",
+        "INFO": "1 Click = 1 Meal added",
+        "CANCEL": "Cancel"
+      }
     }
   }
 }
