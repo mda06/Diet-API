@@ -39,7 +39,7 @@ class AuthenticationService(val repository: CustomerRepository) {
         val rest = RestTemplate()
         try {
             val signupReturn = rest.postForObject("${issuer}dbconnections/signup", signup, Auth0SignupReturnDto::class.java)
-            customer.authId = "auth|" + signupReturn._id
+            customer.authId = "auth0|" + signupReturn._id
             repository.save(customer)
             return signupReturn
         } catch (ex: HttpClientErrorException) {
