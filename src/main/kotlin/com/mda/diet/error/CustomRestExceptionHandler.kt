@@ -80,6 +80,12 @@ class CustomRestExceptionHandler: ResponseEntityExceptionHandler() {
         return ResponseEntity(error, error.status)
     }
 
+    @ExceptionHandler(SignupException::class)
+    fun handleSignupException(ex: SignupException): ResponseEntity<Any> {
+        val error = ApiError(HttpStatus.BAD_REQUEST, ex.localizedMessage, "USERNAME_ALREADY_EXISTS")
+        return ResponseEntity(error, error.status)
+    }
+
     @ExceptionHandler(UploadFileException::class)
     fun handleUploadFileException(ex: UploadFileException): ResponseEntity<Any> {
         val error = ApiError(HttpStatus.BAD_REQUEST, ex.localizedMessage)

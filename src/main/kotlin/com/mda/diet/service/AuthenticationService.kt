@@ -4,6 +4,7 @@ import com.mda.diet.dto.*
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.CustomerNotFoundException
 import com.mda.diet.error.LoginException
+import com.mda.diet.error.SignupException
 import com.mda.diet.model.Admin
 import com.mda.diet.model.Customer
 import com.mda.diet.model.Dietetist
@@ -47,7 +48,7 @@ class AuthenticationService(val repository: CustomerRepository) {
         //1 Check if username is already taken
         val exist = existUsername(signup.email)
         if(exist) {
-            //Throw error username...
+            throw SignupException("Username ${signup.email} already exist")
         }
 
         //2 Create the new account
