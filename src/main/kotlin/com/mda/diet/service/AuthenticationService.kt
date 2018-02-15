@@ -23,7 +23,8 @@ import org.springframework.http.HttpEntity
 
 
 @Service
-class AuthenticationService(val repository: CustomerRepository) {
+class AuthenticationService(val repository: CustomerRepository,
+                            val customerRepository: CustomerRepository) {
     @Value("\${auth0.client.id}")
     private val clientId: String? = null
 
@@ -62,11 +63,10 @@ class AuthenticationService(val repository: CustomerRepository) {
         }
     }
 
-    fun existUsername(email: String) : Boolean {
+    fun getManagementToken(): String {
         val token: String
         val rest = RestTemplate()
 
-        //1 Get the token for management API
         try {
             val askToken = Auth0TokenAskDto()
             askToken.audience = "https://mdatest.eu.auth0.com/api/v2/"
@@ -78,8 +78,13 @@ class AuthenticationService(val repository: CustomerRepository) {
         } catch (ex: Throwable) {
             throw IllegalArgumentException(ex.message)
         }
+        return token
+    }
 
-        //2 Check if username is already taken
+    fun existUsername(email: String) : Boolean {
+        val token: String = getManagementToken()
+        val rest = RestTemplate()
+
         try {
             val headers = HttpHeaders()
             headers.contentType = MediaType.APPLICATION_JSON
@@ -127,6 +132,23 @@ class AuthenticationService(val repository: CustomerRepository) {
         }
 
     fun getId() = repository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString()).id
+
+    fun deleteUser(id: Long) {
+        val token: String = getManagementToken()
+        val rest = RestTemplate()
+        val customer = customerRepository.findOne(id) ?: throw CustomNotFoundException("No customer found with id $id")
+
+        try {
+            val headers = HttpHeaders()
+            headers.contentType = MediaType.APPLICATION_JSON
+            headers.set("Authorization", "Bearer "+ token)
+            val entity = HttpEntity<String>(headers)
+            rest.delete("${issuer}api/v2/users/${customer.authId}", entity)
+            customerRepository.delete(id)
+        } catch(ex: HttpClientErrorException) {
+            throw IllegalArgumentException(ex.message)
+        }
+    }
 
 
 }

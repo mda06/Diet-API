@@ -21,6 +21,10 @@ class AuthenticationController(val service: AuthenticationService) {
     fun getUser()
         = service.getUser()
 
+    @DeleteMapping("{id}")
+    fun deleteUser(@PathVariable id: Long)
+        = service.deleteUser(id)
+
     @GetMapping("/role")
     fun getRole()
         = service.getRole()
