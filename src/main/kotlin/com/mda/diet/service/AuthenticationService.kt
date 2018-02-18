@@ -143,7 +143,7 @@ class AuthenticationService(val repository: CustomerRepository,
             headers.contentType = MediaType.APPLICATION_JSON
             headers.set("Authorization", "Bearer "+ token)
             val entity = HttpEntity<String>(headers)
-            rest.delete("${issuer}api/v2/users/${customer.authId}", entity)
+            rest.exchange("${issuer}api/v2/users/${customer.authId}", HttpMethod.DELETE, entity, Any::class.java)
             customerRepository.delete(id)
         } catch(ex: HttpClientErrorException) {
             throw IllegalArgumentException(ex.message)
