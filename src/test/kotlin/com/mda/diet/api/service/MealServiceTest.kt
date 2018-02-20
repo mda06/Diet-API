@@ -14,6 +14,7 @@ import org.mockito.AdditionalAnswers
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.stubbing.Answer
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import org.springframework.test.context.junit4.SpringRunner
@@ -169,5 +170,25 @@ class MealServiceTest {
     @Test
     fun testDeleteSuccess() {
         service!!.deleteMeal(2)
+    }
+
+    @Test
+    fun testUpdatePatientMealWhenMealDoesntExist() {
+        Mockito.`when`(repository!!.findOne(2)).thenReturn(null)
+        try {
+            service!!.updatePatientInfo(MealDto(2))
+            fail("Must throw CustomNotFoundException when the meal not exist")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("No meal exists with id 2", ex.message)
+        }
+    }
+
+    @Test
+    fun testUpdatePatientMealWhenMealSuccess() {
+        Mockito.`when`(repository!!.findOne(3)).thenReturn(Meal(3, "Lunch"))
+        Mockito.`when`(repository!!.save(Mockito.any<Meal>())).thenAnswer({ i -> i.arguments[0] })
+        val meal = service!!.updatePatientInfo(MealDto(3))
+        assertEquals(3, meal.id)
+        assertEquals("Lunch", meal.name)
     }
 }

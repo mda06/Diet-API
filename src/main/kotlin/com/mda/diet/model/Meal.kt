@@ -8,8 +8,8 @@ class Meal (
         val id: Long = 0,
         val name: String = "",
         val extraInfo: String = "",
-        val score: Int = 0,
-        val comment: String = "",
+        var score: Int = 0,
+        var comment: String = "",
         @ManyToOne
         @JoinColumn(name = "menu_id")
         var menu: Menu? = null,

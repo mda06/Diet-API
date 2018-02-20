@@ -24,6 +24,10 @@ class MealController(val service: MealService) {
     fun addMeal(@RequestBody dto: MealDto)
             = service.addMeal(dto)
 
+    @PostMapping("/patient")
+    fun updatePatientInfo(@RequestBody dto: MealDto)
+            = service.updatePatientInfo(dto)
+
     @DeleteMapping("/{id}")
     fun deleteMeal(@PathVariable id: Long)
             = service.deleteMeal(id)

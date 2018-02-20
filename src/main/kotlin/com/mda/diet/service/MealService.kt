@@ -35,6 +35,13 @@ class MealService(val repository: MealRepository,
         meal.mealProducts.forEach { it.meal = meal }
         return MealDto(repository.save(meal))
     }
+
+    fun updatePatientInfo(dto: MealDto): MealDto {
+        val meal = repository.findOne(dto.id) ?: throw CustomNotFoundException("No meal exists with id ${dto.id}")
+        meal.comment = dto.comment
+        meal.score = dto.score
+        return MealDto(repository.save(meal))
+    }
     
     fun deleteMeal(id: Long) = repository.delete(id)
 

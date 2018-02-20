@@ -41,6 +41,8 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                     .hasAnyAuthority("scope:diet", "scope:admin")
                 .antMatchers(HttpMethod.POST, "/api/meal/")
                     .hasAnyAuthority("scope:diet", "scope:admin")
+                .antMatchers(HttpMethod.POST, "/api/meal/patient")
+                    .permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/meal/")
                  .hasAnyAuthority("scope:diet", "scope:admin")
                 .antMatchers(HttpMethod.DELETE, "/api/product/*")
