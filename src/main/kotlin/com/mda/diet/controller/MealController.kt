@@ -16,9 +16,17 @@ class MealController(val service: MealService) {
     fun getByMenuId(@PathVariable id: Long)
             = service.getByMenuId(id)
 
+    @GetMapping("/diet/{id}")
+    fun getByDietId(@PathVariable id: Long)
+            = service.getByDietId(id)
+
     @PostMapping
     fun addMeal(@RequestBody dto: MealDto)
             = service.addMeal(dto)
+
+    @PostMapping("/patient")
+    fun updatePatientInfo(@RequestBody dto: MealDto)
+            = service.updatePatientInfo(dto)
 
     @DeleteMapping("/{id}")
     fun deleteMeal(@PathVariable id: Long)

@@ -1,6 +1,8 @@
 package com.mda.diet.service
 
 import com.mda.diet.dto.DietetistAttachPatientDto
+import com.mda.diet.dto.DietetistDto
+import com.mda.diet.dto.DietetistNameDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.Dietetist
 import com.mda.diet.repository.DietetistRepository
@@ -10,10 +12,10 @@ import org.springframework.stereotype.Service
 @Service
 class DietetistService(val repository: DietetistRepository,
                        val patientRepository: PatientRepository) {
-    fun findAll() = repository.findAll()
+    fun findAll() = repository.findAll().map { DietetistNameDto(it) }
 
     fun addDietetist(dietetist: Dietetist)
-            = repository.save(dietetist)
+            = DietetistDto(repository.save(dietetist))
 
     fun updateDietetist(id: Long, dietetist: Dietetist): Dietetist {
         assert(id == dietetist.id)
@@ -24,7 +26,7 @@ class DietetistService(val repository: DietetistRepository,
             = repository.delete(id)
 
     fun getById(id: Long)
-            = repository.findOne(id) ?: throw CustomNotFoundException("Not found dietetist with id $id")
+            = DietetistDto(repository.findOne(id) ?: throw CustomNotFoundException("Not found dietetist with id $id"))
 
     fun attachPatient(dto: DietetistAttachPatientDto) : Dietetist {
         val pat = patientRepository.findOne(dto.patient_id)

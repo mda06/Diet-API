@@ -17,32 +17,27 @@
     },
     "MENU": {
       "TITLE": "Menu",
-      "ADD": "Ajouter",
-      "LIST": "List"
+      "TEMPLATE": "Modèles"
+    },
+    "PATIENT": {
+      "TITLE": "Patients",
+      "ABOUT": "À propos du patient",
+      "SELECT": "Selectionner un patient"
+    },
+    "DIET": {
+      "SELECT": "Selectionner un diététicien"
     },
     "FOOD_SEARCH": "Chercher des produits",
-    "ABOUT_PATIENT": "À propos du patient",
-    "SELECT_PATIENT": "Selectionner patient",
     "DASHBOARD": "Tableau de bord",
-    "LOG_OUT": "Déconnection"
+    "LOG_OUT": "Déconnection",
+    "BACK": "Retour",
+    "SETTINGS": {
+      "TITLE": "Options",
+      "LANG": "Langage: "
+    }
   },
-  "DIET": {
-    "SELECT": {
-      "TITLE": "Selectionner un patient",
-      "SEARCH": "Chercher un patient",
-      "SEARCH_PLACEHOLDER": "nom",
-      "PAGES": "Pages",
-      "ADD": "Ajouter un patient",
-      "SELECT": "Selectionner"
-    },
-    "DASHBOARD": {
-      "TITLE": "Tableau de bord de ",
-      "SELECTED": "Patient selectionner: ",
-      "CREATED": "Crée le ",
-      "YEARS_OLD": " ans"
-    },
+  "CUSTOMER": {
     "DETAIL": {
-      "SELECT_FIRST": "Selectionner un patient avant",
       "META_DATA": "Meta data",
       "FIRST_NAME": "Prénom",
       "MIDDLE_NAME": "2ème nom",
@@ -56,13 +51,6 @@
         "MALE": "Homme",
         "FEMALE": "Femme"
       },
-      "EXTRA_INFO": "Info extra",
-      "SAVE": "Sauvegarder",
-      "RETURN": "Retour",
-      "ATTENTION": "Attention",
-      "PATIENT_MODIFIED": "Le patient a été modifié sans être sauvegardé",
-      "CANCEL": "Annuler",
-      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
       "ADDRESS": {
         "STREET": "Rue",
         "NUMBER": "Numéro",
@@ -70,7 +58,41 @@
         "CITY": "Ville",
         "COUNTRY": "Pays",
         "TOGGLE": "Ouvrire/Fermer addresse"
-      },
+      }
+    },
+    "ACCOUNT": {
+      "TITLE": "Compte",
+      "USERNAME": "Nom de compte",
+      "USERNAME_TAKEN": "Nom de compte déjà pris",
+      "PASSWORD": "Mot de passe",
+      "PASSWORD_CHECK": "Répétez le mot de passe",
+      "CREATE": "Créer le compte",
+      "UPDATE": "Mettre à jour le compte"
+    }
+  },
+  "DIET": {
+    "SELECT": {
+      "TITLE": "Selectionner un patient",
+      "SEARCH": "Chercher un patient",
+      "SEARCH_PLACEHOLDER": "nom",
+      "ADD": "Ajouter un patient",
+      "SELECT": "Selectionner"
+    },
+    "DASHBOARD": {
+      "TITLE": "Tableau de bord de ",
+      "SELECTED": "Patient selectionner: ",
+      "CREATED": "Crée le ",
+      "YEARS_OLD": " ans"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Selectionner un patient avant",
+      "EXTRA_INFO": "Info extra",
+      "SAVE": "Sauvegarder",
+      "RETURN": "Retour",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Le patient a été modifié sans être sauvegardé",
+      "CANCEL": "Annuler",
+      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
       "PARAMS": {
         "TITLE": "Paramètres anthropometriques",
         "LENGTH": "Taille (cm)",
@@ -107,6 +129,29 @@
     }
   },
   "ADMIN": {
+    "SELECT": {
+      "TITLE": "Selectionner un diététicien",
+      "SEARCH": "Chercher un diététicien",
+      "SEARCH_PLACEHOLDER": "nom",
+      "ADD": "Ajouter un diététicien",
+      "SELECT": "Selectionner"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Selectionner un diététicien avant",
+      "SAVE": "Sauvegarder",
+      "RETURN": "Retour",
+      "ATTENTION": "Attention",
+      "DIET_MODIFIED": "Le diététicien a été modifié sans être sauvegardé",
+      "CANCEL": "Annuler",
+      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
+      "TITLE": "Information spécifique au diététicien",
+      "VAT": "TVA",
+      "ALERT": {
+        "SAVING": "En train de sauvergarder ",
+        "SAVED": "Sauvegarder ",
+        "ERROR": "Erreur pas possible de sauvegarder "
+      }
+    },
     "UPLOAD": {
       "DONE": "Enregistrement fait",
       "ERROR": "Erreur pendant l'enregistrement"
@@ -138,6 +183,54 @@
       "SIZE": "Il y a {{size}} produits dans la base de données actuellement",
       "UPLOAD": "Enregistrer d'autres produits",
       "SAVE": "Sauvegarder"
+    }
+  },
+  "MENU": {
+    "PATIENT_BEFORE": "Veuillez selectionner un patient...",
+    "LOADING": "Chargement...",
+    "OF": "Menu du ",
+    "NEW": "Nouveau",
+    "NEW_DATE": "Appliquer une nouvelle date",
+    "DELETE": "Supprimer un menu",
+    "DELETE_POPUP": {
+      "TITLE": "Supression",
+      "BODY": "Supprimer un menu",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    }
+  },
+  "MEALS": {
+    "TITLE": "Repas",
+    "NEW": "Nouveau",
+    "NEW_TITLE": "Nouveau repas",
+    "ADD_TEMPLATE": "Modèles",
+    "NAME": "Nom: ",
+    "DESC": "Description",
+    "EMPTY": "Il n'y a pas de repas",
+    "DELETE_POPUP": {
+      "TITLE": "Supression",
+      "BODY": "Supprimer un repas",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    },
+    "PRODUCTS": {
+      "TITLE": "Produits",
+      "EMPTY": "Vous n'avez pas de produit dans ce repas",
+      "LOADING": "Chargement des produits...",
+      "SELECT_MEAL_BEFORE": "Selectionner un repas"
+    },
+    "PATIENT": {
+      "TITLE": "Réaction du patient",
+      "COMMENT_OF": "Commentaire de"
+    },
+    "TEMPLATE": {
+      "TITLE": "Modèles",
+      "LOADING_MEALS": "Chargement des repas...",
+      "MODAL": {
+        "TITLE": "Selectionner un repas de vos modèles",
+        "INFO": "1 Clique = 1 Repas ajouté",
+        "CANCEL": "Annuler"
+      }
     }
   }
 }

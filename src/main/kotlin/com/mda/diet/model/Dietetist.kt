@@ -22,5 +22,7 @@ class Dietetist(id: Long = 0,
                         name="diet_fav_products",
                         joinColumns = [(JoinColumn(name = "diet_id"))],
                         inverseJoinColumns = [(JoinColumn(name = "product_id"))])
-                val favoriteProducts: MutableList<Product> = arrayListOf())
+                val favoriteProducts: MutableList<Product> = arrayListOf(),
+                @OneToMany(mappedBy = "diet", cascade = [CascadeType.ALL], orphanRemoval = true)
+                var mealTemplates: MutableList<Meal> = mutableListOf())
     : Customer(id, firstName, middleName, lastName, email, phone, address, gender, created, birthday)
