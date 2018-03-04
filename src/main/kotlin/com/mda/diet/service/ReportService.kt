@@ -4,11 +4,17 @@ import com.mda.diet.dto.NutrimentDto
 import com.mda.diet.dto.ReportMenuDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.repository.MenuRepository
+import com.mda.diet.repository.PatientRepository
 import org.springframework.stereotype.Service
+import org.springframework.core.io.InputStreamResource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 
 
 @Service
-class ReportService(val repository: MenuRepository) {
+class ReportService(val repository: MenuRepository,
+                    val patientRepository: PatientRepository) {
 
     fun getMenuReport(id: Long?, lang: String?): ReportMenuDto {
         val menu = repository.findOne(id)?: throw CustomNotFoundException("Not found menu with id $id")
@@ -42,4 +48,20 @@ class ReportService(val repository: MenuRepository) {
         val microsLst = micros.map { NutrimentDto(it.key, it.value.first, it.value.second) }
         return ReportMenuDto(menu.date, macrosLst, microsLst)
     }
+
+    fun getPatientPdf(id: Long?): ResponseEntity<InputStreamResource> {
+        val patient = patientRepository.findOne(id) ?: throw CustomNotFoundException("Not found patient with id $id")
+
+        val bis = GeneratePdfReport().patientReport(patient)
+
+        val headers = HttpHeaders()
+        headers.add("Content-Disposition", "inline; filename=citiesreport.pdf")
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(InputStreamResource(bis))
+    }
+
 }
