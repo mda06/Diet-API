@@ -10,8 +10,11 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.test.context.junit4.SpringRunner
+import java.sql.Timestamp
+import java.time.LocalDateTime
 import javax.security.auth.login.LoginException
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlin.test.fail
 
 
@@ -66,13 +69,52 @@ class LoginAccessServiceTest {
 
     @Test
     fun testLogoutSuccess() {
-        Mockito.`when`(repository!!.findOne("auth0|uyvuvzkeoinon")).thenReturn(null)
+        val loginAccess = LoginAccess(
+                "auth0|5a38dd838d3cea7aad40e5ad",
+                java.sql.Timestamp(1520255888000).toLocalDateTime(),
+                null,
+                java.sql.Timestamp(1520342288000).toLocalDateTime(),
+                java.sql.Timestamp(1520255888000).toLocalDateTime(),
+                false)
+        Mockito.`when`(repository!!.save(Mockito.any<LoginAccess>())).thenAnswer {
+            it.getArgumentAt(0, LoginAccess::class.java)
+        }
+        Mockito.`when`(repository!!.findOne(loginAccess.authId)).thenReturn(loginAccess)
+        val login = service!!.onLogout(loginAccess.authId)
+        assertEquals(loginAccess.authId, login.authId)
+        assertEquals(loginAccess.isBlacklisted, login.isBlacklisted)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.logOutTime).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
+        assertEquals(java.sql.Timestamp(1520255888000).toLocalDateTime(), login.loginTime)
+        assertEquals(java.sql.Timestamp(1520342288000).toLocalDateTime(), login.expirationTime)
+    }
+
+    @Test
+    fun testAddActivityNotFound() {
+        Mockito.`when`(repository!!.findOne(Mockito.any())).thenReturn(null)
         try {
             service!!.onLogout("auth0|uyvuvzkeoinon")
             fail("Must throw CustomNotFoundException when no login was found")
         } catch(ex: CustomNotFoundException) {
             assertEquals("No login access found with id: auth0|uyvuvzkeoinon", ex.message)
         }
+    }
+
+    @Test
+    fun testAddActivitySuccess() {
+        val loginAccess = LoginAccess(
+                "auth0|5a38dd838d3cea7aad40e5ad",
+                java.sql.Timestamp(1520255888000).toLocalDateTime(),
+                null,
+                java.sql.Timestamp(1520342288000).toLocalDateTime(),
+                java.sql.Timestamp(1520255888000).toLocalDateTime(),
+                false)
+        Mockito.`when`(repository!!.save(Mockito.any<LoginAccess>())).thenAnswer {
+            it.getArgumentAt(0, LoginAccess::class.java)
+        }
+        Mockito.`when`(repository!!.findOne(loginAccess.authId)).thenReturn(loginAccess)
+        val login = service!!.addActivity(loginAccess.authId)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
     }
 
 }

@@ -32,4 +32,10 @@ class LoginAccessService(val repository: LoginAccessRepository) {
         login.logOutTime = LocalDateTime.now()
         return repository.save(login)
     }
+
+    fun addActivity(id: String): LoginAccess {
+        val login = repository.findOne(id) ?: throw CustomNotFoundException("No login access found with id: $id")
+        login.lastActivityTime = LocalDateTime.now()
+        return repository.save(login)
+    }
 }
