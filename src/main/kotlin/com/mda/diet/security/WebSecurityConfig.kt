@@ -54,4 +54,6 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 //.antMatchers(HttpMethod.PUT, "/admin/*").hasAuthority("scope:admin")
                 //.antMatchers(HttpMethod.POST, "/admin").hasAuthority("scope:admin")
     }
+
+
 }
