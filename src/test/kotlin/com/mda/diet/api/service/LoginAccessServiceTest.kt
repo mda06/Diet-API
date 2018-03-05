@@ -1,5 +1,6 @@
 package com.mda.diet.api.service
 
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.LoginAccess
 import com.mda.diet.repository.LoginAccessRepository
 import com.mda.diet.service.LoginAccessService
@@ -50,6 +51,28 @@ class LoginAccessServiceTest {
         assertEquals(java.sql.Timestamp(1520255888000).toLocalDateTime(), login.lastActivityTime)
         assertEquals(java.sql.Timestamp(1520255888000).toLocalDateTime(), login.loginTime)
         assertEquals(java.sql.Timestamp(1520342288000).toLocalDateTime(), login.expirationTime)
+    }
+
+    @Test
+    fun testLogoutNotFound() {
+        Mockito.`when`(repository!!.findOne("auth0|uyvuvzkeoinon")).thenReturn(null)
+        try {
+            service!!.onLogout("auth0|uyvuvzkeoinon")
+            fail("Must throw CustomNotFoundException when no login was found")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("No login access found with id: auth0|uyvuvzkeoinon", ex.message)
+        }
+    }
+
+    @Test
+    fun testLogoutSuccess() {
+        Mockito.`when`(repository!!.findOne("auth0|uyvuvzkeoinon")).thenReturn(null)
+        try {
+            service!!.onLogout("auth0|uyvuvzkeoinon")
+            fail("Must throw CustomNotFoundException when no login was found")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("No login access found with id: auth0|uyvuvzkeoinon", ex.message)
+        }
     }
 
 }
