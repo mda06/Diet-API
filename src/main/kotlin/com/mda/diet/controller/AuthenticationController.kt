@@ -17,6 +17,10 @@ class AuthenticationController(val service: AuthenticationService) {
     fun getToken(@RequestBody token: Auth0TokenAskDto)
         = service.getToken(token)
 
+    @PostMapping("/logout")
+    fun logout()
+        = service.logout()
+
     @GetMapping("/connecteduser")
     fun getUser()
         = service.getUser()

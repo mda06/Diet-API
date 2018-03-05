@@ -10,12 +10,12 @@ import javax.persistence.Id
 class LoginAccess (
         @Id
         val authId: String = "",
-        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter::class)
         var loginTime: LocalDateTime = LocalDateTime.now(),
-        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter::class)
         var logOutTime: LocalDateTime? = null,
-        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter::class)
         var expirationTime: LocalDateTime = LocalDateTime.now(),
-        @Convert(converter = Jsr310JpaConverters.LocalDateConverter::class)
+        @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter::class)
         var lastActivityTime: LocalDateTime = LocalDateTime.now(),
         var isBlacklisted: Boolean = false)
