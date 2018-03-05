@@ -1,8 +1,8 @@
 package com.mda.diet.security
 
 import com.auth0.jwt.JWT
+import com.mda.diet.service.LoginAccessService
 import org.slf4j.LoggerFactory
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.security.core.context.SecurityContextHolder
@@ -12,11 +12,10 @@ import javax.servlet.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import java.io.IOException
-import javax.servlet.http.HttpServletRequestWrapper
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class WebFilterConfig : Filter {
+class WebFilterConfig(val loginAccessService: LoginAccessService) : Filter {
 
     @Throws(ServletException::class)
     override fun init(filterConfig: FilterConfig) {
@@ -27,15 +26,13 @@ class WebFilterConfig : Filter {
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest, response: ServletResponse,
                           chain: FilterChain) {
-        logger.debug("Doing a filter")
-        println("I'm filtering for ${SecurityContextHolder.getContext().authentication}")
         val req = request as HttpServletRequest
         var token = req.getHeader("authorization")
 
         if(token != null) {
             token = token.replace("Bearer ", "")
             val jwt = JWT.decode(token)
-            println(jwt)
+            loginAccessService.addActivity(jwt.subject)
         }
         if (CONDITION) {
             // Goes to default servlet
@@ -50,9 +47,7 @@ class WebFilterConfig : Filter {
     }
 
     companion object {
-
         private val logger = LoggerFactory.getLogger(WebFilterConfig::class.java)
-
         private val CONDITION = true
     }
 }
