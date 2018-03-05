@@ -12,6 +12,10 @@ import javax.security.auth.login.LoginException
 
 @Service
 class LoginAccessService(val repository: LoginAccessRepository) {
+
+    fun getAll()
+        = repository.findAll()
+
     fun onLogin(token: String): LoginAccess {
         val jwt =  try {
                 JWT.decode(token)
@@ -38,4 +42,5 @@ class LoginAccessService(val repository: LoginAccessRepository) {
         login.lastActivityTime = LocalDateTime.now()
         return repository.save(login)
     }
+
 }

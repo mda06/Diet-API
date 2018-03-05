@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod
 
 @Configuration
 @EnableWebSecurity
-class WebSecurity : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Value("\${auth0.audience}")
     private val audience: String? = null
@@ -46,6 +46,8 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 .antMatchers(HttpMethod.DELETE, "/api/meal/")
                  .hasAnyAuthority("scope:diet", "scope:admin")
                 .antMatchers(HttpMethod.DELETE, "/api/product/*")
+                    .hasAuthority("scope:admin")
+                .antMatchers("/api/login-access/*")
                     .hasAuthority("scope:admin")
                 //.anyRequest().authenticated()
                 //.antMatchers(HttpMethod.GET, "/admin").hasAuthority("scope:admin")
