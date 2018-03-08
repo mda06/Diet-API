@@ -188,7 +188,7 @@ class LoginAccessServiceTest {
     @Test
     fun testGetMaintenanceStatusWhenRepoIsEmpty() {
         service!!.maintenance = null
-        Mockito.`when`(maintenanceRepository!!.findFirstByOrderById()).thenReturn(null)
+        Mockito.`when`(maintenanceRepository!!.findFirstByOrderByIdDesc()).thenReturn(null)
         val main = service!!.getMaintenanceStatus()
         assertEquals(0, main.id)
         assertNull(main.beginDate)
@@ -200,7 +200,7 @@ class LoginAccessServiceTest {
     @Test
     fun testGetMaintenanceStatusWhenItsInRepo() {
         service!!.maintenance = null
-        Mockito.`when`(maintenanceRepository!!.findFirstByOrderById()).thenReturn(Maintenance(4, "Daily backup", LocalDateTime.of(2018, 3, 8, 11, 54, 0), null, MaintenanceState.BEGIN))
+        Mockito.`when`(maintenanceRepository!!.findFirstByOrderByIdDesc()).thenReturn(Maintenance(4, "Daily backup", LocalDateTime.of(2018, 3, 8, 11, 54, 0), null, MaintenanceState.BEGIN))
         val main = service!!.getMaintenanceStatus()
         assertEquals(4, main.id)
         assertEquals( LocalDateTime.of(2018, 3, 8, 11, 54, 0), main.beginDate)
