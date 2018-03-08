@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 
 interface MaintenanceRepository : CrudRepository<Maintenance, Long> {
-    fun findFirstOrderByIdAsync(): Maintenance?
+    fun findFirstOrderById(): Maintenance?
 }

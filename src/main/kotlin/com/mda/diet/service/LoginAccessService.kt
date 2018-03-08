@@ -73,7 +73,7 @@ class LoginAccessService(val repository: LoginAccessRepository,
 
     fun getMaintenanceStatus(): Maintenance {
         if(maintenance == null)
-            return maintenanceRepository.findFirstOrderByIdAsync() ?: Maintenance()
+            return maintenanceRepository.findFirstOrderById() ?: Maintenance()
         return maintenance!!
     }
 
