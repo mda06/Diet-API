@@ -1,6 +1,7 @@
 package com.mda.diet.api.service
 
 import com.mda.diet.error.CustomNotFoundException
+import com.mda.diet.error.LoginException
 import com.mda.diet.model.LoginAccess
 import com.mda.diet.model.Maintenance
 import com.mda.diet.model.MaintenanceState
@@ -15,11 +16,7 @@ import org.mockito.Mockito
 import org.springframework.test.context.junit4.SpringRunner
 import java.sql.Timestamp
 import java.time.LocalDateTime
-import javax.security.auth.login.LoginException
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
-import kotlin.test.fail
+import kotlin.test.*
 
 
 @RunWith(SpringRunner::class)
@@ -175,5 +172,40 @@ class LoginAccessServiceTest {
         assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(main.endDate).time) < 1000)
         assertEquals("Update users", main.reason)
         assertEquals(MaintenanceState.END, main.state)
+    }
+
+    @Test
+    fun testGetMaintenanceStatusWhenItsInMaintenance() {
+        service!!.maintenance = Maintenance(3, "Update users", LocalDateTime.of(2018, 3, 8, 11, 54, 0), null, MaintenanceState.BEGIN)
+        val main = service!!.getMaintenanceStatus()
+        assertEquals(3, main.id)
+        assertEquals( LocalDateTime.of(2018, 3, 8, 11, 54, 0), main.beginDate)
+        assertEquals(null, main.endDate)
+        assertEquals("Update users", main.reason)
+        assertEquals(MaintenanceState.BEGIN, main.state)
+    }
+
+    @Test
+    fun testGetMaintenanceStatusWhenRepoIsEmpty() {
+        service!!.maintenance = null
+        Mockito.`when`(maintenanceRepository!!.findFirstOrderByIdAsync()).thenReturn(null)
+        val main = service!!.getMaintenanceStatus()
+        assertEquals(0, main.id)
+        assertNull(main.beginDate)
+        assertNull(main.endDate)
+        assertEquals("", main.reason)
+        assertEquals(MaintenanceState.NONE, main.state)
+    }
+
+    @Test
+    fun testGetMaintenanceStatusWhenItsInRepo() {
+        service!!.maintenance = null
+        Mockito.`when`(maintenanceRepository!!.findFirstOrderByIdAsync()).thenReturn(Maintenance(4, "Daily backup", LocalDateTime.of(2018, 3, 8, 11, 54, 0), null, MaintenanceState.BEGIN))
+        val main = service!!.getMaintenanceStatus()
+        assertEquals(4, main.id)
+        assertEquals( LocalDateTime.of(2018, 3, 8, 11, 54, 0), main.beginDate)
+        assertEquals(null, main.endDate)
+        assertEquals("Daily backup", main.reason)
+        assertEquals(MaintenanceState.BEGIN, main.state)
     }
 }

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("$prefix/maintenance")
 class MaintenanceController(val service: LoginAccessService) {
 
+    @GetMapping("/status")
+    fun getStatusOfMaintenance() = service.getMaintenanceStatus()
+
     @PostMapping("/enable")
     fun putInMaintenance(@RequestBody maintenance: MaintenanceDto) = service.putInMaintenance(maintenance)
 

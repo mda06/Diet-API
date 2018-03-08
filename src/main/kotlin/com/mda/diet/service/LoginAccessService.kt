@@ -71,4 +71,10 @@ class LoginAccessService(val repository: LoginAccessRepository,
         return repository.save(login)
     }
 
+    fun getMaintenanceStatus(): Maintenance {
+        if(maintenance == null)
+            return maintenanceRepository.findFirstOrderByIdAsync() ?: Maintenance()
+        return maintenance!!
+    }
+
 }

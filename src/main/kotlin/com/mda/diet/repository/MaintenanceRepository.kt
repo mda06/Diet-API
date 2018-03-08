@@ -4,4 +4,6 @@ import com.mda.diet.model.Maintenance
 import org.springframework.data.repository.CrudRepository
 
 
-interface MaintenanceRepository : CrudRepository<Maintenance, Long>
+interface MaintenanceRepository : CrudRepository<Maintenance, Long> {
+    fun findFirstOrderByIdAsync(): Maintenance?
+}
