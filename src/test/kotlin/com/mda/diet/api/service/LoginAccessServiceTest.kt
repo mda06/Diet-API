@@ -2,7 +2,10 @@ package com.mda.diet.api.service
 
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.LoginAccess
+import com.mda.diet.model.Maintenance
+import com.mda.diet.model.MaintenanceState
 import com.mda.diet.repository.LoginAccessRepository
+import com.mda.diet.repository.MaintenanceRepository
 import com.mda.diet.service.LoginAccessService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,6 +17,7 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 import javax.security.auth.login.LoginException
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
@@ -28,6 +32,9 @@ class LoginAccessServiceTest {
 
     @Mock
     var repository: LoginAccessRepository? = null
+
+    @Mock
+    var maintenanceRepository: MaintenanceRepository? = null
 
     @InjectMocks
     var service: LoginAccessService? = null
@@ -117,4 +124,56 @@ class LoginAccessServiceTest {
         assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
     }
 
+    @Test
+    fun testIsInMaintenanceFalse() {
+        service!!.maintenance = null
+        assertFalse(service!!.isInMaintenance())
+    }
+
+    @Test
+    fun testPutInMaintenanceError() {
+        service!!.maintenance = Maintenance()
+        try {
+            service!!.putInMaintenance("Test")
+        }catch(ex: LoginException) {
+            assertEquals("Cannot put in maintenance, it's already in maintenance !", ex.message)
+        }
+    }
+
+    @Test
+    fun testPutInMaintenanceWorking() {
+        service!!.maintenance = null
+        Mockito.`when`(maintenanceRepository!!.save(Mockito.any<Maintenance>())).thenAnswer {
+            it.getArgumentAt(0, Maintenance::class.java)
+        }
+        val main = service!!.putInMaintenance("Filling products")
+        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(main.beginDate).time) < 1000)
+        assertEquals(null, main.endDate)
+        assertEquals("Filling products", main.reason)
+        assertEquals(MaintenanceState.BEGIN, main.state)
+    }
+
+    @Test
+    fun testRemoveMaintenanceError() {
+        service!!.maintenance = null
+        try {
+            service!!.removeMaintenance()
+        }catch(ex: LoginException) {
+            assertEquals("It's not in maintenance !", ex.message)
+        }
+    }
+
+    @Test
+    fun testRemoveMaintenanceWorking() {
+        service!!.maintenance = Maintenance(2, "Update users", LocalDateTime.of(2018, 3, 8, 11, 54, 0), null, MaintenanceState.BEGIN)
+        Mockito.`when`(maintenanceRepository!!.save(Mockito.any<Maintenance>())).thenAnswer {
+            it.getArgumentAt(0, Maintenance::class.java)
+        }
+        val main = service!!.removeMaintenance()
+        assertEquals(2, main.id)
+        assertEquals( LocalDateTime.of(2018, 3, 8, 11, 54, 0), main.beginDate)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(main.endDate).time) < 1000)
+        assertEquals("Update users", main.reason)
+        assertEquals(MaintenanceState.END, main.state)
+    }
 }

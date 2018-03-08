@@ -6,6 +6,7 @@ import com.mda.diet.dto.MenuDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.model.*
 import com.mda.diet.repository.MenuRepository
+import com.mda.diet.repository.PatientRepository
 import com.mda.diet.service.ReportService
 import org.junit.Assert
 import org.junit.Test
@@ -31,6 +32,9 @@ class ReportServiceTest {
 
     @Mock
     var repository: MenuRepository? = null
+
+    @Mock
+    var patientRepository: PatientRepository? = null
 
     @InjectMocks
     var service: ReportService? = null
