@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod
 
 @Configuration
 @EnableWebSecurity
-class WebSecurity : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Value("\${auth0.audience}")
     private val audience: String? = null
@@ -41,12 +41,16 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                     .hasAnyAuthority("scope:diet", "scope:admin")
                 .antMatchers(HttpMethod.POST, "/api/meal/")
                     .hasAnyAuthority("scope:diet", "scope:admin")
-                .antMatchers(HttpMethod.POST, "/api/meal/patient")
-                    .permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/meal/")
-                 .hasAnyAuthority("scope:diet", "scope:admin")
+                    .hasAnyAuthority("scope:diet", "scope:admin")
                 .antMatchers(HttpMethod.DELETE, "/api/product/*")
-                    .hasAuthority("scope:admin")
+                    .hasAnyAuthority("scope:admin")
+                .antMatchers("/api/login-access/*")
+                    .hasAnyAuthority("scope:admin")
+                .antMatchers(HttpMethod.POST, "/api/maintenance/enable").hasAnyAuthority("scope:admin")
+                .antMatchers(HttpMethod.DELETE, "/api/maintenance/disable").hasAnyAuthority("scope:admin")
+                //.antMatchers(HttpMethod.POST, "/api/meal/patient")
+                    //.permitAll()
                 //.anyRequest().authenticated()
                 //.antMatchers(HttpMethod.GET, "/admin").hasAuthority("scope:admin")
                 //.antMatchers(HttpMethod.GET, "/admin/*").hasAuthority("scope:admin")
@@ -54,4 +58,6 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 //.antMatchers(HttpMethod.PUT, "/admin/*").hasAuthority("scope:admin")
                 //.antMatchers(HttpMethod.POST, "/admin").hasAuthority("scope:admin")
     }
+
+
 }

@@ -24,7 +24,8 @@ import org.springframework.http.HttpEntity
 
 @Service
 class AuthenticationService(val repository: CustomerRepository,
-                            val customerRepository: CustomerRepository) {
+                            val customerRepository: CustomerRepository,
+                            val loginAccessService: LoginAccessService) {
     @Value("\${auth0.client.id}")
     private val clientId: String? = null
 
@@ -112,7 +113,9 @@ class AuthenticationService(val repository: CustomerRepository,
 
         val rest = RestTemplate()
         try {
-            return rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturnDto::class.java)
+            val tokenReturn = rest.postForObject("${issuer}oauth/token", token, Auth0TokenReturnDto::class.java)
+            loginAccessService.onLogin(tokenReturn.access_token)
+            return tokenReturn
         } catch (ex: Throwable) {
             throw LoginException("Cannot connect")
         }
@@ -149,6 +152,10 @@ class AuthenticationService(val repository: CustomerRepository,
             throw IllegalArgumentException(ex.message)
         }
     }
+
+    fun logout()
+        = loginAccessService.onLogout(SecurityContextHolder.getContext().authentication.principal.toString())
+
 
 
 }
