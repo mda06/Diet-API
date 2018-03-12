@@ -2,6 +2,7 @@ package com.mda.diet.service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.exceptions.JWTDecodeException
+import com.mda.diet.dto.LoginBlacklistDto
 import com.mda.diet.dto.MaintenanceDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.LoginException
@@ -75,6 +76,18 @@ class LoginAccessService(val repository: LoginAccessRepository,
         if(maintenance == null)
             return maintenanceRepository.findFirstByOrderByIdDesc() ?: Maintenance()
         return maintenance!!
+    }
+
+    fun blacklistLogin(blacklistDto: LoginBlacklistDto): LoginAccess {
+        val login = repository.findOne(blacklistDto.id) ?: throw CustomNotFoundException("No login access found with id: ${blacklistDto.id}")
+        login.isBlacklisted = true
+        return repository.save(login)
+    }
+
+    fun unBlacklistLogin(blockDto: LoginBlacklistDto): LoginAccess {
+        val login = repository.findOne(blockDto.id) ?: throw CustomNotFoundException("No login access found with id: ${blockDto.id}")
+        login.isBlacklisted = false
+        return repository.save(login)
     }
 
 }
