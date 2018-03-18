@@ -208,4 +208,27 @@ class LoginAccessServiceTest {
         assertEquals("Daily backup", main.reason)
         assertEquals(MaintenanceState.BEGIN, main.state)
     }
+
+    @Test
+    fun testIfIsBlacklistedTrue() {
+        Mockito.`when`(repository!!.findOne("Some_Id")).thenReturn(LoginAccess().also { it.isBlacklisted = true })
+        assertTrue(service!!.isBlacklisted("Some_Id"))
+    }
+
+    @Test
+    fun testIfIsBlacklistedFalse() {
+        Mockito.`when`(repository!!.findOne("My_Id")).thenReturn(LoginAccess().also { it.isBlacklisted = false })
+        assertFalse(service!!.isBlacklisted("My_Id"))
+    }
+
+    @Test
+    fun testIfIsBlacklistedNotFound() {
+        Mockito.`when`(repository!!.findOne("SecondId")).thenReturn(null)
+        try {
+            service!!.isBlacklisted("SecondId")
+            fail("Must throw CustomNotFoundException when no login was found")
+        } catch(ex: CustomNotFoundException) {
+            assertEquals("No login access found with id: SecondId", ex.message)
+        }
+    }
 }

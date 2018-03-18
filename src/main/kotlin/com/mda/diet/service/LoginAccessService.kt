@@ -90,4 +90,9 @@ class LoginAccessService(val repository: LoginAccessRepository,
         return repository.save(login)
     }
 
+    fun isBlacklisted(id: String): Boolean {
+        val login = repository.findOne(id) ?: throw CustomNotFoundException("No login access found with id: ${id}")
+        return login.isBlacklisted
+    }
+
 }
