@@ -1,7 +1,7 @@
 # Diet API Documention
 This document contains the documention about this API
 
-##Sumary
+## Sumary
 * [Authentication]()
 * [Structure of the project]()
 * [Environments]()
