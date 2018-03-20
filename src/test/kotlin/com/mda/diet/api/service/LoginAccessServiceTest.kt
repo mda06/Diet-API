@@ -15,6 +15,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.test.context.junit4.SpringRunner
 import java.sql.Timestamp
+import java.time.Clock
 import java.time.LocalDateTime
 import kotlin.test.*
 
@@ -87,8 +88,8 @@ class LoginAccessServiceTest {
         val login = service!!.onLogout(loginAccess.authId)
         assertEquals(loginAccess.authId, login.authId)
         assertEquals(loginAccess.isBlacklisted, login.isBlacklisted)
-        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.logOutTime).time) < 1000)
-        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now(Clock.systemUTC())).time - Timestamp.valueOf(login.logOutTime).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now(Clock.systemUTC())).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
         assertEquals(java.sql.Timestamp(1520255888000).toLocalDateTime(), login.loginTime)
         assertEquals(java.sql.Timestamp(1520342288000).toLocalDateTime(), login.expirationTime)
     }
@@ -118,7 +119,7 @@ class LoginAccessServiceTest {
         }
         Mockito.`when`(repository!!.findOne(loginAccess.authId)).thenReturn(loginAccess)
         val login = service!!.addActivity(loginAccess.authId)
-        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now(Clock.systemUTC())).time - Timestamp.valueOf(login.lastActivityTime).time) < 1000)
     }
 
     @Test
@@ -144,7 +145,7 @@ class LoginAccessServiceTest {
             it.getArgumentAt(0, Maintenance::class.java)
         }
         val main = service!!.putInMaintenance("Filling products")
-        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(main.beginDate).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now(Clock.systemUTC())).time - Timestamp.valueOf(main.beginDate).time) < 1000)
         assertEquals(null, main.endDate)
         assertEquals("Filling products", main.reason)
         assertEquals(MaintenanceState.BEGIN, main.state)
@@ -169,7 +170,7 @@ class LoginAccessServiceTest {
         val main = service!!.removeMaintenance()
         assertEquals(2, main.id)
         assertEquals( LocalDateTime.of(2018, 3, 8, 11, 54, 0), main.beginDate)
-        assertTrue((Timestamp.valueOf(LocalDateTime.now()).time - Timestamp.valueOf(main.endDate).time) < 1000)
+        assertTrue((Timestamp.valueOf(LocalDateTime.now(Clock.systemUTC())).time - Timestamp.valueOf(main.endDate).time) < 1000)
         assertEquals("Update users", main.reason)
         assertEquals(MaintenanceState.END, main.state)
     }
