@@ -70,44 +70,155 @@ The migrations files are located in /src/main/resources/db/migration
 
 ## Models
 ### Address
-Basic information about an address
+Basic information about an address 
 
-### Customer
-Base class for the users
-
-### Patient
-Contains information about a patient
-
-### Dietetist
-The main user of this application
+* id: long = _Id of the address_
+* country: String = _Country of the address_
+* postcode: Int = _Postcode of the address_
+* city: String = _City of the address_
+* street: String = _Street of the address_
+* number: String = _Number of the address_
 
 ### Admin
-The owner of the API
+The owner of the API, extends from *Customer*
+
+* nickname: String = _Nickname of the admin_
 
 ### AnthropometricParameter
 Data from a patient on a certain date
 
-### Product
-Contains product id and url of a picture
+* id: Long = _Id of the anthropometric parameter_
+* length: Int = _Length in CM of the anthropometric parameter_
+* weight: Double = _Weight in CM of the anthropometric parameter_
+* bodyFat: Double = _Body fat in % of the anthropometric parameter_
+* waistCircumference: Double = _Waist circumference in CM of the anthropometric parameter_
+* date: LocalDate? = _Date of the anthropometric parameter_
+* patientId: Long? = _The id of the patient of the anthropometric parameter_
+        
+### Customer
+Base class for all the users
 
-### ProductTranslation
-Name about a product in a certain language
+* id: Long = _Id of the customer_
+* firstName: String = _First name of the customer_
+* middleName: String = _Middle name of the customer_
+* lastName: String = _Last name of the customer_
+* email: String = _Email of the customer_
+* phone: String = _Phone of the customer_
+* address: Address = _Address of the customer_
+* gender: Gender? = _Gender of the customer_
+* created: LocalDate? = _Creation date of the customer_
+* birthday: LocalDate? = _Birthday of the customer_
+* authId: String? = _Id of the authorization server for the customer_
 
-### Nutriment
-Nutriments information about a product in a certain language
+
+### Dietetist
+The main user of this application, extends from *Customer*
+
+* id: Long = _Id of the dietetist_
+* vat: String = _Vat of the dietetist_
+* patients: MutableList<Patient> = _List of the patients of the dietetist_
+* favoriteProducts: MutableList<Product> = _List of the favorites products of the dietetist_
+* mealTemplates: MutableList<Meal> = _List of the meal templates of the dietetist_
+
+### Gender
+Enum for a customer
+
+* FEMALE = _Female gender_
+* MALE = _Male gender_
+* OTHER = _Other gender_
+
+### LoginAccess
+Contains information about the login access for a user based on his auth id
+* authId: String = _Id of the authorization server_
+* loginTime: LocalDateTime = _Last login time for a customer_
+* logOutTime: LocalDateTime? = _Last logout time for a customer_
+* expirationTime: LocalDateTime = _Expiration time of a token for a customer_
+* lastActivityTime: LocalDateTime = _Last activity time for a customer_
+* isBlacklisted: Boolean = _Boolean to know if a customer is blacklisted_
+        
+### Maintenance
+Contains information about a maintenance of the API
+
+* id: Long = _Id of the maintenance_
+* reason: String = _The reason why there's a maintenance_
+* beginDate: LocalDateTime? = _The begin date of a maintenance_
+* endDate: LocalDateTime? = _The end date of a maintenance_
+* state: MaintenanceState = _The state of the maintenance_
+        
+#### MaintenanceState
+Enum for the state of a maintenance
+
+* BEGIN = Maintenance is at the beginning
+* END = Maintenance is finish
+* CORRUPTED = Maintenance is corrupted
+* NONE = There's no maintenance
+
+
+### Meal
+Information about one meal of the day(lunch, diner, ...)
+
+* id: Long = _Id of this meal_
+* name: String = _Name of this meal_
+* extraInfo: String = _Comment of the dietetist for this meal_
+* score: Int = _Score that a patient has write_
+* comment: String = _Extra information that the patient has write_
+* menu: Menu? = _This meal contains to that meal, it's null when it's a template meal_
+* mealProducts: MutableList<MealProduct> = _List of all the products inside this meal_,
+* diet: Dietetist? = _That meal contains to the dietetist_        
+
+
+### MealProduct
+Contains a product and his quantity for a certain meal
+
+* id: Long = _Id of this meal product_
+* meal: Meal? = _Meal of which this meal product contains_
+* product: Product? = _Product of this meal product_
+* quantity: Int = _Quantity of this product, based on his units_
+
 
 ### Menu
 The list of all the meals that a patient needs to take ona certain date
 
-### Meal
-Information about one meal of the day(lunch, diner, ...)
-A patient can score and comment this meal. 
-Contains a list of mealproducts
-A dietetist can add extra info about this meal
-Is inside a menu or a diet (template)
+* id: Long = _Id of the menu_
+* date: LocalDate? = _Date of the menu_
+* meals: MutableList<Meal> = _List of meals for the menu_
+* patient: Patient? = _Patient that needs to take this menu_
 
-### MealProduct
-Contains a product and his quantity for a certain meal
+
+### Nutriment
+Nutriments information about a product in a certain language
+
+* id: Long = _Id of the nutriment_
+* name: String = _Name of the nutriment_
+* value: Double = _Value of the nutriment_
+* unit: String = _Unit of the nutriment_
+        
+        
+### Patient
+Contains information about a patient, extends from *Customer*
+
+* extraInfo: String = _Extra information about this patient_
+* dietetistId: Long? = _Id of the dietetist that handles this patient_
+* anthropometricParameters: MutableList<AnthropometricParameter> = _List of the parameters of the patient_
+
+### Product
+Base class of a product
+
+* id: Long = _Id of a product_
+* translations: MutableList<ProductTranslation> = _List of all the translation of the product_
+* dietetists: MutableList<Dietetist> = _List of dietetist that have this product in their favorites_
+* mealProducts: List<MealProduct> = _List of meal products that contains this product_
+
+### ProductTranslation
+Contains the translation about a product
+
+* id: Long = _Id of the product translation_
+* language: String = _Language of the product translation_
+* name: String = _Name of the product translation_
+* productId: Long = _Product id of the product translation_
+* units: MutableList<Nutriment> = _List of the units for the product translation_
+* macros: MutableList<Nutriment> = _List of the macro nutriments of the product translation_
+* micros: MutableList<Nutriment> = _List of the micro nutriments of the product translation_
 
 ## Dto's
 ### Auth0TokenAskDto
