@@ -35,7 +35,7 @@ The keys needed for connecting with Auth0 is in /src/main/resources/development.
     - All the services are located here
 * Static
     - Web app builded with npm
-    -/products
+    - /products
         - Temporary json files that will be batched
         
 ## Environments
@@ -145,7 +145,7 @@ Contains information about a maintenance of the API
 * endDate: LocalDateTime? = _The end date of a maintenance_
 * state: MaintenanceState = _The state of the maintenance_
         
-#### MaintenanceState
+### MaintenanceState
 Enum for the state of a maintenance
 
 * BEGIN = Maintenance is at the beginning
