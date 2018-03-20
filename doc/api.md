@@ -11,6 +11,7 @@ This document contains the documention about this API
 * [Models](#models)
 * [Dto's](#dtos)
 * [Repositories](#repositories)
+* [Services](#services)
 * [Controllers](#controllers)
 
 ## Authentication
@@ -175,6 +176,10 @@ Used with attach or detach a patient to a dietetist
 ### ProductTranslationRepository
 * FindByLanguageAndNameLike
     - Better way to find products
+
+## Services
+### LoginAccessService
+Maintenance and activity dates are in UTC.
 
 ## Controllers
 ### DietetistController
