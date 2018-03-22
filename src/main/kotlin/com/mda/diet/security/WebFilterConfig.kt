@@ -41,6 +41,11 @@ class WebFilterConfig(val loginAccessService: LoginAccessService) : Filter {
             val scope = jwt.getClaim("scope")
             if(scope != null && scope.asString().contains("scope:admin"))
                 isAdmin = true
+            if(loginAccessService.isBlacklisted(jwt.subject)) {
+                setErrorResponse(HttpStatus.BAD_REQUEST, response as HttpServletResponse,
+                        LoginException("Blacklisted"))
+                return
+            }
             loginAccessService.addActivity(jwt.subject)
         }
 

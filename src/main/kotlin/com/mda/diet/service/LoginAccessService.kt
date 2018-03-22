@@ -2,6 +2,7 @@ package com.mda.diet.service
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.exceptions.JWTDecodeException
+import com.mda.diet.dto.LoginBlacklistDto
 import com.mda.diet.dto.MaintenanceDto
 import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.LoginException
@@ -11,6 +12,7 @@ import com.mda.diet.model.MaintenanceState
 import com.mda.diet.repository.LoginAccessRepository
 import com.mda.diet.repository.MaintenanceRepository
 import org.springframework.stereotype.Service
+import java.time.Clock
 import java.time.LocalDateTime
 import java.util.*
 
@@ -28,13 +30,13 @@ class LoginAccessService(val repository: LoginAccessRepository,
 
     fun putInMaintenance(reason: String?): Maintenance {
         if(maintenance != null) throw LoginException("Cannot put in maintenance, it's already in maintenance !")
-        maintenance = Maintenance(0, reason ?: "", LocalDateTime.now(), null, MaintenanceState.BEGIN)
+        maintenance = Maintenance(0, reason ?: "", LocalDateTime.now(Clock.systemUTC()), null, MaintenanceState.BEGIN)
         return maintenanceRepository.save(maintenance)!!
     }
 
     fun removeMaintenance(): Maintenance {
         if(maintenance == null) throw LoginException("It's not in maintenance !")
-        maintenance?.endDate = LocalDateTime.now()
+        maintenance?.endDate = LocalDateTime.now(Clock.systemUTC())
         maintenance?.state = MaintenanceState.END
         val ret = maintenanceRepository.save(maintenance)
         maintenance = null
@@ -60,14 +62,14 @@ class LoginAccessService(val repository: LoginAccessRepository,
 
     fun onLogout(id: String): LoginAccess {
         val login = repository.findOne(id) ?: throw CustomNotFoundException("No login access found with id: $id")
-        login.lastActivityTime = LocalDateTime.now()
-        login.logOutTime = LocalDateTime.now()
+        login.lastActivityTime = LocalDateTime.now(Clock.systemUTC())
+        login.logOutTime = LocalDateTime.now(Clock.systemUTC())
         return repository.save(login)
     }
 
     fun addActivity(id: String): LoginAccess {
         val login = repository.findOne(id) ?: throw CustomNotFoundException("No login access found with id: $id")
-        login.lastActivityTime = LocalDateTime.now()
+        login.lastActivityTime = LocalDateTime.now(Clock.systemUTC())
         return repository.save(login)
     }
 
@@ -75,6 +77,23 @@ class LoginAccessService(val repository: LoginAccessRepository,
         if(maintenance == null)
             return maintenanceRepository.findFirstByOrderByIdDesc() ?: Maintenance()
         return maintenance!!
+    }
+
+    fun blacklistLogin(blacklistDto: LoginBlacklistDto): LoginAccess {
+        val login = repository.findOne(blacklistDto.id) ?: throw CustomNotFoundException("No login access found with id: ${blacklistDto.id}")
+        login.isBlacklisted = true
+        return repository.save(login)
+    }
+
+    fun unBlacklistLogin(blockDto: LoginBlacklistDto): LoginAccess {
+        val login = repository.findOne(blockDto.id) ?: throw CustomNotFoundException("No login access found with id: ${blockDto.id}")
+        login.isBlacklisted = false
+        return repository.save(login)
+    }
+
+    fun isBlacklisted(id: String): Boolean {
+        val login = repository.findOne(id) ?: throw CustomNotFoundException("No login access found with id: $id")
+        return login.isBlacklisted
     }
 
 }
