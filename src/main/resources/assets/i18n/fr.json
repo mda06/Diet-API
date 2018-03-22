@@ -1,0 +1,253 @@
+{
+  "LOGIN": {
+    "USERNAME": "Nom de compte",
+    "USERNAME_PLACEHOLDER": "Entrer nom de compte",
+    "PASSWORD": "Mot de passe",
+    "USERNAME_PASSWORD": "Entrer le mot de passe",
+    "REMEMBER": "Se souvenir de moi",
+    "LOGIN": "Connecter",
+    "CANCEL": "Annuler",
+    "FORGET_PASSWORD": "Mot de passe oublié ?",
+    "CANNOT_CONNECT": "Imposible de se connecter !"
+  },
+  "NAV": {
+    "ADMIN": {
+      "DASHBOARD": "Tableau de bord",
+      "FOOD": "Produits"
+    },
+    "MENU": {
+      "TITLE": "Menu",
+      "TEMPLATE": "Modèles"
+    },
+    "PATIENT": {
+      "TITLE": "Patients",
+      "ABOUT": "À propos du patient",
+      "SELECT": "Selectionner un patient"
+    },
+    "DIET": {
+      "SELECT": "Selectionner un diététicien"
+    },
+    "REPORTS": {
+      "TITLE": "Rapports"
+    },
+    "FOOD_SEARCH": "Chercher des produits",
+    "DASHBOARD": "Tableau de bord",
+    "LOG_OUT": "Déconnection",
+    "BACK": "Retour",
+    "SETTINGS": {
+      "TITLE": "Options",
+      "LANG": "Langage: "
+    }
+  },
+  "CUSTOMER": {
+    "DETAIL": {
+      "META_DATA": "Meta data",
+      "FIRST_NAME": "Prénom",
+      "MIDDLE_NAME": "2ème nom",
+      "LAST_NAME": "Nom de famille",
+      "EMAIL": "Email",
+      "PHONE": "Téléphone",
+      "BIRTHDAY": "Naissance",
+      "GENDER": {
+        "TITLE": "Sexe",
+        "OTHER": "Autre",
+        "MALE": "Homme",
+        "FEMALE": "Femme"
+      },
+      "ADDRESS": {
+        "STREET": "Rue",
+        "NUMBER": "Numéro",
+        "POSTCODE": "Code postale",
+        "CITY": "Ville",
+        "COUNTRY": "Pays",
+        "TOGGLE": "Ouvrire/Fermer addresse"
+      }
+    },
+    "ACCOUNT": {
+      "TITLE": "Compte",
+      "USERNAME": "Nom de compte",
+      "USERNAME_TAKEN": "Nom de compte déjà pris",
+      "PASSWORD": "Mot de passe",
+      "PASSWORD_CHECK": "Répétez le mot de passe",
+      "CREATE": "Créer le compte",
+      "UPDATE": "Mettre à jour le compte"
+    }
+  },
+  "DIET": {
+    "DELETE": {
+      "TITLE": "Vous êtes sur le point de supprimer un patient !",
+      "BODY": "Êtes-vous sûr de vouloir supprimer ce patient ?",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    },
+    "SELECT": {
+      "TITLE": "Selectionner un patient",
+      "SEARCH": "Chercher un patient",
+      "SEARCH_PLACEHOLDER": "nom",
+      "ADD": "Ajouter un patient",
+      "SELECT": "Selectionner"
+    },
+    "DASHBOARD": {
+      "TITLE": "Tableau de bord de ",
+      "SELECTED": "Patient selectionner: ",
+      "NO_PATIENT": "Veuillez selectionner un patient",
+      "DESELECT_PATIENT": "Déselectionner le patient",
+      "CREATED": "Crée le ",
+      "YEARS_OLD": " ans"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Selectionner un patient avant",
+      "EXTRA_INFO": "Info extra",
+      "SAVE": "Sauvegarder",
+      "RETURN": "Retour",
+      "ATTENTION": "Attention",
+      "PATIENT_MODIFIED": "Le patient a été modifié sans être sauvegardé",
+      "CANCEL": "Annuler",
+      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
+      "PARAMS": {
+        "TITLE": "Paramètres anthropometriques",
+        "LENGTH": "Taille (cm)",
+        "WEIGHT": "Poids (kg)",
+        "BODY_FAT": "Graisse",
+        "WAIST": "Taille aux hanches (cm)",
+        "ADD": "Ajouter"
+      },
+      "ALERT": {
+        "SAVING": "En train de sauvergarder ",
+        "SAVED": "Sauvegarder ",
+        "ERROR": "Erreur pas possible de sauvegarder "
+      }
+    }
+  },
+  "FOOD": {
+    "SEARCH": {
+      "NOT_SELECTED": "Selectionner un produit",
+      "TITLE": "Chercher un produit",
+      "NAME": "Nom: ",
+      "NAME_PLACEHOLDER": "nom",
+      "SIZE": "Nombre de produits par page: ",
+      "PRODUCTS": "Produits",
+      "SEARCHING": "Chercher...",
+      "ERROR_SEARCHING": "Erreur pendant la recherche !",
+      "EMPTY": "Pas de produits trouvé",
+      "UNITS": "Unités",
+      "MACROS": "Macros",
+      "MICROS": "Micros",
+      "NO_IMG": "Pas d'image"
+    },
+    "FAV": {
+      "ONLY": "Seulement les favoris"
+    }
+  },
+  "ADMIN": {
+    "DELETE": {
+      "TITLE": "Vous êtes sur le point de supprimer un diététicien !",
+      "BODY": "Êtes-vous sûr de vouloir supprimer ce diététicien ?",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    },
+    "SELECT": {
+      "TITLE": "Selectionner un diététicien",
+      "SEARCH": "Chercher un diététicien",
+      "SEARCH_PLACEHOLDER": "nom",
+      "ADD": "Ajouter un diététicien",
+      "SELECT": "Selectionner"
+    },
+    "DETAIL": {
+      "SELECT_FIRST": "Selectionner un diététicien avant",
+      "SAVE": "Sauvegarder",
+      "RETURN": "Retour",
+      "ATTENTION": "Attention",
+      "DIET_MODIFIED": "Le diététicien a été modifié sans être sauvegardé",
+      "CANCEL": "Annuler",
+      "RETURN_WITHOUT_SAVING": "Retour sans sauvegarder",
+      "TITLE": "Information spécifique au diététicien",
+      "VAT": "TVA",
+      "ALERT": {
+        "SAVING": "En train de sauvergarder ",
+        "SAVED": "Sauvegarder ",
+        "ERROR": "Erreur pas possible de sauvegarder "
+      }
+    },
+    "UPLOAD": {
+      "DONE": "Enregistrement fait",
+      "ERROR": "Erreur pendant l'enregistrement"
+    },
+    "PURGE" : {
+      "CHECK": "Je veux purger la base de données des produits",
+      "TITLE": "Danger !",
+      "BODY": "Vous êtes sur le point de supprimer toute la base de données des produits !",
+      "CANCEL": "Annuler",
+      "CONFIRM": "Je suis sûr",
+      "DELELTE": "En train de purger la base de données des produits",
+      "DELETED": "La base de données des produits a éte supprimé",
+      "ERROR_DELETE": "Erreur pendant la purge des produits"
+    },
+    "PRODUCT": {
+      "DELETE" : {
+        "WARNING": "Vous êtes sur le point de supprimer un produit définitivement",
+        "ATTENTION": "Attention !",
+        "CANCEL": "Annuler",
+        "CONFIRM": "Supprimer quand même"
+      },
+      "SEARCHING": "En train de chercher le produit...",
+      "NOT_FOUND": "Produit non trouvé !",
+      "DEL_ID": "ID du produit à supprimer: ",
+      "ERROR_DELETE": "Erreur pendant la suppression du produit",
+      "DEL": "Supprimer",
+      "DELETED": "Produit a éte supprimé",
+      "PURGE": "Purger la base de données des produits",
+      "SIZE": "Il y a {{size}} produits dans la base de données actuellement",
+      "UPLOAD": "Enregistrer d'autres produits",
+      "SAVE": "Sauvegarder"
+    }
+  },
+  "MENU": {
+    "PATIENT_BEFORE": "Veuillez selectionner un patient...",
+    "LOADING": "Chargement...",
+    "OF": "Menu du ",
+    "NEW": "Nouveau",
+    "NEW_DATE": "Appliquer une nouvelle date",
+    "DELETE": "Supprimer un menu",
+    "DELETE_POPUP": {
+      "TITLE": "Supression",
+      "BODY": "Supprimer un menu",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    }
+  },
+  "MEALS": {
+    "TITLE": "Repas",
+    "NEW": "Nouveau",
+    "NEW_TITLE": "Nouveau repas",
+    "ADD_TEMPLATE": "Modèles",
+    "NAME": "Nom: ",
+    "DESC": "Description",
+    "EMPTY": "Il n'y a pas de repas",
+    "DELETE_POPUP": {
+      "TITLE": "Supression",
+      "BODY": "Supprimer un repas",
+      "CANCEL": "Annuler",
+      "DELETE": "Supprimer"
+    },
+    "PRODUCTS": {
+      "TITLE": "Produits",
+      "EMPTY": "Vous n'avez pas de produit dans ce repas",
+      "LOADING": "Chargement des produits...",
+      "SELECT_MEAL_BEFORE": "Selectionner un repas"
+    },
+    "PATIENT": {
+      "TITLE": "Réaction du patient",
+      "COMMENT_OF": "Commentaire de"
+    },
+    "TEMPLATE": {
+      "TITLE": "Modèles",
+      "LOADING_MEALS": "Chargement des repas...",
+      "MODAL": {
+        "TITLE": "Selectionner un repas de vos modèles",
+        "INFO": "1 Clique = 1 Repas ajouté",
+        "CANCEL": "Annuler"
+      }
+    }
+  }
+}
