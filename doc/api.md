@@ -278,15 +278,109 @@ Used with attach or detach a patient to a dietetist
 
 
 ## Repositories
-### ProductRepository
-* FindByTranslationsLanguageEqualsAndTranslationsNameLike
-    - First way to retrieve products with paging and filtering
-    - Don’t use it anymore use ProductTranslationRepository instead
-        - It’s more efficient
+All the repositories extends from CrudRepository<Model, Long>.
+The long is the ID of the model
+CrudRepository contains all the basics CRUD methods.
 
+### AddressRepository
+Use the address as model
+
+### AdminRepository
+Use the admin as model
+
+### AnthropometricParameterRepository
+Use the anthropometricparameter as model
+
+**getAllByPatientId**
+* Take an _patient id_ as parameter
+* Returns a _list of anthropometricparameter_ for that specific patient
+
+### CustomerRepository
+Use the customer as model
+
+**getByAuthId**
+* Take the _authid_ as parameter
+* Returns the _customer_ associated with this id
+
+### DietetistRepository
+Use the dietetist as model
+
+### LoginAccessRepository
+Use the loginaccess as model
+
+### MaintenanceRepository
+Use the maintenance as model
+
+**findFirstByOrderByIdDesc**
+* Returns the _latest Maintenance_
+
+### MealProductRepository
+Use the mealproduct as model
+
+**countByProductId**
+* Take an _product id_ as parameter
+* Returns the _total times of this product is used_
+
+### MealRepository
+Use the meal as model
+
+**findByMenuId**
+* Take the _id of a menu_ as parameter
+* Returns a _list of meals for this menu_
+
+**findByDietId**
+* Take the _id of a diet_ as parameter
+* Returns a _list of meals for this diet_
+
+### MenuRepository
+Use the menu as model
+
+**findByPatientId**
+* Take the _id of a patient_ as parameter
+* Returns all _his menus_
+
+**findByDate**
+* Take a _month_, _year_ and _patient id_ as parameter
+* Returns a _list of menus associated to this patient for a certain month_
+ 
+**findByDateAndPatientIdIs**
+* Take a _date_ and _patient id_ as parameter
+* Return a _menu for this date_
+
+### PatientRepository
+Use the patient as model
+
+**getAllByDietetistId**
+* Take the _id of an diet_ as parameter
+* Returns a _list of his patients_
+
+### ProductRepository
+Use the product as model
+
+**findByTranslationsLanguageEqualsAndTranslationsNameLike**
+* _Not used any more_
+* First way to retrieve products with paging and filtering
+* Don’t use it anymore use ProductTranslationRepository instead
+    - It’s more efficient
+
+**findByIdAndTranslationsLanguageEquals**
+* Take an _id of a product_ and the _desired language_ as parameter
+* Return the _product in the desired language_
+
+**findByDietetistsIdIs**
+* Take an _id of a diet_ and a _pageable_ object(used for pagination) as parameter
+* Return a _page(used for pagination) of products_
+        
 ### ProductTranslationRepository
-* FindByLanguageAndNameLike
-    - Better way to find products
+Use the producttranslation as model
+
+**FindByLanguageAndNameLike**
+* _Better way to find products_
+* Take a _language_, _name_ and _pageable_ object as parameter
+    - The _language_ is the desired language
+    - The _name_ of the product that will be searched (SQL notation: where productname like '%name%')
+    - The _page_ is used for pagination
+* Returns a _page(used for pagination) of products_
 
 ## Services
 ### LoginAccessService
