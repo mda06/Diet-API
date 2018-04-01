@@ -224,57 +224,157 @@ Contains the translation about a product
 ### Auth0TokenAskDto
 Class that contains the data that need to be send to auth0 to get the token
 
+* customerId: Long = _Id of the user_,
+* email: String = _Email of the user_,
+* password: String = _Password of the user_,
+* connection: String = _Connection type for the token_,
+* client_id: String? = _ID of the API_
+
 ### Auth0TokenReturnDto
 Class that contains the data that be returned by auth0
 
+* _id: String = _Id of Auth0_,
+* email_verified: Boolean = _Boolean that say if the email is verified_,
+* email: String = _Email of the user_
+
 ### Auth0SignupAskDto
 Class that contains data that need to be send to auth0 to signup
-* customerId 
-    - The id of an existing customer
-    - email/password the email and password for the user
+
+* grant_type: String = _Type of grant_,
+* scope: String = _Scope for the token_,
+* audience: String? = _Audience of the API_,
+* client_id: String? = _ID of the API_,
+* client_secret: String? = _Secret key of the API_,
+* username: String = _Username of the user_,
+* password: String = _Password of the user_
 
 ### Auth0SignupReturnDto
 Class that contains the data that be returned by auth0
-* _id
-    - Id of the user
 
-### RoleDto
-Enum used in /auth/role to know which role the user is
-* PATIENT
-* ADMIN
-* DIET
+* access_token: String = _Access token to be used for the API_,
+* id_token: String = _Id of that token_,
+* scope: String? = _Scope for that token_,
+* expires_in: Int = _Expires time for that token_,
+* token_type: String = _Type of that token_
 
 ### DietetistAttachPatientDto
 Used with attach or detach a patient to a dietetist 
-* Patient_id
-    - Id of the patient that’s going to be attached to a dietetist
-* Diet_id
-    - Id of the dietetist where to patient is going to be attached
 
-### ProductNameDto
-* Only name, id and is favourite 
-* Returned by getAll products
-
-### ProductDto
-* All the product information with 1 language 
+* patient_id: Long = _Id of the patient that’s going to be attached to a dietetist_
+* diet_id: Long = _Id of the dietetist where to patient is going to be attached_
 
 ### DietetistDto
-* Used to return without products
+Used to return without products
+
+* id: Long = _Id of the dietetist_,
+* authId: String? = _Auth ID of the dietetist_,
+* firstName: String = _First name of the dietetist_,
+* middleName: String = _Middle name of the dietetist_,
+* lastName: String = _Last name of the dietetist_,
+* email: String = _Email of the dietetist_,
+* phone: String = _Phone of the dietetist_,
+* address: Address = _Addres of the dietetist_,
+* gender: Gender? = _Gender of the dietetist_,
+* created: LocalDate? = _Created date of the dietetist_,
+* birthday: LocalDate? = _Birthday of the dietetist_,
+* vat: String = _VAT of the dietetist_,
+* patients: MutableList<Patient> = _Patients of the dietetist_
 
 ### DietetistNameDto
-* Return only firstname, lastname & id
+Return only firstname, lastname & id
 
-### MealProductDto
-* Contains the quantity and the productId of a meal
+* id: Long = _ID of the dietetist_,
+* firstName: String = _First name of the dietetist_,
+* lastName: String = _Last name of the dietetist_
+
+### DietFavProduct
+Used for adding or removing product favourites
+
+* prod_id: Long? = _Id of the product_
+* diet_id: Long? = _of the dietetist_
+
+### LoginBlacklistDto
+Used to blacklist a user
+
+* id: String = _Auth ID of the user that will be blacklisted_
+
+### MaintenanceDto
+Used to put the API in maintenance
+
+* reason: String = _The reason why the API will be in maintenance_
 
 ### MealDto
-* Holds an array of mealproductsdto
+Use a mealproductdto instead of the POJO class
 
-### MenuDto
-* Has the id of a patient instead of the object
+* id: Long = _Id of the meal_,
+* dietId: Long = _Diet id of the meal_,
+* menuId: Long = _Menu id of the meal_,
+* name: String = _Name of the meal_,
+* extraInfo: String = _Extra information about the meal_,
+* score: Int = _Score of the meal_,
+* comment: String = _Comment of the meal_,
+* mealProducts:  List<MealProductDto> = _List of all his meal products_
+                   
+### MealProductDto
+Contains the quantity and the productId of a meal  
+
+* id: Long = _Id of the mealproduct_,
+* quantity: Int = _Quantity of the mealproduct_ ,
+* productId: Long = _ProductId of the mealproduct_ ,
+* mealId: Long = _Meal id of the mealproduct_
 
 ### MenuDateDto
-* Contains only id, date and the patientId
+Contains only id, date and the patientId
+
+* id: Long = _Id of the menu_
+* patientId: Long = _Of the the patient_
+* date: LocalDate? = _Date of the menu_
+
+### MenuDto
+Has the id of a patient instead of the object
+
+* id: Long = _Id of the menu_,
+* patientId: Long = _Id of the patient_,
+* date: LocalDate? = _Date of the menu_,
+* meals: List<MealDto> = _List of the meals in the menu_
+
+### NutrimentDto
+Used to return all the nutriment information in one language 
+
+* name: String = _Name of the nutriment_,
+* value: Double = _Value of the nutriment_,
+* unit: String = _Unit of the nutriment_
+
+### ProductDto
+Used to return all the product information in one language 
+
+* id: Long = _Id of the product_,
+* imgUrl: String = _Image URL of the product_,
+* name: String = _Name of the product_,
+* units: List<Nutriment> = _Units of the product_,
+* macros: List<Nutriment> = _Macros of the product_,
+* micros: List<Nutriment> = _Micros of the product_,
+* favorite: Boolean = _Is the product a favourite_
+        
+### ProductNameDto
+Used to return only the id and the name of a product
+
+* id: Long = _Id of the product_
+* name: String = _Name of that product_
+
+### ReportMenuDto
+Used to return a report about a menu
+
+* date: LocalDate? = _Date of the menu_,
+* macros: List<NutrimentDto> = _Total of all the macro nutriments of the menu_,
+* micros: List<NutrimentDto> = _Total of all the micro nutriments of the menu_
+                         
+### RoleDto
+Enum used in /auth/role to know which role the user is
+
+* PATIENT
+* ADMIN
+* DIET
 
 
 ## Repositories
