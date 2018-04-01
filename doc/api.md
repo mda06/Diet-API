@@ -493,7 +493,7 @@ Use the producttranslation as model
 Return
 * Returns a _list of all the addresses_
 
-### getById(id)
+#### getById(id)
 Parameters
 * _id_: The id of the address
 
@@ -524,7 +524,85 @@ Parameters
 
 ### AdminService
 
+#### findAll()
+Return
+* Returns a _list of all the admins_
+
+#### getById(id)
+Parameters
+* _id_: The id of the admin
+
+Throws
+* _CustomNotFoundException_: if no admin is found with that id
+
+Returns
+* The _admin_ that match this id
+
+#### addAdmin(admin)
+Parameters
+* _admin_: Admin that will be saved
+
+Return
+* Returns the saved _admin_
+
+#### updateAdmin(id, admin)
+Parameters
+* _id_: The ID of the admin that will be updated
+* _admin_: The admin that will be updated
+
+Return
+* Returns the saved _admin_
+
+#### deleteAdmin(id)
+Parameters
+* _id_: The id of the admin that will be deleted
+
 ### AnthropometricParameterService
+> AP: Anthropometric Parameter
+
+#### findAll()
+Return
+* Returns a _list of all the AP_
+
+#### getById(id)
+Parameters
+* _id_: The id of the AP
+
+Throws
+* _CustomNotFoundException_: if no AP is found with that id
+
+Returns
+* The _AP_ that match this id
+
+#### getByPatient(id)
+Parameters
+* _id_: The id of the patient
+
+Throws
+* _CustomNotFoundException_: if no patient is found with that id
+
+Returns
+* A _list of AP_ for that specified patient
+
+#### addAP(AP)
+Parameters
+* _AP_: Admin that will be saved
+
+Return
+* Returns the saved _AP_
+
+#### updateAP(id, AP)
+Parameters
+* _id_: The ID of the AP that will be updated
+* _AP_: The AP that will be updated
+
+Return
+* Returns the saved _AP_
+
+#### deleteAP(id)
+Parameters
+* _id_: The id of the AP that will be deleted
+
 
 ### AuthenticationService
 
