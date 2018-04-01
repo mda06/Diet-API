@@ -478,7 +478,7 @@ Use the product as model
 ### ProductTranslationRepository
 Use the producttranslation as model
 
-- **FindByLanguageAndNameLike**
+- **findByLanguageAndNameLike**
     * _Better way to find products_
     * Take a _language_, _name_ and _pageable_ object as parameter
         - The _language_ is the desired language
@@ -487,8 +487,61 @@ Use the producttranslation as model
     * Returns a _page(used for pagination) of products_
 
 ## Services
+### AddressService
+
+#### findAll()
+Return
+* Returns a _list of all the addresses_
+
+### getById(id)
+Parameters
+* _id_: The id of the address
+
+Throws
+* _CustomNotFoundException_: if no address is found with that id
+
+Returns
+* The _address_ that match this id
+
+#### addAddress(address)
+Parameters
+* _address_: Address that will be saved
+
+Return
+* Returns the saved _address_
+
+#### updateAddress(id, address)
+Parameters
+* _id_: The ID of the address that will be updated
+* _address_: The address that will be updated
+
+Return
+* Returns the saved _address_
+
+#### deleteAddress(id)
+Parameters
+* _id_: The id of the address that will be deleted
+
+### AdminService
+
+### AnthropometricParameterService
+
+### AuthenticationService
+
+### DietetistService
+
 ### LoginAccessService
 Maintenance and activity dates are in UTC.
+
+### MealProductService
+
+### MealService
+
+### PatientService
+
+### ProductService
+
+### ReportService
 
 ## Controllers
 ### DietetistController
