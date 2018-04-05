@@ -1070,6 +1070,79 @@ Maintenance and activity dates are in UTC.
 
 ---
 
+### MenuService
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
+* _id_: The of a Menu 
+
+##### Throws
+* _CustomNotFoundException_: If no menu exist with that id
+
+##### Returns
+* Returns the _MenuDto_ for that id
+</details>
+
+<details>
+<summary>getByPatientId(id)</summary>
+
+##### Parameters
+* _id_: The id of that patient
+
+##### Returns
+* Returns the _MenuDto_ for that patient id
+</details>
+
+<details>
+<summary>addMenu(menuDto)</summary>
+
+##### Parameters
+* _menuDto_: The Menu that will be saved 
+
+##### Throws
+* _CustomNotFoundException_: If no patient or product exist
+
+##### Returns
+* Returns the saved _MenuDto_
+</details>
+
+<details>
+<summary>deleteMenu(id)</summary>
+
+##### Parameters
+* _id_: The id of the Menu that will be deleted
+</details>
+
+<details>
+<summary>getByDate(month, year, patientId)</summary>
+
+##### Parameters
+* _month_: The month for the menu
+* _year_: The year of the menu 
+* _patientId_: The patientId of the menu 
+
+##### Returns
+* Returns the _MenuDateDto_ for that specified month, year and patient id
+</details>
+
+<details>
+<summary>getByDate(date, id)</summary>
+
+##### Parameters
+* _date_: The date of the menu
+* _id_: The patient id for the menu 
+
+##### Throws
+* _CustomNotFoundException_: If no menu exist
+
+##### Returns
+* Returns the _MenuDto_
+</details>
+
+----
+
 ### PatientService
 
 ---
