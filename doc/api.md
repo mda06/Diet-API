@@ -708,7 +708,7 @@ Use the producttranslation as model
 <summary>getUser()</summary>
 
 ##### Returns
-* If the user is a Dietetist it returns a _DietetistDto° else il will return a _Customer_
+* If the user is a Dietetist it returns a _DietetistDto_ else il will return a _Customer_
 </details>
 
 <details>
@@ -749,6 +749,70 @@ Use the producttranslation as model
 ---
 
 ### DietetistService
+
+<details>
+<summary>findAll()</summary>
+
+##### Returns
+* Return all the _DietetistNameDto_
+</details>
+
+<details>
+<summary>addDietetist(dietetist)</summary>
+
+##### Parameters
+* _dietetist_: The dietetist that will be added
+
+##### Returns
+* Returns the saved _dietetist_
+</details>
+
+<details>
+<summary>deleteDietetist(id)</summary>
+
+##### Parameters
+* _id_: Id of the dietetist that will be deleted
+
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
+* _id_: If of the dietetist
+
+##### Throws
+* _CustomNotFoundException_: If no diet is found
+
+##### Returns
+* Returns the _DietetistDto_
+</details>
+
+<details>
+<summary>attachPatient(dto)</summary>
+
+##### Parameters
+* _dto_: DietetistAttachPatientDto that contains the id of the diet and 
+
+##### Throws
+* _CustomNotFoundException_: If no diet or patient is found
+
+##### Returns
+* Returns the _dietetist_
+</details>
+
+<details>
+<summary>detachPatient(dto)</summary>
+
+##### Parameters
+* _dto_: DietetistAttachPatientDto that contains the id of the diet and 
+
+##### Throws
+* _CustomNotFoundException_: If no diet or patient is found
+
+##### Returns
+* Returns the _dietetist_
+</details>
 
 ---
 
