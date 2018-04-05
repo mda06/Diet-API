@@ -819,6 +819,138 @@ Use the producttranslation as model
 ### LoginAccessService
 Maintenance and activity dates are in UTC.
 
+<details>
+<summary>isInMaintenance()</summary>
+
+##### Returns
+* A _boolean_ that indicated if the API is in maintenance
+</details>
+
+<details>
+<summary>putInMaintenance(reason)</summary>
+
+##### Parameters
+* _reason_: The reason why the API is in maintenance
+
+##### Throws
+* _LoginException_: If it's already in maintenance
+
+##### Returns
+* Returns a _Maintenance_ with the appropriate data
+</details>
+
+<details>
+<summary>removeMaintenance()</summary>
+
+##### Throws
+* _LoginException_: If it's not in maintenance
+
+##### Returns
+* Returns a _Maintenance_ with the appropriate data
+</details>
+
+<details>
+<summary>getAll()</summary>
+
+##### Returns
+* Returns all _LoginAccess_
+</details>
+
+<details>
+<summary>onLogin(token)</summary>
+
+##### Parameters
+* _token_: The token of the user that' loggin in
+
+##### Throws
+* _LoginException_: If the token is not valid
+
+##### Returns
+* Returns a _LoginAccess_ with the appropriate data
+</details>
+
+<details>
+<summary>toLocalDateTime(timestamp)</summary>
+
+##### Parameters
+* _timestamp_: The current timestamp in a Date object
+
+##### Returns
+* Returns the _java.sql.Timestamp_ of the timestamp
+</details>
+
+<details>
+<summary>onLogout(id)</summary>
+
+##### Parameters
+* _id_: The id of the LoginAccess 
+
+##### Throws
+* _CustomNotFoundException_: If no loginaccess with this id exist
+
+##### Returns
+* Returns the _LoginAccess_ for this id
+</details>
+
+<details>
+<summary>addActivity(id)</summary>
+
+##### Parameters
+* _id_: The id of the LoginAccess where the lastactivity datetime will be changed
+
+##### Throws
+* _CustomNotFoundException_: If no loginaccess with this id exist
+
+##### Returns
+* Returns the _LoginAccess_ for this id
+</details>
+
+<details>
+<summary>getMaintenanceStatus()</summary>
+
+##### Returns
+* Returns the _Maintenance_ status
+</details>
+
+<details>
+<summary>blacklistLogin(blacklistDto)</summary>
+
+##### Parameters
+* _blacklistDto_: The LoginBlacklistDto for blacklist a user
+
+##### Throws
+* _CustomNotFoundException_: If no loginaccess with this id exist
+
+##### Returns
+* Returns a _LoginAccess_ for that user
+</details>
+
+<details>
+<summary>unBlacklistLogin(blacklistDto)</summary>
+
+##### Parameters
+* _blacklistDto_: The LoginBlacklistDto for unblacklist a user
+
+##### Throws
+* _CustomNotFoundException_: If no loginaccess with this id exist
+
+##### Returns
+* Returns a _LoginAccess_ for that user
+</details>
+
+<details>
+<summary>isBlacklisted(id)</summary>
+
+##### Parameters
+* id: The id of an loginaccess
+
+##### Throws
+* _CustomNotFoundException_: If no loginaccess with this id exist
+
+##### Returns
+* Returns a _boolean_ that indicated if that loginaccess id blacklisted
+</details>
+
 ---
 
 ### MealProductService
