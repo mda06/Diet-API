@@ -1,3 +1,12 @@
+<style>
+details {
+    margin-left: 20px;
+}
+summary {
+    margin-left: -20px;
+}
+</style>
+
 # Diet API Documention
 This document contains the documention about this API
 
@@ -489,19 +498,25 @@ Use the producttranslation as model
 ## Services
 ### AddressService
 
-#### findAll()
-Return
-* Returns a _list of all the addresses_
+<details>
+<summary>findAll()</summary>
 
-#### getById(id)
-Parameters
+##### Returns
+* Returns a _list of all the addresses_
+</details>
+
+<details>
+<summary> getById(id)</summary>
+
+##### Parameters
 * _id_: The id of the address
 
-Throws
+##### Throws
 * _CustomNotFoundException_: if no address is found with that id
 
-Returns
+##### Returns
 * The _address_ that match this id
+</details>
 
 #### addAddress(address)
 Parameters
@@ -521,6 +536,8 @@ Return
 #### deleteAddress(id)
 Parameters
 * _id_: The id of the address that will be deleted
+
+---
 
 ### AdminService
 
