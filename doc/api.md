@@ -506,7 +506,7 @@ Use the producttranslation as model
 </details>
 
 <details>
-<summary> getById(id)</summary>
+<summary>getById(id)</summary>
 
 ##### Parameters
 * _id_: The id of the address
@@ -518,108 +518,153 @@ Use the producttranslation as model
 * The _address_ that match this id
 </details>
 
-#### addAddress(address)
-Parameters
+<details>
+<summary>addAddress(address)</summary>
+
+##### Parameters
 * _address_: Address that will be saved
 
-Return
+##### Returns
 * Returns the saved _address_
+</details>
 
-#### updateAddress(id, address)
-Parameters
+<details>
+<summary>updateAddress(id, address)</summary>
+
+##### Parameters
 * _id_: The ID of the address that will be updated
 * _address_: The address that will be updated
 
-Return
+##### Return
 * Returns the saved _address_
+</details>
 
-#### deleteAddress(id)
-Parameters
+<details>
+<summary>deleteAddress(id)</summary>
+ 
+##### Parameters
 * _id_: The id of the address that will be deleted
+</details>
 
 ---
 
 ### AdminService
 
-#### findAll()
-Return
-* Returns a _list of all the admins_
+<details>
+<summary>findAll()</summary>
 
-#### getById(id)
-Parameters
+##### Returns
+* Returns a _list of all the admins_
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
 * _id_: The id of the admin
 
-Throws
+##### Throws
 * _CustomNotFoundException_: if no admin is found with that id
 
-Returns
+##### Returns
 * The _admin_ that match this id
+</details>
 
-#### addAdmin(admin)
-Parameters
+<details>
+<summary>addAdmin(admin)</summary>
+
+##### Parameters
 * _admin_: Admin that will be saved
 
-Return
+##### Returns
 * Returns the saved _admin_
+</details>
 
-#### updateAdmin(id, admin)
-Parameters
+<details>
+<summary>updateAdmin(id, admin)</summary>
+
+##### Parameters
 * _id_: The ID of the admin that will be updated
 * _admin_: The admin that will be updated
 
-Return
+##### Return
 * Returns the saved _admin_
+</details>
 
-#### deleteAdmin(id)
-Parameters
+<details>
+<summary>deleteAdmin(id)</summary>
+ 
+##### Parameters
 * _id_: The id of the admin that will be deleted
+</details>
+
+---
 
 ### AnthropometricParameterService
 > AP: Anthropometric Parameter
 
-#### findAll()
-Return
-* Returns a _list of all the AP_
+<details>
+<summary>findAll()</summary>
 
-#### getById(id)
-Parameters
+##### Return
+* Returns a _list of all the AP_
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
 * _id_: The id of the AP
 
-Throws
+##### Throws
 * _CustomNotFoundException_: if no AP is found with that id
 
-Returns
+##### Returns
 * The _AP_ that match this id
+</details>
 
-#### getByPatient(id)
-Parameters
+<details>
+<summary>getByPatient(id)</summary>
+
+##### Parameters
 * _id_: The id of the patient
 
-Throws
+##### Throws
 * _CustomNotFoundException_: if no patient is found with that id
 
-Returns
+##### Returns
 * A _list of AP_ for that specified patient
+</details>
 
-#### addAP(AP)
-Parameters
+<details>
+<summary>addAP(AP)</summary>
+
+##### Parameters
 * _AP_: Admin that will be saved
 
-Return
+##### Return
 * Returns the saved _AP_
+</details>
 
-#### updateAP(id, AP)
-Parameters
+<details>
+<summary>updateAP(id, AP)</summary>
+
+##### Parameters
 * _id_: The ID of the AP that will be updated
 * _AP_: The AP that will be updated
 
-Return
+#### Returns
 * Returns the saved _AP_
+</details>
 
-#### deleteAP(id)
-Parameters
+<details>
+<summary>deleteAP(id)</summary>
+
+##### Parameters
 * _id_: The id of the AP that will be deleted
+</details>
 
+---
 
 ### AuthenticationService
 
