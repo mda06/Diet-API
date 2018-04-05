@@ -955,6 +955,49 @@ Maintenance and activity dates are in UTC.
 
 ### MealProductService
 
+<details>
+<summary>addMealProduct(dto)</summary>
+
+##### Parameters
+* _dto_: A MealProductDto that will be added to an existing meal
+
+##### Throws
+* _CustomNotFoundException_: If a product or meal doesn't exist
+
+##### Returns
+* Returns the _MealProductDto_ that's added to a meal
+</details>
+
+<details>
+<summary>deleteMealProduct(id)</summary>
+
+##### Parameters
+* _id_: The id of an existing MealProduct 
+</details>
+
+<details>
+<summary>countByProductId(id)</summary>
+
+##### Parameters
+* _id_: The id of an existing MealProduct 
+
+##### Returns
+* Returns the total times of this products is used in every meal
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
+* _id_: The id of a MealProduct 
+
+##### Throws
+* _CustomNotFoundException_: If no mealproduct exist
+
+##### Returns
+* Returns the _MealProductDto_ for the id
+</details>
+
 ---
 
 ### MealService
