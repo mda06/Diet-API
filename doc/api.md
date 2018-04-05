@@ -1,12 +1,3 @@
-<style>
-details {
-    margin-left: 20px;
-}
-summary {
-    margin-left: -20px;
-}
-</style>
-
 # Diet API Documention
 This document contains the documention about this API
 
@@ -1302,6 +1293,34 @@ Maintenance and activity dates are in UTC.
 ---
 
 ### ReportService
+
+<details>
+<summary>getMenuReport(id, lang)</summary>
+
+##### Parameters
+* _id_: The id of a menu
+* _lang_: The language of the products
+
+##### Throws
+* _CustomNotFoundException_: If a menu or product doesn't exist
+
+##### Returns
+* Returns a _ReportMenuDto_ for that menu
+</details>
+
+<details>
+<summary>getPatientPdf(id)</summary>
+
+##### Parameters
+* _id_: The id of a patient 
+
+##### Throws
+* _CustomNotFoundException_: If no patient exist
+
+##### Returns
+* Returns a _ResponseEntity<InputStreamResource>_(pdf) for that patient
+</details>
+
 
 ---
 
