@@ -1002,6 +1002,72 @@ Maintenance and activity dates are in UTC.
 
 ### MealService
 
+<details>
+<summary>addMeal(dto)</summary>
+
+##### Parameters
+* _dto_: The MealDto that will be added
+
+##### Throws
+* _CustomNotFoundException_: If no product, menu or diet exist
+
+##### Returns
+* Returns the saved _MealDto_
+</details>
+
+<details>
+<summary>updatePatientInfo(dto)</summary>
+
+##### Parameters
+* _dto_: The MealDto for comment and score for a patient
+
+##### Throws
+* _CustomNotFoundException_: If no meal exsist with this id
+
+##### Returns
+* Returns the updated _MealDto_
+</details>
+
+<details>
+<summary>deleteMeal(id)</summary>
+
+##### Parameters
+* _id_: The meal id that will be deleted
+</details>
+
+<details>
+<summary>getByMenuId(id)</summary>
+
+##### Parameters
+* _id_: The id of a Menu 
+
+##### Returns
+* Returns the _MealDto_ of the menu id
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
+* _id_: The id of a meal 
+
+##### Throws
+* _CustomNotFoundException_: If no meal exist
+
+##### Returns
+* Returns the _MealDto_ with that id
+</details>
+
+<details>
+<summary>getByDietId(id)</summary>
+
+##### Parameters
+* _id_: The id of a Diet 
+
+##### Returns
+* Returns the _MealDto_ of the diet id
+</details>
+
 ---
 
 ### PatientService
