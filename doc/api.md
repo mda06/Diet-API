@@ -1145,9 +1145,159 @@ Maintenance and activity dates are in UTC.
 
 ### PatientService
 
+<details>
+<summary>findAll()</summary>
+
+##### Returns
+* Returns all the _Patients_
+</details>
+
+<details>
+<summary>getById(id)</summary>
+
+##### Parameters
+* _id_: The id of the patient
+
+##### Throws
+* _CustomNotFoundException_: If no patient exist with this id
+
+##### Returns
+* Returns the _patient_ with this id
+</details>
+
+<details>
+<summary>getByDiet(id)</summary>
+
+##### Parameters
+* _id_: Id of a dietetist 
+
+##### Returns
+* Returns all the _Patients_ of the dietetist
+</details>
+
+<details>
+<summary>addPatient(patient)</summary>
+
+##### Parameters
+* _patient_: The patient that need to be added
+
+##### Returns
+* Returns the saved _Patient_
+</details>
+
+<details>
+<summary>deletePatient(id)</summary>
+
+##### Parameters
+* _id_: The id of the deleted patient
+</details>
+
 ---
 
 ### ProductService
+
+<details>
+<summary>getProductById(id, language, diet)</summary>
+
+##### Parameters
+* _id_: The id of the product
+* _language_: The language of this product
+* _diet_: The id of the diet
+
+##### Throws
+* _CustomNotFoundException_: If no product is found with this id
+
+##### Returns
+* Returns a _ProductDto_
+</details>
+
+<details>
+<summary>getSize()</summary>
+
+##### Returns
+* Returns the total _number_ of products
+</details>
+
+<details>
+<summary>getProducts(pageable, name, language)</summary>
+
+##### Parameters
+* _pageable_: A pageable object for pagination
+* _name_: The name of the product
+* _language_: The language of the product
+
+##### Throws
+* _ProductSortException_: If the product cannot be sorted
+
+##### Returns
+* Returns a page of _ProductNameDto_
+</details>
+
+<details>
+<summary>getProductsFromFav(language, diet, pageable)</summary>
+
+##### Parameters
+* _language_: The language of the product
+* _diet_: The diet id for favorites
+* _pageable_: A pageable object for pagination
+
+##### Returns
+* Returns a page of _ProductDto_
+</details>
+
+<details>
+<summary>deleteProducts()</summary>
+
+##### Description
+* Delete all the products
+
+</details>
+
+<details>
+<summary>deleteProduct(id)</summary>
+
+##### Parameters
+* _id_: The id of the product that will be deleted 
+</details>
+
+<details>
+<summary>uploadBatch(uploadFile)</summary>
+
+##### Parameters
+* _uploadFile_: A json file with a list of products 
+
+##### Throws
+* _UploadFileException_: If the filename is not correct or if the language is different then fr or en
+
+##### Returns
+* Returns a _CompletableFuture<ResponseEntity<String>>_
+</details>
+
+<details>
+<summary>addProdToFav(fav)</summary>
+
+##### Parameters
+* _fav_: The DietFavProduct for adding a product to the diet fav
+
+##### Throws
+* _FavException_: If no diet or product exist
+
+##### Returns
+* Returns a _boolean_ to indicates if the product is added to the fav
+</details>
+
+<details>
+<summary>removeProdFromFav(fav)</summary>
+
+##### Parameters
+* _fav_: The DietFavProduct for removing a product from the diet fav
+
+##### Throws
+* _FavException_: If no diet or product exist
+
+##### Returns
+* Returns a _boolean_ to indicates if the product is removed from the fav
+</details>
 
 ---
 
