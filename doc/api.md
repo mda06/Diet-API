@@ -668,20 +668,114 @@ Use the producttranslation as model
 
 ### AuthenticationService
 
+<details>
+<summary>getManagementToken()</summary>
+
+##### Throw
+* _IllegalArgumentException_: if an exception occurs
+
+##### Returns
+* Returns the _management token_
+</details>
+
+<details>
+<summary>existUsername(email)</summary>
+
+##### Parameters
+* _email_: The email that wil be checked if it already exists 
+
+##### Throw
+* _IllegalArgumentException_: if an exception occurs
+
+##### Returns
+* Return a _boolean_ to indicate of the username already exists 
+</details>
+
+<details>
+<summary>getToken(token)</summary>
+
+##### Parameters
+* _token_: An Auth0TokenAskDto for asking a bearer token
+
+##### Throw
+* _IllegalArgumentException_ if an exception occurs
+
+##### Returns
+* Returns a _Auth0TokenReturnDto_ with the token inside of it
+</details>
+
+<details>
+<summary>getUser()</summary>
+
+##### Returns
+* If the user is a Dietetist it returns a _DietetistDto° else il will return a _Customer_
+</details>
+
+<details>
+<summary>getRole()</summary>
+
+##### Throw
+* _CustomerNotFoundException_: If no customer is found
+
+##### Returns
+* Returns a _RoleDto_ to indicate the role of a user
+</details>
+
+<details>
+<summary>getId()</summary>
+
+##### Returns
+* Returns the _id_ of a user
+</details>
+
+<details>
+<summary>deleteUser(id)</summary>
+
+##### Parameters
+* _id_: The id of a user that will be deleted
+
+##### Throws
+* _CustomNotFoundException_: If no user is found with that id
+* _IllegalArgumentException_: If an network error occurs
+</details>
+
+<details>
+<summary>logout()</summary>
+
+##### Description
+* Use the loginservice to logout an user
+</details>
+
+---
+
 ### DietetistService
+
+---
 
 ### LoginAccessService
 Maintenance and activity dates are in UTC.
 
+---
+
 ### MealProductService
+
+---
 
 ### MealService
 
+---
+
 ### PatientService
+
+---
 
 ### ProductService
 
+---
+
 ### ReportService
+
+---
 
 ## Controllers
 ### DietetistController
