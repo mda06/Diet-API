@@ -166,6 +166,14 @@ Information about one meal of the day(lunch, diner, ...)
 * mealProducts: MutableList<MealProduct> = _List of all the products inside this meal_,
 * diet: Dietetist? = _That meal contains to the dietetist_        
 
+### MealPicture
+Contains all the information about a mealpicture
+
+* id: Long = _Id of the picture_
+* date: LocalDate = _Date of the picture_
+* filname: String = _Name of the picture_
+* patient: Patient = _The patient of that picture_
+                   
 
 ### MealProduct
 Contains a product and his quantity for a certain meal
@@ -314,6 +322,13 @@ Use a mealproductdto instead of the POJO class
 * score: Int = _Score of the meal_,
 * comment: String = _Comment of the meal_,
 * mealProducts:  List<MealProductDto> = _List of all his meal products_
+
+### MealPictureDto
+Contains basic information about a mealpicture
+
+* id: Long = _Id of the picture_
+* date: LocalDate = _Date of the picture_
+* filname: String = _Name of the picture_
                    
 ### MealProductDto
 Contains the quantity and the productId of a meal  
@@ -1182,6 +1197,8 @@ Maintenance and activity dates are in UTC.
 ##### Parameters
 * _id_: The id of the deleted patient
 </details>
+
+### PictureService
 
 ---
 
