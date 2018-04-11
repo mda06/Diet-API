@@ -4,7 +4,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters
 import java.time.LocalDate
 import javax.persistence.*
 
-//@Entity
+@Entity
 class MealPicture (
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val id: Long = 0,

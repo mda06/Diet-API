@@ -428,6 +428,9 @@ Use the maintenance as model
 
 - **findFirstByOrderByIdDesc**
     * Returns the _latest Maintenance_
+    
+### MealPictureRepository
+Use the MealPicture as model
 
 ### MealProductRepository
 Use the mealproduct as model
@@ -1199,6 +1202,8 @@ Maintenance and activity dates are in UTC.
 </details>
 
 ### PictureService
+
+TODO: ...
 
 ---
 
