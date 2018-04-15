@@ -9,7 +9,7 @@ This document contains the documention about this API
 * [Test users](#test-users)
 * [Migrations](#migrations)
 * [Models](#models)
-* [Dto's](#dtos)
+* [Dto's](#dto's)
 * [Repositories](#repositories)
 * [Services](#services)
 * [Controllers](#controllers)
@@ -1203,7 +1203,16 @@ Maintenance and activity dates are in UTC.
 
 ### PictureService
 
-TODO: ...
+<details>
+<summary>handleFileUpload(pictures, date)</summary>
+
+##### Parameters
+* _pictures_: A array of MultipartFile that contains the pictures
+* _date_: The date when the pictures are taken
+
+##### Returns
+* Returns a list of the saved _MealPictures_
+</details>
 
 ---
 
