@@ -3,6 +3,7 @@ package com.mda.diet.controller
 import com.mda.diet.service.PictureService
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDate
@@ -24,7 +25,7 @@ class PicturesController(val service: PictureService) {
     fun getMealPicturesModel(patient: Long?)
             = service.getMealPicturesModel(patient)
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}", produces = [MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE])
     fun getMealPicture(@PathVariable id: Long): ResponseEntity<Any>? {
         val file =  service.getMealPicture(id)
         return ResponseEntity.ok()
