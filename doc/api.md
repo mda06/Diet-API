@@ -1210,10 +1210,26 @@ Maintenance and activity dates are in UTC.
 * _pictures_: A array of MultipartFile that contains the pictures
 * _date_: The date when the pictures are taken
 
+##### Throws
+* _UploadFileException_: If date is null, pictures is empty, the current user is no patient, 
+there's already a file named like this or a upload exception
+
 ##### Returns
 * Returns a list of the saved _MealPictures_
 </details>
 
+<details>
+<summary>getMealPicturesModel(patientId)</summary>
+
+##### Parameters
+* _patientId_: A optional long parameter for the patient id. If no parameter is given, the current user id is used
+
+##### Throws
+* _UploadFileException_: If the patientId given is no patient, or if the patientId is null and the current user is no patient
+
+##### Returns
+* Returns a list of the saved _MealPictures_
+</details>
 ---
 
 ### ProductService

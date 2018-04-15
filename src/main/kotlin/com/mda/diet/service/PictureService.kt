@@ -25,7 +25,9 @@ class PictureService(val repository: MealPictureRepository,
                     as? Patient ?: throw UploadFileException("The current customer is not a patient !")
             customer.id
         } else {
-            patientId
+            val customer = customerRepository.findOne(patientId) as? Patient ?:
+                    throw UploadFileException("The id $patientId is not a Patient !")
+            customer.id
         }
 
         return repository.findByPatientId(id).map { MealPictureDto(it) }
