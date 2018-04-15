@@ -19,39 +19,49 @@ class PictureService(val repository: MealPictureRepository,
 
     val rootLocation = System.getProperty("user.home")!! + "/diet-api/"
 
-    fun handleFileUpload(pictures: List<MultipartFile>, date: LocalDate?): List<MealPictureDto> {
-        try {
-            if(date == null) throw UploadFileException("No date was given")
-            if(pictures.isEmpty()) throw  UploadFileException("No pictures was given")
-            //Check patient !
+    fun getMealPicturesModel(patientId: Long?): List<MealPictureDto> {
+        val id = if(patientId == null) {
             val customer = customerRepository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
                     as? Patient ?: throw UploadFileException("The current customer is not a patient !")
-
-            val models = repository.save(pictures.map {
-                MealPicture(0, it.originalFilename, date, customer)
-            })
-
-            try {
-                val patientDir = customer.authId?.replace("|", "")!!
-                createDirectoriesIfNotExist(patientDir)
-                pictures.forEach {
-                    Files.copy(it.inputStream, File("$rootLocation/$patientDir/${it.originalFilename}").toPath())
-                }
-            } catch(ex: Exception)
-            {
-                //If a error occurs delete from the DB !
-                repository.delete(models)
-                throw UploadFileException("Failed to upload pictures: ${ex.javaClass.name} - ${ex.message}")
-            }
-
-            return models.map { MealPictureDto(it) }
-        } catch (e: Exception) {
-            throw UploadFileException("Failed to upload pictures: ${e.javaClass.name} - ${e.message}")
+            customer.id
+        } else {
+            patientId
         }
+
+        return repository.findByPatientId(id).map { MealPictureDto(it) }
     }
 
-    fun createDirectoriesIfNotExist(subDir: String)
-    {
+    fun handleFileUpload(pictures: List<MultipartFile>, date: LocalDate?): List<MealPictureDto> {
+        if(date == null) throw UploadFileException("No date was given")
+        if(pictures.isEmpty()) throw  UploadFileException("No pictures was given")
+        val customer = customerRepository.getByAuthId(SecurityContextHolder.getContext().authentication.principal.toString())
+                as? Patient ?: throw UploadFileException("The current customer is not a patient !")
+
+        if(repository.existsByFilenameInAndPatientIdIs(pictures.map { it.originalFilename }, customer.id))
+            throw UploadFileException("There already a file named like this")
+
+        val models = repository.save(pictures.map {
+            MealPicture(0, it.originalFilename, date, customer)
+        })
+
+        try {
+            val patientDir = customer.authId?.replace("|", "")!!
+            createDirectoriesIfNotExist(patientDir)
+            pictures.forEach {
+                Files.copy(it.inputStream, File("$rootLocation/$patientDir/${it.originalFilename}").toPath())
+            }
+        } catch(ex: Exception)
+        {
+            //If a error occurs delete from the DB !
+            repository.delete(models)
+            throw UploadFileException("Failed to upload pictures: ${ex.javaClass.name} - ${ex.message}")
+        }
+
+        return models.map { MealPictureDto(it) }
+
+    }
+
+    fun createDirectoriesIfNotExist(subDir: String) {
         val rootDirectory = File(rootLocation)
         if(!rootDirectory.exists())
             rootDirectory.mkdir()
