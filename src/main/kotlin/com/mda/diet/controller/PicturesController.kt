@@ -18,4 +18,8 @@ class PicturesController(val service: PictureService) {
     @GetMapping("/model")
     fun getMealPicturesModel(patient: Long?)
             = service.getMealPicturesModel(patient)
+
+    @GetMapping("/{id}")
+    fun getMealPicture(@PathVariable id: Long)
+        = service.getMealPicture(id)
 }

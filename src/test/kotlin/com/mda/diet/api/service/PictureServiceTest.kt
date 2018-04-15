@@ -37,6 +37,18 @@ class PictureServiceTest {
     @InjectMocks
     var service: PictureService? = null
 
+
+    @Test
+    fun testGetMealProductWhenNotExist() {
+        Mockito.`when`(repository!!.findOne(1)).thenReturn(null)
+        try {
+            service!!.getMealPicture(1)
+            fail("Must throw UploadFileException when MealProduct don't exist")
+        } catch(ex: UploadFileException) {
+            assertEquals("Not found MealPicture with id 1", ex.message)
+        }
+    }
+
     @Test
     fun testGetMPMWhenPatientIdIsNotAPatient() {
         Mockito.`when`(customerRepository!!.findOne(1)).thenReturn(Dietetist())

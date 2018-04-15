@@ -6,18 +6,42 @@ import com.mda.diet.model.MealPicture
 import com.mda.diet.model.Patient
 import com.mda.diet.repository.CustomerRepository
 import com.mda.diet.repository.MealPictureRepository
+import org.springframework.core.io.Resource
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.nio.file.Files
 import java.time.LocalDate
+import java.net.MalformedURLException
+import java.nio.file.Files.isReadable
+import org.springframework.core.io.UrlResource
+
+
 
 @Service
 class PictureService(val repository: MealPictureRepository,
                      val customerRepository: CustomerRepository) {
 
     val rootLocation = System.getProperty("user.home")!! + "/diet-api/"
+
+    fun getMealPicture(id: Long): Resource {
+        val mp = repository.findOne(id) ?: throw  UploadFileException("Not found MealPicture with id $id")
+        val customer = customerRepository.findOne(mp.patient!!.id)
+        try {
+            val patientDir = customer.authId?.replace("|", "")!!
+            val file = File("$rootLocation/$patientDir/${mp.filename}")
+
+            val resource = UrlResource(file.toURI())
+            return if (resource.exists() || resource.isReadable) {
+                resource
+            } else {
+                throw UploadFileException("No resource exists with name ${mp.filename}")
+            }
+        } catch (e: MalformedURLException) {
+            throw UploadFileException(e.message ?: "Error while reading the file ${mp.filename}")
+        }
+    }
 
     fun getMealPicturesModel(patientId: Long?): List<MealPictureDto> {
         val id = if(patientId == null) {
@@ -60,7 +84,6 @@ class PictureService(val repository: MealPictureRepository,
         }
 
         return models.map { MealPictureDto(it) }
-
     }
 
     fun createDirectoriesIfNotExist(subDir: String) {
