@@ -15,6 +15,8 @@ import org.mockito.Mockito
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.mock.web.MockMultipartFile
+import java.time.LocalDate
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
@@ -70,4 +72,57 @@ class PictureServiceTest {
         assertEquals(2, lst[1].id)
      }
 
+    @Test
+    fun testUploadWhenDateIsNull() {
+        try {
+            service!!.handleFileUpload(listOf(), null)
+            fail("Must throw UploadFileException when the date is null")
+        } catch(ex: UploadFileException) {
+            assertEquals("No date was given", ex.message)
+        }
+    }
+
+    @Test
+    fun testUploadWhenPicturesIsEmpty() {
+        try {
+            service!!.handleFileUpload(listOf(), LocalDate.now())
+            fail("Must throw UploadFileException when the pictures are empty")
+        } catch(ex: UploadFileException) {
+            assertEquals("No pictures was given", ex.message)
+        }
+    }
+
+    @Test
+    fun testUploadWhenCustomerIsNotAPatient() {
+        SecurityContextHolder.getContext().authentication =
+                UsernamePasswordAuthenticationToken("", "")
+        Mockito.`when`(customerRepository!!.getByAuthId("")).thenReturn(Dietetist())
+
+        try {
+            service!!.handleFileUpload(listOf(MockMultipartFile("file", "orig", null, "bar".toByteArray())), LocalDate.now())
+            fail("Must throw UploadFileException when the current user is not a Patient")
+        } catch(ex: UploadFileException) {
+            assertEquals("The current customer is not a patient !", ex.message)
+        }
+    }
+
+    @Test
+    fun testUploadWhenFilenameAlreadyExists() {
+        SecurityContextHolder.getContext().authentication =
+                UsernamePasswordAuthenticationToken("", "")
+        Mockito.`when`(customerRepository!!.getByAuthId("")).thenReturn(Patient(1))
+        Mockito.`when`(repository!!.existsByFilenameInAndPatientIdIs(
+                listOf("hello.jpg", "name.png", "food.png"), 1)).thenReturn(true)
+
+        try {
+            service!!.handleFileUpload(listOf(
+                    MockMultipartFile("hello.jpg", "hello.jpg", null, "bar".toByteArray()),
+                    MockMultipartFile("name.png", "name.png", null, "bar".toByteArray()),
+                    MockMultipartFile("food.png", "food.png", null, "bar".toByteArray())
+            ), LocalDate.now())
+            fail("Must throw UploadFileException when a filename already exist")
+        } catch(ex: UploadFileException) {
+            assertEquals("There already a file named like this", ex.message)
+        }
+    }
 }
