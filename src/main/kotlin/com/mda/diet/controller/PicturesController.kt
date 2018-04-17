@@ -32,4 +32,9 @@ class PicturesController(val service: PictureService) {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.filename + "\"")
                 .body<Any>(file)
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteMealPicture(@PathVariable id: Long)
+            = service.deleteMealPicture(id)
+
 }

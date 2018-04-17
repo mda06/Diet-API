@@ -1230,7 +1230,21 @@ there's already a file named like this or a upload exception
 ##### Returns
 * Returns a list of the saved _MealPictures_
 </details>
----
+
+<details>
+<summary>deletePicturesModel(id)</summary>
+
+##### Parameters
+* _id_: A id of a MealProduct
+
+##### Throws
+* _CustomNotFoundException_: If no mealproduct exist with this id
+* _UploadFileException_: If there's a error when deleting the picture
+
+##### Returns
+* Returns the deleted _MealProduct_
+</details>
+
 
 ### ProductService
 

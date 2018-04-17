@@ -1,6 +1,7 @@
 package com.mda.diet.service
 
 import com.mda.diet.dto.MealPictureDto
+import com.mda.diet.error.CustomNotFoundException
 import com.mda.diet.error.UploadFileException
 import com.mda.diet.model.MealPicture
 import com.mda.diet.model.Patient
@@ -94,5 +95,21 @@ class PictureService(val repository: MealPictureRepository,
         val directory = File(uploadDir)
         if(!directory.exists())
             directory.mkdir()
+    }
+
+    fun deleteMealPicture(id: Long): MealPictureDto {
+        val mp = repository.findOne(id) ?: throw  UploadFileException("Not found MealPicture with id $id")
+        val customer = customerRepository.findOne(mp.patient!!.id)
+        repository.delete(mp)
+        try {
+            val patientDir = customer.authId?.replace("|", "")!!
+            val file = File("$rootLocation/$patientDir/${mp.filename}")
+
+            if(!file.delete())
+                throw UploadFileException("Cannot delete the file ${mp.filename}")
+        } catch (e: MalformedURLException) {
+            throw UploadFileException(e.message ?: "Error while deleting the file ${mp.filename}")
+        }
+        return MealPictureDto(mp)
     }
 }

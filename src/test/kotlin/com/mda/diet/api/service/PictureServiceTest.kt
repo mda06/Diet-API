@@ -137,4 +137,15 @@ class PictureServiceTest {
             assertEquals("There already a file named like this", ex.message)
         }
     }
+
+    @Test
+    fun testDeletePictureWhenMPIsNotFound() {
+        Mockito.`when`(repository!!.findOne(1)).thenReturn(null)
+        try {
+            service!!.deleteMealPicture(1)
+            fail("Must throw CustomNotFoundException when no MealProduct exists with this id")
+        } catch(ex: UploadFileException) {
+            assertEquals("Not found MealPicture with id 1", ex.message)
+        }
+    }
 }
