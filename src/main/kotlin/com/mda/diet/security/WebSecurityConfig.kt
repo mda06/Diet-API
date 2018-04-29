@@ -26,8 +26,6 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .configure(http)
                 .authorizeRequests()
                 .antMatchers( "/*").permitAll()
-                .antMatchers( "/api/chat/**").permitAll()
-                .antMatchers( "/api/socket/**").permitAll()
                 .antMatchers( "/assets/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 .antMatchers("/api/**").authenticated()

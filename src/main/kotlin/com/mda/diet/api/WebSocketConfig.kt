@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.ModelAndView
 import org.springframework.boot.autoconfigure.web.ErrorViewResolver
 import org.springframework.context.annotation.Bean
-import java.util.*
-import javax.servlet.http.HttpServletRequest
 
 
 @Configuration
@@ -22,7 +20,7 @@ class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
     //Used to return to index.html if it's not a API call
     @Bean
     fun supportPathBasedLocationStrategyWithoutHashes(): ErrorViewResolver {
-        return ErrorViewResolver { request, status, model ->
+        return ErrorViewResolver { _, status, _ ->
             if (status == HttpStatus.NOT_FOUND)
                 ModelAndView("index.html", HttpStatus.OK)
             else
