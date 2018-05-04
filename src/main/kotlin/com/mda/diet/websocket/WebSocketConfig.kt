@@ -1,4 +1,4 @@
-package com.mda.diet.api
+package com.mda.diet.websocket
 
 import com.mda.diet.controller.prefix
 import org.springframework.context.annotation.Configuration
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.ModelAndView
 import org.springframework.boot.autoconfigure.web.ErrorViewResolver
 import org.springframework.context.annotation.Bean
-
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -36,6 +35,6 @@ class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
 
     override fun configureMessageBroker(registry: MessageBrokerRegistry) {
         registry.setApplicationDestinationPrefixes(prefix)
-                .enableSimpleBroker("/chat")
+                .enableSimpleBroker("/chat/", "/topic/", "/exchange/")
     }
 }
