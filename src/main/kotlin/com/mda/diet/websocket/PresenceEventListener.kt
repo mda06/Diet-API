@@ -13,16 +13,17 @@ import java.util.*
 class PresenceEventListener(
         private val messagingTemplate: SimpMessagingTemplate,
         private val participantRepository: ChatParticipantRepository,
-        private val loginDestination: String = "login",
-        private val logoutDestination: String = "logout") {
+        private val loginDestination: String = "/topic/chat.login",
+        private val logoutDestination: String = "/topic/chat.logout") {
 
     @EventListener
     private fun handleSessionConnected(event: SessionConnectEvent) {
         val headers = SimpMessageHeaderAccessor.wrap(event.message)
         val username = headers?.user?.name ?: "Incognito"
+        val chatParticipant = ChatParticipant(0, username, headers.sessionId, LocalDateTime.now())
 
-        messagingTemplate.convertAndSend(loginDestination, username)
-        participantRepository.save(ChatParticipant(0, username, headers.sessionId, LocalDateTime.now()))
+        participantRepository.save(chatParticipant)
+        messagingTemplate.convertAndSend(loginDestination, chatParticipant)
     }
 
     @EventListener
