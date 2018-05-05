@@ -19,7 +19,8 @@ class PresenceEventListener(
     @EventListener
     private fun handleSessionConnected(event: SessionConnectEvent) {
         val headers = SimpMessageHeaderAccessor.wrap(event.message)
-        val username = headers?.messageHeaders?.get("nativeHeaders", Map::class.java)?.get("username")?.toString() ?: "Incognito"
+        var username = headers?.messageHeaders?.get("nativeHeaders", Map::class.java)?.get("username")?.toString() ?: "Incognito"
+        username = username.replace("[", "").replace("]", "")
         val chatParticipant = ChatParticipant(0, username, headers.sessionId, LocalDateTime.now())
 
         participantRepository.save(chatParticipant)
