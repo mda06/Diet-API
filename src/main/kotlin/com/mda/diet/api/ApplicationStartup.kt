@@ -12,6 +12,8 @@ class ApplicationStartup(val chatParticipantRepository: ChatParticipantRepositor
     override fun onApplicationEvent(p0: ApplicationReadyEvent?) {
         //If the API shut down before the previous websockets are closed, the records are not deleted
         //So, delete every previous chatParticipants before running the API
-        chatParticipantRepository.deleteAll()
+        val participants = chatParticipantRepository.findAll()
+        participants.forEach { it.sessionId = null }
+        chatParticipantRepository.save(participants)
     }
 }
