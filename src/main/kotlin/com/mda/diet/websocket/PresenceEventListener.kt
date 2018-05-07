@@ -1,5 +1,6 @@
 package com.mda.diet.websocket
 
+import com.mda.diet.dto.ChatParticipantDto
 import com.mda.diet.error.CustomerNotFoundException
 import com.mda.diet.model.ChatParticipant
 import com.mda.diet.repository.ChatParticipantRepository
@@ -35,7 +36,7 @@ class PresenceEventListener(
         chatParticipant.sessionId = headers.sessionId
 
         participantRepository.save(chatParticipant)
-        messagingTemplate.convertAndSend(loginDestination, chatParticipant)
+        messagingTemplate.convertAndSend(loginDestination, ChatParticipantDto(chatParticipant))
     }
 
     @EventListener
@@ -44,7 +45,7 @@ class PresenceEventListener(
                 .ifPresent({ chatParticipant ->
                     chatParticipant.sessionId = null
                     participantRepository.save(chatParticipant)
-                    messagingTemplate.convertAndSend(logoutDestination, chatParticipant)
+                    messagingTemplate.convertAndSend(logoutDestination, ChatParticipantDto(chatParticipant))
                 })
     }
 }

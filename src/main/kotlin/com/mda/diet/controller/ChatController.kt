@@ -1,13 +1,12 @@
 package com.mda.diet.controller
 
 import com.mda.diet.dto.ChatMessageDto
+import com.mda.diet.dto.ChatParticipantDto
 import com.mda.diet.dto.DietetistDto
 import com.mda.diet.dto.RoleDto
 import com.mda.diet.error.CustomerNotFoundException
-import com.mda.diet.model.Admin
-import com.mda.diet.model.ChatParticipant
-import com.mda.diet.model.Dietetist
-import com.mda.diet.model.Patient
+import com.mda.diet.model.*
+import com.mda.diet.repository.ChatMessageRepository
 import com.mda.diet.repository.ChatParticipantRepository
 import com.mda.diet.repository.CustomerRepository
 import org.springframework.messaging.handler.annotation.DestinationVariable
@@ -24,15 +23,17 @@ import java.util.*
 @Controller
 class ChatController(val chatParticipantRepository: ChatParticipantRepository,
                      val customerRepository: CustomerRepository,
+                     val chatMessageRepository: ChatMessageRepository,
                      val simpMessagingTemplate: SimpMessagingTemplate) {
 
     @SubscribeMapping("/chat.participants")
-    fun retrieveParticipants(headerAccessor: SimpMessageHeaderAccessor): List<ChatParticipant> {
+    fun retrieveParticipants(headerAccessor: SimpMessageHeaderAccessor): List<ChatParticipantDto> {
         val participant = chatParticipantRepository.findBySessionId(headerAccessor.sessionId)
-        val customer = customerRepository.getByAuthId(participant?.authId ?: "")
+        //val customer = customerRepository.getByAuthId(participant?.authId ?: "")
 
         val iterable = chatParticipantRepository.findAll()
                 .filter { it.authId != participant?.authId }
+                .map { ChatParticipantDto(it) }
 
         //TODO: Check the participants here but also in connect/disconnect...
 
@@ -67,9 +68,10 @@ class ChatController(val chatParticipantRepository: ChatParticipantRepository,
         val toParticipant = chatParticipantRepository.findByAuthId(authId)
                 ?: throw CustomerNotFoundException("No chat participant was found with this auth id $authId")
 
-        msg.from = fromParticipant.username
-        msg.to = toParticipant.username
-        simpMessagingTemplate.convertAndSend("/chat/private/${toParticipant.authId}", msg)
-        simpMessagingTemplate.convertAndSend("/chat/private/${fromParticipant.authId}", msg)
+        val msgModel = ChatMessage(0, msg.message, toParticipant, fromParticipant)
+        val msgDto = ChatMessageDto(chatMessageRepository.save(msgModel))
+
+        simpMessagingTemplate.convertAndSend("/chat/private/${toParticipant.authId}", msgDto)
+        simpMessagingTemplate.convertAndSend("/chat/private/${fromParticipant.authId}", msgDto)
     }
 }
