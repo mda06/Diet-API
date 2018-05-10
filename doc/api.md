@@ -12,6 +12,7 @@ This document contains the documention about this API
 * [Dto's](#dto's)
 * [Repositories](#repositories)
 * [Services](#services)
+* [Websocket](#websocket)
 * [Controllers](#controllers)
 
 ## Authentication
@@ -33,6 +34,8 @@ The keys needed for connecting with Auth0 is in /src/main/resources/development.
     - All the dto's are located here
 * Service
     - All the services are located here
+* Websocket
+    - All the websockets configs are located here
 * Static
     - Web app builded with npm
     - /products
@@ -51,6 +54,9 @@ Theses files are located in /src/main/resources/*
     
 ## Extra
 * Dates are written as yyyy-mm-dd
+
+### ApplicationStartup
+In the case of the API shut down not properly, we reset all the chatparticipants sessions.
 
 ## Test users
 There currently 3 test users
@@ -95,6 +101,23 @@ Data from a patient on a certain date
 * date: LocalDate? = _Date of the anthropometric parameter_
 * patientId: Long? = _The id of the patient of the anthropometric parameter_
         
+### ChatMessage
+Contains the message info
+
+* id: Long = _Id of the chat message_
+* message: String = _The message that is send_
+* to: ChatParticipant = _To who the message is destined_
+* from: ChatParticipant = _From who the message is send_
+
+### ChatParticipant
+Contains the data about a participant of the chat
+
+* id: Long = _Id of a chat participant_
+* username: Long = _The username of the chat participant_
+* authId: Long = _The authentication id of the chat participant_
+* sendMessages: Long = _The messages that the chat participant has send_
+* receivedMessages: Long = _The messages that the chat participant has received_
+
 ### Customer
 Base class for all the users
 
@@ -265,6 +288,19 @@ Class that contains the data that be returned by auth0
 * expires_in: Int = _Expires time for that token_,
 * token_type: String = _Type of that token_
 
+### ChatMessageDto
+Class that contains the data of a chat message
+
+* from: String = _From who the message is send_
+* to: String = _To who the message is destined_
+* message: String = _The message itself_
+
+### ChatParticipantDto
+* id: String = _The id of the chat participant_
+* username: String = _The username of the chat participant_
+* authId: String = _The authId of the chat participant_
+* sessionId: String = _The sessionId of the chat participant_
+
 ### DietetistAttachPatientDto
 Used with attach or detach a patient to a dietetist 
 
@@ -410,6 +446,20 @@ Use the anthropometricparameter as model
     * Take an _patient id_ as parameter
     * Returns a _list of anthropometricparameter_ for that specific patient
 
+### ChatMessageRepository
+Use the chatmessage as model
+
+### ChatParticipantRepository
+Use the chatparticipant as model
+
+- **findBySessionId**
+    * Take the _sessionId_ as parameter
+    * Returns the _chatParticipant_ associated with this id
+    
+- **findByAuthId**
+    * Take the _authId_ as parameter
+    * Returns the _chatParticipant_ associated with this id
+        
 ### CustomerRepository
 Use the customer as model
 
@@ -1382,6 +1432,47 @@ there's already a file named like this or a upload exception
 * Returns a _ResponseEntity<InputStreamResource>_(pdf) for that patient
 </details>
 
+---
+
+## Websocket
+
+### ChatConfig
+* Initialize the presence event listener 
+* Has the participant repository
+* Has the customer repository
+
+### PresenceEventListener
+
+<details>
+<summary>handleSessionConnected(event)</summary>
+When a new websocket connect, checks if the authId already exists.
+If it already exists, get the ChatParticipant from the db, else create a new one.
+Update the sessionId and the username and save it to the db.
+After this the chatparticipant will be send to the /topic/chat.login
+</details>
+
+<details>
+<summary>handleSessionDisconnect(event)</summary>
+When a new websocket disconnect, checks if the sessionid exists in the db.
+If it exists, set the sessionId to null and send it to the /topic/chat.logout
+</details>
+
+### WebSocketConfig
+
+<details>
+<summary>supportPathBasedLocationStrategyWithoutHashes()</summary>
+Used to return to index.html if it's not a API call. Source: https://stackoverflow.com/questions/38516667/springboot-angular2-how-to-handle-html5-urls
+</details>
+
+<details>
+<summary>registerStompEndpoints(registery)</summary>
+Register the /api/socket endpoint
+</details>
+
+<details>
+<summary>registry(registery)</summary>
+Set the /api as prefix. Enable /chat, /chat and /exchange as broker.
+</details>
 
 ---
 
