@@ -32,7 +32,7 @@ class ApiApplication {
 }
 
 fun main(args: Array<String>) {
-    val environment = "development"
+    val environment = "prod"
     System.setProperty("spring.config.name", environment)
     System.setProperty("spring.profiles.active", environment)
     println("Started API in $environment")
