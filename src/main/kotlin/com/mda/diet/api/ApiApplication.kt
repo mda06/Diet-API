@@ -14,7 +14,8 @@ import java.util.concurrent.Executor
 @EntityScan(basePackages= ["com.mda.diet.model"])
 @EnableJpaRepositories(basePackages= ["com.mda.diet.repository"])
 @SpringBootApplication(scanBasePackages = ["com.mda.diet.controller", "com.mda.diet.security",
-    "com.mda.diet.service", "com.mda.diet.error", "com.mda.diet.batch"])
+    "com.mda.diet.service", "com.mda.diet.error", "com.mda.diet.batch", "com.mda.diet.websocket",
+    "com.mda.diet.api"])
 @EnableBatchProcessing
 @EnableAsync
 class ApiApplication {

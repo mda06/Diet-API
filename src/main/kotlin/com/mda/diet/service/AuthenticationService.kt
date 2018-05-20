@@ -44,7 +44,7 @@ class AuthenticationService(val repository: CustomerRepository,
     fun signUp(signup: Auth0SignupAskDto) : Auth0SignupReturnDto {
         signup.client_id = clientId
         signup.connection = "Username-Password-Authentication"
-        val customer = repository.getById(signup.customerId)
+        val customer = repository.findOne(signup.customerId)
         val rest = RestTemplate()
 
         //1 Check if username is already taken
