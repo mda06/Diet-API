@@ -11,8 +11,11 @@
     "CANNOT_CONNECT": "Cannot connect !"
   },
   "NAV": {
+    "PICTURES": {
+      "TITLE": "Pictures"
+    },
     "ADMIN": {
-      "DASHBOARD": "Dashboard",
+      "DASHBOARD": "Home",
       "FOOD": "Products"
     },
     "MENU": {
@@ -31,7 +34,7 @@
       "TITLE": "Reports"
     },
     "FOOD_SEARCH": "Search food",
-    "DASHBOARD": "Dashboard",
+    "DASHBOARD": "Home",
     "LOG_OUT": "Log out",
     "BACK": "Back",
     "SETTINGS": {
@@ -74,6 +77,13 @@
     }
   },
   "DIET": {
+    "PICTURES": {
+      "TITLE": "Pictures of ",
+      "DATE": "Date of pictures: ",
+      "LOADING": "Loading...",
+      "NO_PICTURES": "There are no pictures for ",
+      "NO_PATIENT": "Please select a patient before"
+    },
     "DELETE": {
       "TITLE": "You're trying to delete a patient !",
       "BODY": "Are you sure you want to delete this patient ?",
@@ -88,6 +98,11 @@
       "SELECT": "Select"
     },
     "DASHBOARD": {
+      "SLIDER": {
+        "LOADING": "Loading...",
+        "NO_PICTURES": "There are no pictures",
+        "NO_PATIENT": "Please select a patient"
+      },
       "TITLE": "Dashboard of ",
       "SELECTED": "Patient selected: ",
       "DESELECT_PATIENT": "Deselect patient",
@@ -140,6 +155,23 @@
     }
   },
   "ADMIN": {
+    "LOGINS": {
+      "BLACKLISTED": "This person is blacklisted",
+      "LOGOUT": "This person is logout since ",
+      "LOGIN": "This person is login since ",
+      "EXP_TIME": "With an expiration time of ",
+      "LAST_ACTIVITY": "Last activity was on ",
+      "INACTIVITY": "Inactivity "
+    },
+    "MAINTENANCE": {
+      "PUT": "Put in maintenance",
+      "REMOVE": "Remove the maintenance",
+      "SINCE": "It's in maintenance since ",
+      "SINCE_REASON": "For ",
+      "LAST": "Last maintenance was at ",
+      "LAST_REASON": "For ",
+      "NO_HISTORY": "There are no maintenance history"
+    },
     "DELETE": {
       "TITLE": "You're trying to delete a dietetist !",
       "BODY": "Are you sure you want to delete this dietetist ?",
@@ -249,5 +281,16 @@
         "CANCEL": "Cancel"
       }
     }
+  },
+  "PICTURES": {
+    "UPLOAD_SUCCESS": "Successfully uploaded the pictures: ",
+    "UPLOAD_ERROR": "Error while uploading",
+    "DELETE_SUCCESS": "Picture successfully deleted",
+    "DELETE_ERROR": "Cannot delete picture",
+    "TITLE": "Upload your meal pictures",
+    "NEW": "Upload a new picture",
+    "DATE": "Date of the meal: ",
+    "LIST": "List of all your pictures",
+    "LOADING": "Loading..."
   }
 }

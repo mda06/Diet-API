@@ -11,6 +11,9 @@
     "CANNOT_CONNECT": "Imposible de se connecter !"
   },
   "NAV": {
+    "PICTURES": {
+      "TITLE": "Images"
+    },
     "ADMIN": {
       "DASHBOARD": "Tableau de bord",
       "FOOD": "Produits"
@@ -74,6 +77,13 @@
     }
   },
   "DIET": {
+    "PICTURES": {
+      "TITLE": "Images de  ",
+      "DATE": "Date des images: ",
+      "LOADING": "Chargement...",
+      "NO_PICTURES": "Il n'y a pas d'images pour le ",
+      "NO_PATIENT": "Selectionner un patient avant"
+    },
     "DELETE": {
       "TITLE": "Vous êtes sur le point de supprimer un patient !",
       "BODY": "Êtes-vous sûr de vouloir supprimer ce patient ?",
@@ -88,6 +98,11 @@
       "SELECT": "Selectionner"
     },
     "DASHBOARD": {
+      "SLIDER": {
+        "LOADING": "Chargement...",
+        "NO_PICTURES": "Il n'y a pas d'images",
+        "NO_PATIENT": "Veuillez selectionner un patient"
+      },
       "TITLE": "Tableau de bord de ",
       "SELECTED": "Patient selectionner: ",
       "NO_PATIENT": "Veuillez selectionner un patient",
@@ -140,6 +155,23 @@
     }
   },
   "ADMIN": {
+    "LOGINS": {
+      "BLACKLISTED": "Cette personne est bloquée",
+      "LOGOUT": "Cette personne est deconnecté depuis ",
+      "LOGIN": "Cette personne est connecté depuis ",
+      "EXP_TIME": "Avec un temps d'expiration de ",
+      "LAST_ACTIVITY": "Dernière activité date de ",
+      "INACTIVITY": "Inactivité de "
+    },
+    "MAINTENANCE": {
+      "PUT": "Mettre en maintenance",
+      "REMOVE": "Enlèver la maintenance",
+      "SINCE": "C'est en maintenance depuis ",
+      "SINCE_REASON": "Pour ",
+      "LAST": "La dernière maintenance était le ",
+      "LAST_REASON": "Pour ",
+      "NO_HISTORY": "Il n'y a pas d'historique de maintenance"
+    },
     "DELETE": {
       "TITLE": "Vous êtes sur le point de supprimer un diététicien !",
       "BODY": "Êtes-vous sûr de vouloir supprimer ce diététicien ?",
@@ -249,5 +281,16 @@
         "CANCEL": "Annuler"
       }
     }
+  },
+  "PICTURES": {
+    "UPLOAD_SUCCESS": "Les images ont été sauvées: ",
+    "UPLOAD_ERROR": "Une erreure s'est produite",
+    "DELETE_SUCCESS": "L'image a été supprimée",
+    "DELETE_ERROR": "L'image n'a pas pu être supprimée",
+    "TITLE": "Envoyez vos images de repas",
+    "NEW": "Envoyez une nouvelle image",
+    "DATE": "Date du repas: ",
+    "LIST": "Liste de tous vos repas",
+    "LOADING": "Chargement..."
   }
 }
